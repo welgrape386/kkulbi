@@ -1618,15 +1618,3 @@ function ContentDetail({ activeTab }: { activeTab: string }) {
     </div>
   );
 }
-
-// ─── Export ───────────────────────────────────────────────────────────────────
-export function ContentPage() {
-  const [params] = useSearchParams();
-  const activeTab = params.get("tab");
-
-  if (!activeTab) {
-    return <ContentGrid />;
-  }
-
-  return <ContentDetail activeTab={activeTab} />;
-}

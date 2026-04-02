@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 
 const BG = "#fff8dc";
@@ -48,12 +48,36 @@ const islandSettings = [
   { name: "야밤", desc: "섬의 시간을 야밤으로 바꿉니다.", type: "time" },
   { name: "비", desc: "섬의 날씨를 비로 바꿉니다.", type: "weather" },
   { name: "맑음", desc: "섬의 날씨를 맑음으로 바꿉니다.", type: "weather" },
-  { name: "크리퍼", desc: "섬 안에서 크리퍼들이 블록을 폭발 시킵니다.", type: "toggle" },
-  { name: "작물 성장", desc: "섬 안에서 작물의 성장을 허용 합니다.", type: "toggle" },
-  { name: "달걀 낳기", desc: "섬 안에서 닭이 알을 낳는것을 허용 합니다.", type: "toggle" },
-  { name: "PVP", desc: "플레이어가 섬 안에서 PVP를 할 수 있도록 합니다.", type: "toggle" },
-  { name: "나무 성장", desc: "섬 안에서 나무가 자랄 수 있도록 합니다.", type: "toggle" },
-  { name: "물의 흐름", desc: "섬 내부에 물이 흐르는걸 허용 합니다.", type: "toggle" },
+  {
+    name: "크리퍼",
+    desc: "섬 안에서 크리퍼들이 블록을 폭발 시킵니다.",
+    type: "toggle",
+  },
+  {
+    name: "작물 성장",
+    desc: "섬 안에서 작물의 성장을 허용 합니다.",
+    type: "toggle",
+  },
+  {
+    name: "달걀 낳기",
+    desc: "섬 안에서 닭이 알을 낳는것을 허용 합니다.",
+    type: "toggle",
+  },
+  {
+    name: "PVP",
+    desc: "플레이어가 섬 안에서 PVP를 할 수 있도록 합니다.",
+    type: "toggle",
+  },
+  {
+    name: "나무 성장",
+    desc: "섬 안에서 나무가 자랄 수 있도록 합니다.",
+    type: "toggle",
+  },
+  {
+    name: "물의 흐름",
+    desc: "섬 내부에 물이 흐르는걸 허용 합니다.",
+    type: "toggle",
+  },
 ];
 
 const upgrades = [
@@ -124,27 +148,57 @@ const upgrades = [
   },
 ];
 
-function SectionCard({ children, className }: { children: React.ReactNode; className?: string }) {
+function SectionCard({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <div className={`bg-white rounded-2xl border-2 border-amber-200 shadow-sm ${className ?? ""}`}>
+    <div
+      className={`bg-white rounded-2xl border-2 border-amber-200 shadow-sm ${className ?? ""}`}
+    >
       {children}
     </div>
   );
 }
 
-function SectionHeader({ emoji, title, sub }: { emoji: string; title: string; sub?: string }) {
+function SectionHeader({
+  emoji,
+  title,
+  sub,
+}: {
+  emoji: string;
+  title: string;
+  sub?: string;
+}) {
   return (
     <div className="flex items-center gap-3 px-6 py-4 border-b-2 border-amber-100">
       <span className="text-2xl">{emoji}</span>
       <div>
-        <div style={{ fontSize: "17px", fontWeight: 800, color: "#92400e" }}>{title}</div>
-        {sub && <div style={{ fontSize: "12px", color: "#b45309", fontWeight: 600 }}>{sub}</div>}
+        <div style={{ fontSize: "17px", fontWeight: 800, color: "#92400e" }}>
+          {title}
+        </div>
+        {sub && (
+          <div style={{ fontSize: "12px", color: "#b45309", fontWeight: 600 }}>
+            {sub}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-function Collapsible({ title, children, defaultOpen = false }: { title: React.ReactNode; children: React.ReactNode; defaultOpen?: boolean }) {
+function Collapsible({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: React.ReactNode;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
   const [open, setOpen] = useState(defaultOpen);
   return (
     <div className="border-2 border-amber-200 rounded-2xl overflow-hidden">
@@ -152,8 +206,14 @@ function Collapsible({ title, children, defaultOpen = false }: { title: React.Re
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-5 py-3 bg-amber-50 hover:bg-amber-100 transition-colors"
       >
-        <span style={{ fontSize: "14px", fontWeight: 700, color: "#92400e" }}>{title}</span>
-        {open ? <ChevronUp className="w-4 h-4 text-amber-600" /> : <ChevronDown className="w-4 h-4 text-amber-600" />}
+        <span style={{ fontSize: "14px", fontWeight: 700, color: "#92400e" }}>
+          {title}
+        </span>
+        {open ? (
+          <ChevronUp className="w-4 h-4 text-amber-600" />
+        ) : (
+          <ChevronDown className="w-4 h-4 text-amber-600" />
+        )}
       </button>
       {open && <div className="p-4">{children}</div>}
     </div>
@@ -166,10 +226,17 @@ export function IslandPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Breadcrumb + Header */}
         <div>
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
-            <Link to="/" className="hover:text-amber-800">홈</Link>
+          <div
+            className="flex items-center gap-2 text-amber-600 mb-3"
+            style={{ fontSize: "13px" }}
+          >
+            <Link to="/" className="hover:text-amber-800">
+              홈
+            </Link>
             <span>›</span>
-            <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>
+            <Link to="/content" className="hover:text-amber-800">
+              콘텐츠
+            </Link>
             <span>›</span>
             <span className="text-slate-600">🏝️ 섬</span>
           </div>
@@ -182,10 +249,13 @@ export function IslandPage() {
               <ArrowLeft className="w-4 h-4" />
               목록으로
             </Link>
-            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>🏝️ 섬</h1>
+            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
+              🏝️ 섬
+            </h1>
           </div>
           <p style={{ fontSize: "14px", color: "#78716c", fontWeight: 600 }}>
-            섬과 관련된 전반적인 안내를 해 드립니다. 원하는 항목을 클릭하면 해당 내용을 확인할 수 있습니다.
+            섬과 관련된 전반적인 안내를 해 드립니다. 원하는 항목을 클릭하면 해당
+            내용을 확인할 수 있습니다.
           </p>
         </div>
 
@@ -194,15 +264,54 @@ export function IslandPage() {
           <SectionHeader emoji="🖥️" title="섬 기본 UI 설명" />
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: "🔐", name: "권한", desc: "섬의 전반적인 권한을 설정할 수 있는 메뉴입니다.", color: "#6366f1" },
-              { icon: "🏝️", name: "섬으로", desc: "섬으로 이동할 때 사용합니다. [/is] 또는 [/섬] 명령어로도 섬으로 이동 가능합니다.", color: "#16a34a" },
-              { icon: "👥", name: "멤버", desc: "섬원의 역할을 설정할 수 있는 메뉴입니다.", color: "#0284c7" },
-              { icon: "⬆️", name: "강화", desc: "호퍼 설치 개수, 섬 인원 수, 섬 꿀벌 수, 섬 크기, 섬 창고를 구매하거나 늘릴 때 사용하는 메뉴입니다.", color: "#d97706" },
+              {
+                icon: "🔐",
+                name: "권한",
+                desc: "섬의 전반적인 권한을 설정할 수 있는 메뉴입니다.",
+                color: "#6366f1",
+              },
+              {
+                icon: "🏝️",
+                name: "섬으로",
+                desc: "섬으로 이동할 때 사용합니다. [/is] 또는 [/섬] 명령어로도 섬으로 이동 가능합니다.",
+                color: "#16a34a",
+              },
+              {
+                icon: "👥",
+                name: "멤버",
+                desc: "섬원의 역할을 설정할 수 있는 메뉴입니다.",
+                color: "#0284c7",
+              },
+              {
+                icon: "⬆️",
+                name: "강화",
+                desc: "호퍼 설치 개수, 섬 인원 수, 섬 꿀벌 수, 섬 크기, 섬 창고를 구매하거나 늘릴 때 사용하는 메뉴입니다.",
+                color: "#d97706",
+              },
             ].map((item) => (
-              <div key={item.name} className="rounded-2xl border-2 border-amber-100 p-4 flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow">
+              <div
+                key={item.name}
+                className="rounded-2xl border-2 border-amber-100 p-4 flex flex-col items-center text-center gap-2 hover:shadow-md transition-shadow"
+              >
                 <div className="text-3xl">{item.icon}</div>
-                <div style={{ fontSize: "15px", fontWeight: 800, color: item.color }}>{item.name}</div>
-                <p style={{ fontSize: "12px", color: "#78716c", lineHeight: 1.6 }}>{item.desc}</p>
+                <div
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 800,
+                    color: item.color,
+                  }}
+                >
+                  {item.name}
+                </div>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#78716c",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {item.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -210,20 +319,76 @@ export function IslandPage() {
 
         {/* 2. 섬 프리뷰 */}
         <SectionCard>
-          <SectionHeader emoji="🌍" title="섬 프리뷰" sub="섬 선택 시 생성 유형" />
+          <SectionHeader
+            emoji="🌍"
+            title="섬 프리뷰"
+            sub="섬 선택 시 생성 유형"
+          />
           <div className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { name: "새싹의 섬", type: "기본형", emoji: "🌱", desc: "일반적인 기본 형태의 섬입니다. 어떤 플레이도 가능합니다.", color: "#16a34a", bg: "#f0fdf4" },
-              { name: "반짝의 섬", type: "채광형", emoji: "⛏️", desc: "광물 채취에 특화된 형태의 섬입니다. 광물 생성기 구조 최적화.", color: "#6366f1", bg: "#f5f3ff" },
-              { name: "도토리의 섬", type: "벌목형", emoji: "🪓", desc: "나무 채취에 특화된 형태의 섬입니다. 벌목장 구조 최적화.", color: "#92400e", bg: "#fffbeb" },
+              {
+                name: "새싹의 섬",
+                type: "기본형",
+                emoji: "🌱",
+                desc: "일반적인 기본 형태의 섬입니다. 어떤 플레이도 가능합니다.",
+                color: "#16a34a",
+                bg: "#f0fdf4",
+              },
+              {
+                name: "반짝의 섬",
+                type: "채광형",
+                emoji: "⛏️",
+                desc: "광물 채취에 특화된 형태의 섬입니다. 광물 생성기 구조 최적화.",
+                color: "#6366f1",
+                bg: "#f5f3ff",
+              },
+              {
+                name: "도토리의 섬",
+                type: "벌목형",
+                emoji: "🪓",
+                desc: "나무 채취에 특화된 형태의 섬입니다. 벌목장 구조 최적화.",
+                color: "#92400e",
+                bg: "#fffbeb",
+              },
             ].map((island) => (
-              <div key={island.name} className="rounded-2xl border-2 p-5 text-center" style={{ background: island.bg, borderColor: island.color + "40" }}>
+              <div
+                key={island.name}
+                className="rounded-2xl border-2 p-5 text-center"
+                style={{
+                  background: island.bg,
+                  borderColor: island.color + "40",
+                }}
+              >
                 <div className="text-4xl mb-3">{island.emoji}</div>
-                <div style={{ fontSize: "16px", fontWeight: 800, color: island.color }}>{island.name}</div>
-                <div className="inline-block rounded-full px-3 py-0.5 my-2" style={{ background: island.color + "20", color: island.color, fontSize: "11px", fontWeight: 700 }}>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 800,
+                    color: island.color,
+                  }}
+                >
+                  {island.name}
+                </div>
+                <div
+                  className="inline-block rounded-full px-3 py-0.5 my-2"
+                  style={{
+                    background: island.color + "20",
+                    color: island.color,
+                    fontSize: "11px",
+                    fontWeight: 700,
+                  }}
+                >
                   {island.type}
                 </div>
-                <p style={{ fontSize: "12px", color: "#78716c", lineHeight: 1.6 }}>{island.desc}</p>
+                <p
+                  style={{
+                    fontSize: "12px",
+                    color: "#78716c",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {island.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -231,35 +396,104 @@ export function IslandPage() {
 
         {/* 3. 섬 설정 */}
         <SectionCard>
-          <SectionHeader emoji="⚙️" title="섬 설정" sub="권한 설정 및 섬 환경 설정" />
+          <SectionHeader
+            emoji="⚙️"
+            title="섬 설정"
+            sub="권한 설정 및 섬 환경 설정"
+          />
           <div className="p-6 space-y-4">
             {/* 권한 설정 */}
-            <Collapsible defaultOpen title={<span>🔐 섬 권한 설정 <code className="text-xs bg-amber-100 rounded px-1">/섬 권한</code> — 대표·관리자·고정주민·주민·아르바이트·방문자 설정 가능</span>}>
+            <Collapsible
+              defaultOpen
+              title={
+                <span>
+                  🔐 섬 권한 설정{" "}
+                  <code className="text-xs bg-amber-100 rounded px-1">
+                    /섬 권한
+                  </code>{" "}
+                  — 대표·관리자·고정주민·주민·아르바이트·방문자 설정 가능
+                </span>
+              }
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {permissions.map((p) => (
-                  <div key={p.name} className="flex items-start gap-2 p-2.5 rounded-xl bg-amber-50 border border-amber-100">
-                    <span className="inline-block rounded-lg px-2 py-0.5 flex-shrink-0 mt-0.5" style={{ background: "#fde68a", color: "#92400e", fontSize: "11px", fontWeight: 800 }}>
+                  <div
+                    key={p.name}
+                    className="flex items-start gap-2 p-2.5 rounded-xl bg-amber-50 border border-amber-100"
+                  >
+                    <span
+                      className="inline-block rounded-lg px-2 py-0.5 flex-shrink-0 mt-0.5"
+                      style={{
+                        background: "#fde68a",
+                        color: "#92400e",
+                        fontSize: "11px",
+                        fontWeight: 800,
+                      }}
+                    >
                       {p.name}
                     </span>
-                    <span style={{ fontSize: "12px", color: "#57534e", lineHeight: 1.5 }}>{p.desc}</span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#57534e",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {p.desc}
+                    </span>
                   </div>
                 ))}
               </div>
             </Collapsible>
 
             {/* 섬 설정 */}
-            <Collapsible title={<span>🌦️ 섬 환경 설정 <code className="text-xs bg-amber-100 rounded px-1">/섬 설정</code> — 시간·날씨·환경 토글</span>}>
+            <Collapsible
+              title={
+                <span>
+                  🌦️ 섬 환경 설정{" "}
+                  <code className="text-xs bg-amber-100 rounded px-1">
+                    /섬 설정
+                  </code>{" "}
+                  — 시간·날씨·환경 토글
+                </span>
+              }
+            >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {islandSettings.map((s) => (
-                  <div key={s.name} className="flex items-start gap-2 p-2.5 rounded-xl bg-sky-50 border border-sky-100">
-                    <span className="inline-block rounded-lg px-2 py-0.5 flex-shrink-0 mt-0.5" style={{
-                      background: s.type === "time" ? "#e0f2fe" : s.type === "weather" ? "#dcfce7" : "#fef9c3",
-                      color: s.type === "time" ? "#0369a1" : s.type === "weather" ? "#166534" : "#854d0e",
-                      fontSize: "11px", fontWeight: 800,
-                    }}>
+                  <div
+                    key={s.name}
+                    className="flex items-start gap-2 p-2.5 rounded-xl bg-sky-50 border border-sky-100"
+                  >
+                    <span
+                      className="inline-block rounded-lg px-2 py-0.5 flex-shrink-0 mt-0.5"
+                      style={{
+                        background:
+                          s.type === "time"
+                            ? "#e0f2fe"
+                            : s.type === "weather"
+                              ? "#dcfce7"
+                              : "#fef9c3",
+                        color:
+                          s.type === "time"
+                            ? "#0369a1"
+                            : s.type === "weather"
+                              ? "#166534"
+                              : "#854d0e",
+                        fontSize: "11px",
+                        fontWeight: 800,
+                      }}
+                    >
                       {s.name}
                     </span>
-                    <span style={{ fontSize: "12px", color: "#57534e", lineHeight: 1.5 }}>{s.desc}</span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#57534e",
+                        lineHeight: 1.5,
+                      }}
+                    >
+                      {s.desc}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -269,34 +503,104 @@ export function IslandPage() {
 
         {/* 4. 섬 업그레이드 */}
         <SectionCard>
-          <SectionHeader emoji="⬆️" title="섬 업그레이드" sub="/강화 메뉴에서 구매 가능" />
+          <SectionHeader
+            emoji="⬆️"
+            title="섬 업그레이드"
+            sub="/강화 메뉴에서 구매 가능"
+          />
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {upgrades.map((upg) => (
-              <div key={upg.title} className="rounded-2xl border-2 overflow-hidden" style={{ borderColor: upg.color + "40" }}>
-                <div className="px-4 py-3 flex items-center gap-2" style={{ background: upg.color + "15" }}>
+              <div
+                key={upg.title}
+                className="rounded-2xl border-2 overflow-hidden"
+                style={{ borderColor: upg.color + "40" }}
+              >
+                <div
+                  className="px-4 py-3 flex items-center gap-2"
+                  style={{ background: upg.color + "15" }}
+                >
                   <span className="text-xl">{upg.icon}</span>
-                  <span style={{ fontSize: "14px", fontWeight: 800, color: upg.color }}>{upg.title}</span>
+                  <span
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 800,
+                      color: upg.color,
+                    }}
+                  >
+                    {upg.title}
+                  </span>
                 </div>
                 <table className="w-full">
                   <thead>
                     <tr style={{ background: upg.color + "10" }}>
-                      <th className="px-3 py-2 text-left" style={{ fontSize: "11px", fontWeight: 700, color: upg.color }}>단계</th>
-                      <th className="px-3 py-2 text-left" style={{ fontSize: "11px", fontWeight: 700, color: upg.color }}>수치</th>
-                      <th className="px-3 py-2 text-left" style={{ fontSize: "11px", fontWeight: 700, color: upg.color }}>필요 금액</th>
+                      <th
+                        className="px-3 py-2 text-left"
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: upg.color,
+                        }}
+                      >
+                        단계
+                      </th>
+                      <th
+                        className="px-3 py-2 text-left"
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: upg.color,
+                        }}
+                      >
+                        수치
+                      </th>
+                      <th
+                        className="px-3 py-2 text-left"
+                        style={{
+                          fontSize: "11px",
+                          fontWeight: 700,
+                          color: upg.color,
+                        }}
+                      >
+                        필요 금액
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
                     {upg.stages.map((s) => (
-                      <tr key={s.stage} className="border-t" style={{ borderColor: upg.color + "20" }}>
+                      <tr
+                        key={s.stage}
+                        className="border-t"
+                        style={{ borderColor: upg.color + "20" }}
+                      >
                         <td className="px-3 py-2">
-                          <span className="rounded-full px-2 py-0.5 text-white" style={{ background: upg.color, fontSize: "10px", fontWeight: 800 }}>
+                          <span
+                            className="rounded-full px-2 py-0.5 text-white"
+                            style={{
+                              background: upg.color,
+                              fontSize: "10px",
+                              fontWeight: 800,
+                            }}
+                          >
                             {s.stage}단계
                           </span>
                         </td>
-                        <td className="px-3 py-2" style={{ fontSize: "12px", fontWeight: 700, color: "#374151" }}>
-                          {s.value}{upg.unit}
+                        <td
+                          className="px-3 py-2"
+                          style={{
+                            fontSize: "12px",
+                            fontWeight: 700,
+                            color: "#374151",
+                          }}
+                        >
+                          {s.value}
+                          {upg.unit}
                         </td>
-                        <td className="px-3 py-2" style={{ fontSize: "11px", color: "#6b7280" }}>{s.cost}</td>
+                        <td
+                          className="px-3 py-2"
+                          style={{ fontSize: "11px", color: "#6b7280" }}
+                        >
+                          {s.cost}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -308,23 +612,64 @@ export function IslandPage() {
 
         {/* 5. 섬 은행 */}
         <SectionCard>
-          <SectionHeader emoji="🏦" title="섬 은행" sub="섬 공동 자금 입출금 시스템" />
+          <SectionHeader
+            emoji="🏦"
+            title="섬 은행"
+            sub="섬 공동 자금 입출금 시스템"
+          />
           <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* 입금 */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">💰</span>
-                <span style={{ fontSize: "15px", fontWeight: 800, color: "#16a34a" }}>입금 방법</span>
+                <span
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 800,
+                    color: "#16a34a",
+                  }}
+                >
+                  입금 방법
+                </span>
               </div>
               <div className="space-y-2">
                 {[
-                  { name: "반액 입금", desc: "소지하고 있는 금액의 절반을 섬 은행에 입금 합니다." },
-                  { name: "입금", desc: "소지하고 있는 금액의 원하는 만큼을 섬 은행에 입금 합니다." },
-                  { name: "전액 입금", desc: "소지하고 있는 금액의 전부를 섬 은행에 입금 합니다." },
+                  {
+                    name: "반액 입금",
+                    desc: "소지하고 있는 금액의 절반을 섬 은행에 입금 합니다.",
+                  },
+                  {
+                    name: "입금",
+                    desc: "소지하고 있는 금액의 원하는 만큼을 섬 은행에 입금 합니다.",
+                  },
+                  {
+                    name: "전액 입금",
+                    desc: "소지하고 있는 금액의 전부를 섬 은행에 입금 합니다.",
+                  },
                 ].map((m) => (
-                  <div key={m.name} className="p-3 rounded-xl border-2 border-green-100 bg-green-50">
-                    <div style={{ fontSize: "13px", fontWeight: 800, color: "#166534" }}>{m.name}</div>
-                    <p style={{ fontSize: "12px", color: "#4b7c5e", lineHeight: 1.5, marginTop: "2px" }}>{m.desc}</p>
+                  <div
+                    key={m.name}
+                    className="p-3 rounded-xl border-2 border-green-100 bg-green-50"
+                  >
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        color: "#166534",
+                      }}
+                    >
+                      {m.name}
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        color: "#4b7c5e",
+                        lineHeight: 1.5,
+                        marginTop: "2px",
+                      }}
+                    >
+                      {m.desc}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -333,17 +678,54 @@ export function IslandPage() {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">💸</span>
-                <span style={{ fontSize: "15px", fontWeight: 800, color: "#dc2626" }}>출금 방법</span>
+                <span
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: 800,
+                    color: "#dc2626",
+                  }}
+                >
+                  출금 방법
+                </span>
               </div>
               <div className="space-y-2">
                 {[
-                  { name: "반액 출금", desc: "섬 은행의 잔액에서 절반을 출금 합니다." },
-                  { name: "출금", desc: "섬 은행의 잔액에서 원하는 만큼을 출금 합니다." },
-                  { name: "전액 출금", desc: "섬 은행의 잔액에서 전부를 출금 합니다." },
+                  {
+                    name: "반액 출금",
+                    desc: "섬 은행의 잔액에서 절반을 출금 합니다.",
+                  },
+                  {
+                    name: "출금",
+                    desc: "섬 은행의 잔액에서 원하는 만큼을 출금 합니다.",
+                  },
+                  {
+                    name: "전액 출금",
+                    desc: "섬 은행의 잔액에서 전부를 출금 합니다.",
+                  },
                 ].map((m) => (
-                  <div key={m.name} className="p-3 rounded-xl border-2 border-red-100 bg-red-50">
-                    <div style={{ fontSize: "13px", fontWeight: 800, color: "#991b1b" }}>{m.name}</div>
-                    <p style={{ fontSize: "12px", color: "#7c4444", lineHeight: 1.5, marginTop: "2px" }}>{m.desc}</p>
+                  <div
+                    key={m.name}
+                    className="p-3 rounded-xl border-2 border-red-100 bg-red-50"
+                  >
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 800,
+                        color: "#991b1b",
+                      }}
+                    >
+                      {m.name}
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "12px",
+                        color: "#7c4444",
+                        lineHeight: 1.5,
+                        marginTop: "2px",
+                      }}
+                    >
+                      {m.desc}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -353,25 +735,68 @@ export function IslandPage() {
 
         {/* 6. 섬 워프 */}
         <SectionCard>
-          <SectionHeader emoji="🌀" title="섬 워프" sub="섬 워프 생성·관리·이동 명령어" />
+          <SectionHeader
+            emoji="🌀"
+            title="섬 워프"
+            sub="섬 워프 생성·관리·이동 명령어"
+          />
           <div className="p-6">
             <div className="mb-4 p-3 rounded-xl bg-amber-50 border-2 border-amber-200">
-              <p style={{ fontSize: "13px", color: "#92400e", lineHeight: 1.6, fontWeight: 600 }}>
-                ⚠️ 본인 섬이 아닌 다른 섬 워프를 사용할 경우 해당 섬에 허락을 받고 이용해 주세요!
+              <p
+                style={{
+                  fontSize: "13px",
+                  color: "#92400e",
+                  lineHeight: 1.6,
+                  fontWeight: 600,
+                }}
+              >
+                ⚠️ 본인 섬이 아닌 다른 섬 워프를 사용할 경우 해당 섬에 허락을
+                받고 이용해 주세요!
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { cmd: "/섬 워프", desc: "자신의 섬의 워프 목록을 확인 할 수 있습니다." },
-                { cmd: "/섬 워프목록", desc: "서버에 있는 전체 섬 워프 목록을 확인 할 수 있습니다." },
-                { cmd: "/섬 워프생성 (워프이름)", desc: "워프를 생성 할 수 있습니다." },
-                { cmd: "/섬 워프제거 (워프이름)", desc: "워프를 제거 할 수 있습니다." },
+                {
+                  cmd: "/섬 워프",
+                  desc: "자신의 섬의 워프 목록을 확인 할 수 있습니다.",
+                },
+                {
+                  cmd: "/섬 워프목록",
+                  desc: "서버에 있는 전체 섬 워프 목록을 확인 할 수 있습니다.",
+                },
+                {
+                  cmd: "/섬 워프생성 (워프이름)",
+                  desc: "워프를 생성 할 수 있습니다.",
+                },
+                {
+                  cmd: "/섬 워프제거 (워프이름)",
+                  desc: "워프를 제거 할 수 있습니다.",
+                },
               ].map((item) => (
-                <div key={item.cmd} className="p-4 rounded-xl border-2 border-purple-100 bg-purple-50 flex items-start gap-3">
-                  <code className="rounded-lg px-2 py-1 flex-shrink-0" style={{ background: "#7c3aed20", color: "#7c3aed", fontSize: "12px", fontWeight: 800 }}>
+                <div
+                  key={item.cmd}
+                  className="p-4 rounded-xl border-2 border-purple-100 bg-purple-50 flex items-start gap-3"
+                >
+                  <code
+                    className="rounded-lg px-2 py-1 flex-shrink-0"
+                    style={{
+                      background: "#7c3aed20",
+                      color: "#7c3aed",
+                      fontSize: "12px",
+                      fontWeight: 800,
+                    }}
+                  >
                     {item.cmd}
                   </code>
-                  <p style={{ fontSize: "12px", color: "#57534e", lineHeight: 1.6 }}>{item.desc}</p>
+                  <p
+                    style={{
+                      fontSize: "12px",
+                      color: "#57534e",
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {item.desc}
+                  </p>
                 </div>
               ))}
             </div>

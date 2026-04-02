@@ -1,4 +1,4 @@
-import { useSearchParams, Link, useNavigate } from "react-router";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 

@@ -144,7 +144,7 @@ function ArticleCard({ article }: { article: Article }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-3 px-5 py-4 hover:bg-amber-50/40 transition-colors text-left"
@@ -183,7 +183,7 @@ function ArticleCard({ article }: { article: Article }) {
 
 export function LawPage() {
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex items-center gap-2 text-amber-600 mb-4" style={{ fontSize: "13px" }}>
           <Link to="/" className="hover:text-amber-700">홈</Link>
@@ -201,7 +201,7 @@ export function LawPage() {
               <p className="text-slate-500" style={{ fontSize: "14px" }}>꿀비의 숲 서버 공식 운영 원칙</p>
             </div>
           </div>
-          <div className="p-4 rounded-2xl" style={{ background: "#fff8e7", border: "1px solid #f5e098" }}>
+          <div className="p-4 rounded-2xl" style={{ background: "#fff8e7", border: "2px solid #fbbf24" }}>
             <p className="text-amber-800" style={{ fontSize: "13px", lineHeight: 1.8 }}>
               ⚠️ <strong>중요!</strong> 법전은 언제든지 추가 및 수정될 수 있습니다.<br />
               카페 가입하지 않은 상태에서 일어나는 모든 불이익은 본인의 책임입니다.<br />
@@ -221,7 +221,7 @@ export function LawPage() {
           ))}
         </div>
 
-        <div className="mt-8 bg-red-50 border border-red-200 rounded-2xl p-5">
+        <div className="mt-8 bg-red-50 border-2 border-red-200 rounded-2xl p-5">
           <div className="text-red-700 mb-2" style={{ fontSize: "14px", fontWeight: 700 }}>🚨 주의사항</div>
           <ul className="space-y-1">
             {[

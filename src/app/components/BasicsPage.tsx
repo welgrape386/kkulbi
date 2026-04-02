@@ -277,7 +277,7 @@ export function BasicsPage() {
   const current = tabs.find((t) => t.key === activeTab) ?? tabs[0];
 
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6">
           <div className="flex items-center gap-2 text-green-600 mb-2" style={{ fontSize: "13px" }}>
@@ -292,7 +292,7 @@ export function BasicsPage() {
           </h1>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl" style={{ background: "white", border: "1px solid #bbf7d0" }}>
+        <div className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl" style={{ background: "white", border: "2px solid #86efac" }}>
           {tabs.map((tab) => (
             <button
               key={tab.key}

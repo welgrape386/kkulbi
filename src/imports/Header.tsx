@@ -20,16 +20,31 @@ const contentItems: DropdownItem[] = [
   { label: "그림", emoji: "🎨", tab: "painting", desc: "그림 시스템" },
   { label: "기부왕", emoji: "👑", tab: "donation-king", desc: "기부왕 이벤트" },
   { label: "양봉 방법", emoji: "🐝", tab: "beekeeping", desc: "양봉 가이드" },
-  { label: "왕실납품", emoji: "🏰", tab: "royal-supply", desc: "왕실 납품 퀘스트" },
+  {
+    label: "왕실납품",
+    emoji: "🏰",
+    tab: "royal-supply",
+    desc: "왕실 납품 퀘스트",
+  },
   { label: "랜덤 뽑기", emoji: "🎰", tab: "gacha", desc: "길거리 뽑기" },
   { label: "이벤트 안내", emoji: "🎉", tab: "events", desc: "이벤트 일정" },
 ];
 
 const basicsItems: DropdownItem[] = [
-  { label: "서버 접속 방법", emoji: "🖥️", tab: "connect", desc: "서버 접속 안내" },
+  {
+    label: "서버 접속 방법",
+    emoji: "🖥️",
+    tab: "connect",
+    desc: "서버 접속 안내",
+  },
   { label: "기본 UI 사용", emoji: "📱", tab: "ui", desc: "인터페이스 안내" },
   { label: "명령어 안내", emoji: "💬", tab: "commands", desc: "전체 명령어" },
-  { label: "금지 아이템", emoji: "🚫", tab: "banned", desc: "사용 금지 아이템" },
+  {
+    label: "금지 아이템",
+    emoji: "🚫",
+    tab: "banned",
+    desc: "사용 금지 아이템",
+  },
   { label: "규칙 사항", emoji: "📋", tab: "rules", desc: "기본 규칙" },
   { label: "자주 묻는 질문", emoji: "❓", tab: "faq", desc: "FAQ" },
   { label: "시세표", emoji: "💰", tab: "prices", desc: "아이템 시세" },
@@ -38,8 +53,18 @@ const basicsItems: DropdownItem[] = [
 const supportItems: DropdownItem[] = [
   { label: "후원 방법", emoji: "💳", tab: "method", desc: "후원 절차" },
   { label: "후원 등급 / 혜택", emoji: "🎖️", tab: "ranks", desc: "등급별 혜택" },
-  { label: "캐시 아이템 확률", emoji: "📦", tab: "cash", desc: "후원 아이템 확률" },
-  { label: "패키지 확률", emoji: "🎁", tab: "packages", desc: "패키지 상품 확률" },
+  {
+    label: "캐시 아이템 확률",
+    emoji: "📦",
+    tab: "cash",
+    desc: "후원 아이템 확률",
+  },
+  {
+    label: "패키지 확률",
+    emoji: "🎁",
+    tab: "packages",
+    desc: "패키지 상품 확률",
+  },
 ];
 
 interface DropdownMenuProps {
@@ -141,7 +166,10 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-5">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
+          <Link
+            to="/"
+            className="flex items-center gap-2.5 group flex-shrink-0"
+          >
             <img
               src={logoImg}
               alt="꿀비의 숲"
@@ -151,19 +179,27 @@ export function Header() {
             <div className="flex flex-col leading-none">
               <span
                 className="text-amber-700"
-                style={{ fontSize: "15px", fontWeight: 900, letterSpacing: "-0.3px" }}
+                style={{
+                  fontSize: "15px",
+                  fontWeight: 900,
+                  letterSpacing: "-0.3px",
+                }}
               >
                 꿀비의 숲
               </span>
-              <span className="text-slate-400" style={{ fontSize: "10px", fontWeight: 400 }}>
-                비공식 위키
+              <span className="text-slate-400 text-[10px] font-normal">
+                공식 위키
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
           <nav ref={dropdownRef} className="hidden md:flex items-center gap-1">
-            <Link to="/" className={navBtnClass("/")} style={{ fontSize: "13px", fontWeight: 600 }}>
+            <Link
+              to="/"
+              className={navBtnClass("/")}
+              style={{ fontSize: "13px", fontWeight: 600 }}
+            >
               🏠 홈
             </Link>
 
@@ -258,7 +294,11 @@ export function Header() {
             className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-amber-50 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
@@ -279,7 +319,12 @@ export function Header() {
             <div>
               <div
                 className="px-4 py-2 text-amber-700"
-                style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.8px",
+                }}
               >
                 🎮 콘텐츠
               </div>
@@ -301,7 +346,12 @@ export function Header() {
             <div>
               <div
                 className="px-4 py-2 text-green-700"
-                style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.8px",
+                }}
               >
                 📚 기초설명
               </div>
@@ -323,7 +373,12 @@ export function Header() {
             <div>
               <div
                 className="px-4 py-2 text-violet-700"
-                style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.8px" }}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.8px",
+                }}
               >
                 💎 후원
               </div>

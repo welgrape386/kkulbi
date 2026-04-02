@@ -45,7 +45,7 @@ export function PricePage() {
   ];
 
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb & Header */}
         <div className="mb-6">
@@ -57,7 +57,7 @@ export function PricePage() {
           <div className="flex items-center gap-3 mb-1">
             <Link
               to="/"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
               style={{ fontSize: "13px", fontWeight: 600 }}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function PricePage() {
           </p>
         </div>
 
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 mb-6">
+        <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-4 mb-6">
           <p className="text-amber-800" style={{ fontSize: "13px", lineHeight: 1.7 }}>
             💡 시세는 서버 상황에 따라 변경될 수 있어요. 최신 시세는 게임 내 /시세 명령어나 디스코드를 확인하세요.
           </p>
@@ -105,7 +105,7 @@ export function PricePage() {
               <span className="text-xl">🎣</span>
               <h2 className="text-slate-800" style={{ fontSize: "18px", fontWeight: 800 }}>보물 물고기 판매가</h2>
             </div>
-            <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
               {[1, 2, 3, 4].map((tier) => {
                 const fish = treasureFish.filter((f) => f.tier === tier);
                 const info = tierInfo[tier];
@@ -138,7 +138,7 @@ export function PricePage() {
               <span className="text-xl">🪝</span>
               <h2 className="text-slate-800" style={{ fontSize: "18px", fontWeight: 800 }}>낚싯대 강화 재료</h2>
             </div>
-            <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+            <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
               <div className="divide-y divide-slate-50">
                 {rodUpgrades.map((r, idx) => (
                   <div key={r.to} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50/50 transition-colors">
@@ -171,8 +171,8 @@ export function PricePage() {
               <span className="text-xl">💳</span>
               <h2 className="text-slate-800" style={{ fontSize: "18px", fontWeight: 800 }}>캐시 거래 시세</h2>
             </div>
-            <div className="bg-white border border-violet-100 rounded-2xl p-5 shadow-sm">
-              <div className="bg-violet-50 border border-violet-200 rounded-xl p-4 mb-4">
+            <div className="bg-white border-2 border-violet-200 rounded-2xl p-5 shadow-sm">
+              <div className="bg-violet-50 border-2 border-violet-200 rounded-xl p-4 mb-4">
                 <p className="text-violet-800" style={{ fontSize: "13px", lineHeight: 1.7 }}>
                   ⚠️ 캐시 거래는 서버 공식 시세표를 반드시 따라야 해요. 시세 파괴 시 제재를 받을 수 있습니다.<br />
                   정확한 캐시 시세는 디스코드 공지 또는 서버 내 시세표를 확인하세요.
@@ -186,8 +186,8 @@ export function PricePage() {
                 ].map((item) => (
                   <div
                     key={item.tier}
-                    className="rounded-xl p-3.5"
-                    style={{ background: item.bg, border: `1px solid ${item.color}20` }}
+                    className="rounded-xl p-3.5 border-2"
+                    style={{ background: item.bg, borderColor: item.color }}
                   >
                     <div className="text-xl mb-1">{item.icon}</div>
                     <div style={{ fontSize: "13px", fontWeight: 700, color: item.color }}>{item.tier}</div>

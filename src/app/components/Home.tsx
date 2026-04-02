@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
-import spawnImg from "../../imports/스폰.png";
+import spawnImg from "../../imports/스폰-1.png";
 
 // ─── Item Badge Helper ────────────────────────────────────────────────────────
 function getItemStyle(item: string): string {
@@ -17,7 +17,7 @@ function getItemStyle(item: string): string {
     return "bg-cyan-100 text-cyan-800 border border-cyan-200";
   if (item.includes("꿀") || item.includes("토종") || item.includes("밀랍"))
     return "bg-yellow-100 text-yellow-800 border border-yellow-200";
-  if (item.includes("뼛가루") || item.includes("뼈다귀"))
+  if (item.includes("뼈가루") || item.includes("뼈"))
     return "bg-stone-100 text-stone-700 border border-stone-200";
   if (
     item.includes("도토리") ||
@@ -252,7 +252,7 @@ function SearchBar() {
             ? "border-2 border-amber-400 shadow-lg shadow-amber-100"
             : "border-2 border-amber-200 shadow-md hover:border-amber-300"
         }`}
-        style={{ background: "rgba(255,255,255,0.95)" }}
+        style={{ background: "rgba(255,255,255,30)" }}
       >
         <Search
           className={`w-5 h-5 flex-shrink-0 transition-colors ${focused ? "text-amber-500" : "text-slate-400"}`}
@@ -434,7 +434,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
   {
     day: 3,
     items: [
-      "황금 뼛가루 (10개)",
+      "황금 뼈가루 (10개)",
       "하급 두루마리 강화서 [50% 주문서 뽑기]",
       "은행 현금 뭉텅이",
       "허수아비",
@@ -451,7 +451,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "엘레베이터 블럭",
     ],
   },
-  { day: 5, items: ["가공된 꿀조각", "산삼 씨앗", "뼈다귀 (10개)"] },
+  { day: 5, items: ["가공된 꿀조각", "산삼 씨앗", "뼈 (10개)"] },
   {
     day: 6,
     items: [
@@ -466,7 +466,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "꼬마의 저금통 (5개)",
       "의문의 빨강포션",
       "은행 현금 뭉텅이",
-      "뼈다귀 (5개)",
+      "뼈 (5개)",
       "양조기",
       "자연 꿀밀랍",
     ],
@@ -481,7 +481,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
   },
   {
     day: 9,
-    items: ["가공된 꿀조각", "뼈다귀 (15개)", "자동심기 기술 주문서 (+2000회)"],
+    items: ["가공된 꿀조각", "뼈 (15개)", "자동심기 기술 주문서 (+2000회)"],
   },
   {
     day: 10,
@@ -492,7 +492,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "[화폐] 빛나는 다이아 주괴",
     ],
   },
-  { day: 11, items: ["황금 뼛가루 (20개)", "제초기"] },
+  { day: 11, items: ["황금 뼈가루 (20개)", "제초기"] },
   {
     day: 12,
     items: [
@@ -535,7 +535,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
   {
     day: 17,
     items: [
-      "황금 뼛가루 (30개)",
+      "황금 뼈가루 (30개)",
       "제초기 (2개)",
       "산삼 씨앗 (3개)",
       "자동심기 기술 주문서 (+5000회)",
@@ -555,7 +555,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
     day: 19,
     items: [
       "자연 꿀밀랍",
-      "뼈다귀 (15개)",
+      "뼈 (15개)",
       "하급 두루마리 강화서 [50% 주문서 뽑기]",
       "도토리 (15개)",
       "우아한 바다진주",
@@ -564,7 +564,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
   {
     day: 20,
     items: [
-      "황금 뼛가루 (30개)",
+      "황금 뼈가루 (30개)",
       "제초기 (3개)",
       "산삼 씨앗 (5개)",
       "일반 소라고동",
@@ -586,7 +586,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "도토리 (20개)",
       "폭죽 로켓 (10개)",
       "[화폐] 화려한 이리듐 주괴",
-      "뼈다귀 (15개)",
+      "뼈 (15개)",
       "우아한 바다진주",
       "일반 소라고동",
     ],
@@ -663,7 +663,7 @@ const allDailyRewards: { day: number; items: string[] }[] = [
     items: [
       "중급 두루마리 강화서 [60% 주문서 뽑기]",
       "천연 토종꿀",
-      "뼈다귀 (10개)",
+      "뼈 (10개)",
       "도토리 (30개)",
     ],
   },
@@ -685,7 +685,7 @@ const minelistRewards = [
   "경험치 병 (64개)",
   "[화폐] 화려한 금 주괴 (5개)",
   "자연 꿀밀랍",
-  "뼈다귀 (5개)",
+  "뼈 (5개)",
 ];
 
 const hottimeRewards = [
@@ -695,14 +695,14 @@ const hottimeRewards = [
   "다이아몬드 블럭 64개",
   "에메랄드 블럭 64개",
   "[화폐] 화려한 금 주괴 (5개)",
-  "뼈다귀 (5개)",
+  "뼈 (5개)",
   "경험치 병 (64개)",
-  "황금 뼛가루 (15개)",
+  "황금 뼈가루 (15개)",
 ];
 
 const hottimeExtraRewards = [
   "하급 두루마리 강화서 [50% 주문서 뽑기]",
-  "황금 뼛가루 (15개)",
+  "황금 뼈가루 (15개)",
 ];
 
 function EventsSection() {
@@ -723,8 +723,8 @@ function EventsSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* ── Left: 일일보상 미리보기 ──────────────────────────────────────────── */}
-        <div className="lg:col-span-2 bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-amber-50 flex-shrink-0">
+        <div className="lg:col-span-2 bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-amber-100 flex-shrink-0">
             <div className="flex items-center gap-2">
               <span className="text-lg">🎁</span>
               <span
@@ -833,9 +833,9 @@ function EventsSection() {
         {/* ── Right: 마인리스트 + 핫타임 ──────────────────────────────── */}
         <div className="flex flex-col gap-5">
           {/* 마인리스트 추천 보상 */}
-          <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+          <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
             <div
-              className="px-4 py-3.5 border-b border-amber-50"
+              className="px-4 py-3.5 border-b border-amber-100"
               style={{
                 background: "linear-gradient(135deg, #fffef5, #fef9c3)",
               }}
@@ -874,9 +874,9 @@ function EventsSection() {
           </div>
 
           {/* 핫타임 보상 */}
-          <div className="bg-white border border-rose-100 rounded-2xl overflow-hidden shadow-sm">
+          <div className="bg-white border-2 border-rose-200 rounded-2xl overflow-hidden shadow-sm">
             <div
-              className="px-4 py-3.5 border-b border-rose-50"
+              className="px-4 py-3.5 border-b border-rose-100"
               style={{
                 background: "linear-gradient(135deg, #fff5f5, #fee2e2)",
               }}
@@ -954,10 +954,10 @@ export function Home() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(15,8,0,0.35) 0%, rgba(15,8,0,0.65) 55%, #fffbef 100%)",
+              "linear-gradient(to bottom, rgba(15,8,0,0.35) 0%, rgba(15,8,0,0.65) 55%, #fff8dc 100%)",
           }}
         />
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-28 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-[150px] pb-28 text-center">
           <h1
             className="text-white mb-3"
             style={{
@@ -971,7 +971,7 @@ export function Home() {
             꿀비의 숲 위키
           </h1>
           <p
-            className="text-amber-200 mb-8"
+            className="text-amber-200 mb-8 pb-[50px]"
             style={{
               fontSize: "15px",
               lineHeight: 1.7,
@@ -979,7 +979,7 @@ export function Home() {
               textShadow: "0 1px 4px rgba(0,0,0,0.6)",
             }}
           >
-            마인크래프트 멀티팜 서버 · 비공식 유저 위키
+            마인크래프트 멀티팜 서버 · 공식위키
           </p>
           <SearchBar />
         </div>

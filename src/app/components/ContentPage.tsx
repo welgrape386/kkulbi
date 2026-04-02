@@ -433,8 +433,8 @@ const contentRows = [
     key: "row1",
     label: "기본 콘텐츠",
     emoji: "🌿",
-    bg: "#fffbef",
-    border: "#fcd34d",
+    bg: "#fef3c7",
+    border: "#fbbf24",
     color: "#b45309",
     items: [
       { key: "island", label: "섬", emoji: "🏝️", desc: "섬 시스템 및 운영 안내" },
@@ -447,8 +447,8 @@ const contentRows = [
     key: "row2",
     label: "마법 & 크래프트",
     emoji: "✨",
-    bg: "#faf5ff",
-    border: "#c4b5fd",
+    bg: "#ede9fe",
+    border: "#a78bfa",
     color: "#7c3aed",
     items: [
       { key: "altar", label: "제단", emoji: "🏛️", desc: "제단 아이템 제작 및 레시피 안내" },
@@ -461,8 +461,8 @@ const contentRows = [
     key: "row3",
     label: "생활 & 사교",
     emoji: "💝",
-    bg: "#fff0f7",
-    border: "#f9a8d4",
+    bg: "#fce7f3",
+    border: "#f472b6",
     color: "#be185d",
     items: [
       { key: "marriage", label: "결혼", emoji: "💒", desc: "결혼 시스템 및 혜택 안내" },
@@ -475,7 +475,7 @@ const contentRows = [
     key: "row4",
     label: "미니게임",
     emoji: "🎮",
-    bg: "#fff7ed",
+    bg: "#ffedd5",
     border: "#fb923c",
     color: "#c2410c",
     items: [
@@ -491,7 +491,7 @@ function ContentGrid() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-8">
           <div className="flex items-center gap-2 text-amber-600 mb-2" style={{ fontSize: "13px" }}>
@@ -555,7 +555,7 @@ function ContentDetail({ activeTab }: { activeTab: string }) {
   const current = tabs.find((t) => t.key === activeTab) ?? tabs[0];
 
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb & Header */}
         <div className="mb-6">

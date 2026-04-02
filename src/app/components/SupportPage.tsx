@@ -235,7 +235,7 @@ export function SupportPage() {
   const current = tabs.find((t) => t.key === activeTab) ?? tabs[0];
 
   return (
-    <div style={{ background: "#fffbef", minHeight: "100vh" }}>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6">
           <div className="flex items-center gap-2 text-violet-600 mb-2" style={{ fontSize: "13px" }}>
@@ -251,7 +251,7 @@ export function SupportPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl" style={{ background: "white", border: "1px solid #e9d5ff" }}>
+        <div className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl" style={{ background: "white", border: "2px solid #c4b5fd" }}>
           {tabs.map((tab) => (
             <button
               key={tab.key}

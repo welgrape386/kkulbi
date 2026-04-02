@@ -2,7 +2,17 @@ import { useSearchParams, Link, useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
-// ─── Tab definitions with card metadata ───────────────────────────────────────
+export function ContentPage() {
+  const [params] = useSearchParams();
+  const activeTab = params.get("tab");
+
+  if (!activeTab) {
+    return <ContentGrid />;
+  }
+
+  return <ContentDetail activeTab={activeTab} />;
+}
+
 const tabs = [
   {
     key: "rank",

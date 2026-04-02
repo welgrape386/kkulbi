@@ -1,0 +1,43 @@
+/* ─── 꿀비의 숲 위키 전역 스타일 ──────────────────────────────────────────────
+   wiki-main 클래스가 적용된 <main> 내부 모든 페이지에 자동 적용됩니다.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── 0. 한국어 타이포그래피 최적화 ────────────────────────────────────────── */
+:root {
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── number input 스핀 버튼 전역 제거 ──────────────────────────────────────── */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* ── 카드 그림자 강화 ─────────────────────────────────────────────────── */
+.wiki-main [class~="shadow-sm"] {
+  box-shadow:
+    0 2px 8px 0 rgba(180, 120, 0, 0.08),
+    0 1px 3px 0 rgba(0, 0, 0, 0.06) !important;
+}
+
+/* ── 검색 앵커 하이라이트 애니메이션 ──────────────────────────────────── */
+@keyframes wiki-flash {
+  0%   { background-color: transparent; }
+  15%  { background-color: #fef9c3; box-shadow: 0 0 0 4px #fef08a; border-radius: 12px; }
+  70%  { background-color: #fef9c3; box-shadow: 0 0 0 4px #fef08a; border-radius: 12px; }
+  100% { background-color: transparent; box-shadow: none; }
+}
+.wiki-highlight-flash {
+  animation: wiki-flash 2s ease forwards;
+}
+
+/* ── details/summary 기본 스타일 제거 ──────────────────────────────────── */
+details summary::-webkit-details-marker {
+  display: none;
+}

@@ -2,17 +2,6 @@ import { useSearchParams, Link, useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
-export function ContentPage() {
-  const [params] = useSearchParams();
-  const activeTab = params.get("tab");
-
-  if (!activeTab) {
-    return <ContentGrid />;
-  }
-
-  return <ContentDetail activeTab={activeTab} />;
-}
-
 const tabs = [
   {
     key: "rank",
@@ -1617,4 +1606,16 @@ function ContentDetail({ activeTab }: { activeTab: string }) {
       </div>
     </div>
   );
+}
+
+// ─── Export ───────────────────────────────────────────────────────────────────
+export default function ContentPage() {
+  const [params] = useSearchParams();
+  const activeTab = params.get("tab");
+
+  if (!activeTab) {
+    return <ContentGrid />;
+  }
+
+  return <ContentDetail activeTab={activeTab} />;
 }

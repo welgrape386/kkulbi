@@ -84,10 +84,17 @@ export function TraitsPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
-            <Link to="/" className="hover:text-amber-800">홈</Link>
+          <div
+            className="flex items-center gap-2 text-amber-600 mb-3"
+            style={{ fontSize: "13px" }}
+          >
+            <Link to="/" className="hover:text-amber-800">
+              홈
+            </Link>
             <span>›</span>
-            <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>
+            <Link to="/content" className="hover:text-amber-800">
+              콘텐츠
+            </Link>
             <span>›</span>
             <span className="text-slate-600">🔮 특성 안내</span>
           </div>
@@ -100,18 +107,28 @@ export function TraitsPage() {
               <ArrowLeft className="w-4 h-4" />
               목록으로
             </Link>
-            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>🔮 특성 안내</h1>
+            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
+              🔮 특성 안내
+            </h1>
           </div>
           <p style={{ fontSize: "14px", color: "#78716c", fontWeight: 600 }}>
-            원하는 특성 카드를 클릭하면 해당 특성의 자세한 스킬과 팁을 확인할 수 있어요!
+            원하는 특성 카드를 클릭하면 해당 특성의 자세한 스킬과 팁을 확인할 수
+            있어요!
           </p>
         </div>
 
         {/* Info banner */}
         <div className="mb-6 p-4 rounded-2xl border-2 border-amber-200 bg-amber-50">
-          <p style={{ fontSize: "13px", color: "#92400e", lineHeight: 1.7, fontWeight: 600 }}>
-            💡 2차 특성은 <strong>수집가 도감 완료</strong>를 통해 확장할 수 있습니다.
-            채집·모험 특성은 아직 출시 전입니다.
+          <p
+            style={{
+              fontSize: "13px",
+              color: "#92400e",
+              lineHeight: 1.7,
+              fontWeight: 600,
+            }}
+          >
+            💡 2차 특성은 <strong>수집가 도감 완료</strong>를 통해 확장할 수
+            있습니다. 채집·모험 특성은 아직 출시 전입니다.
           </p>
         </div>
 
@@ -120,7 +137,9 @@ export function TraitsPage() {
           {traits.map((trait) => (
             <button
               key={trait.key}
-              onClick={() => trait.available && navigate(`/content/traits/${trait.key}`)}
+              onClick={() =>
+                trait.available && navigate(`/content/traits/${trait.key}`)
+              }
               disabled={!trait.available}
               className={`group relative rounded-2xl border-2 p-5 flex flex-col items-center text-center transition-all duration-200 ${
                 trait.available
@@ -135,7 +154,12 @@ export function TraitsPage() {
               {!trait.available && (
                 <div
                   className="absolute top-2 right-2 rounded-full px-2 py-0.5"
-                  style={{ background: "#e2e8f0", color: "#64748b", fontSize: "10px", fontWeight: 800 }}
+                  style={{
+                    background: "#e2e8f0",
+                    color: "#64748b",
+                    fontSize: "10px",
+                    fontWeight: 800,
+                  }}
                 >
                   출시 예정
                 </div>
@@ -143,16 +167,30 @@ export function TraitsPage() {
               <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-200">
                 {trait.emoji}
               </div>
-              <div style={{ fontSize: "16px", fontWeight: 900, color: trait.color }}>
+              <div
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 900,
+                  color: trait.color,
+                }}
+              >
                 {trait.name}
               </div>
-              <p className="mt-1.5" style={{ fontSize: "11px", color: "#78716c", lineHeight: 1.5 }}>
+              <p
+                className="mt-1.5"
+                style={{ fontSize: "11px", color: "#78716c", lineHeight: 1.5 }}
+              >
                 {trait.desc}
               </p>
               {trait.available && (
                 <div
                   className="mt-3 rounded-full px-3 py-1"
-                  style={{ background: trait.color + "20", color: trait.color, fontSize: "11px", fontWeight: 700 }}
+                  style={{
+                    background: trait.color + "20",
+                    color: trait.color,
+                    fontSize: "11px",
+                    fontWeight: 700,
+                  }}
                 >
                   자세히 보기 →
                 </div>

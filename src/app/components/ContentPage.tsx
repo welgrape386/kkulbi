@@ -1,5 +1,5 @@
 import { useSearchParams, Link, useNavigate } from "react-router";
-import { ChevronRight, ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
 // ─── Tab definitions with card metadata ───────────────────────────────────────
@@ -144,7 +144,7 @@ function TraitsContent() {
     },
     {
       name: "요리", emoji: "🍳", color: "#ea580c",
-      desc: "커스텀 작물과 바닐라 작물을 사용하여 요리를 만드는 직업이에요. 요리 도구: 도마(식칼 필요), 프라이팬(가스레인지+뒤집개), 냄비(물병+뒤집개), 튀김기(오일+뒤집개). 레시피 순서를 반드시 지켜야 해요!",
+      desc: "커스�� 작물과 바닐라 작물을 사용하여 요리를 만드는 직업이에요. 요리 도구: 도마(식칼 필요), 프라이팬(가스레인지+뒤집개), 냄비(물병+뒤집개), 튀김기(오일+뒤집개). 레시피 순서를 반드시 지켜야 해요!",
       tips: ["순서를 틀리면 썩은 음식이 나와요", "도마: 자른당근, 김치, 수박주스 등", "냄비: 라면, 육개장, 시리얼, 미역국", "프라이팬: 타코, 애플파이, 오믈렛, 또띠아"],
       skills: [
         { lv: 1, name: "빠른 성장 I", desc: "요리 시 경험치 30% 추가 획득", cost: "100만원" },
@@ -526,7 +526,11 @@ function ContentGrid() {
                 {row.items.map((item) => (
                   <button
                     key={item.key}
-                    onClick={() => navigate(`/content?tab=${item.key}`)}
+                    onClick={() => {
+                      if (item.key === "island") navigate("/content/island");
+                      else if (item.key === "traits") navigate("/content/traits");
+                      else navigate(`/content?tab=${item.key}`);
+                    }}
                     className="group bg-white rounded-2xl p-4 border-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center cursor-pointer"
                     style={{ borderColor: row.border }}
                   >

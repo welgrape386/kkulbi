@@ -1,110 +1,99 @@
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router";
+
+const BG = "#fff8dc";
 
 const tabs = [
   { key: "method", label: "후원 방법", emoji: "💳" },
   { key: "ranks", label: "후원 등급 / 혜택", emoji: "🎖️" },
-  { key: "cash", label: "캐시 아이템 확률", emoji: "📦" },
-  { key: "packages", label: "패키지 확률", emoji: "🎁" },
 ];
 
 function MethodContent() {
+  const steps = [
+    { step: 1, icon: "🌐", title: "사이트 접속", desc: "서버 후원 사이트 또는 디스코드 공지를 통해 후원 페이지에 접속하세요." },
+    { step: 2, icon: "🔑", title: "닉네임 입력", desc: "마인크래프트 닉네임(정확히 입력)을 입력하세요. 오타 시 후원 아이템이 지급되지 않을 수 있어요." },
+    { step: 3, icon: "🛒", title: "상품 선택", desc: "원하는 캐시 패키지 또는 후원 등급을 선택하세요." },
+    { step: 4, icon: "💳", title: "결제 진행", desc: "결제 수단을 선택하고 결제를 완료하세요. (신용카드, 계좌이체 등 지원)" },
+    { step: 5, icon: "📦", title: "아이템 수령", desc: "결제 완료 후 게임 내 우편함으로 캐시 또는 아이템이 지급됩니다. /우편 명령어로 확인하세요!" },
+  ];
+
+  const notices = [
+    "후원 전 반드시 닉네임을 정확하게 입력하세요.",
+    "후원은 비환불 정책입니다. 결제 전 신중하게 결정해주세요.",
+    "후원 관련 문의는 디스코드 후원 문의 채널을 이용해 주세요.",
+    "후원 아이템은 우편함으로 지급되며, 접속 후 /우편 명령어로 수령 가능합니다.",
+    "서버 점검 시간에는 후원 처리가 지연될 수 있어요.",
+  ];
+
   return (
     <div className="space-y-6">
-      <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4">
-        <p
-          className="text-violet-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          💎 후원은 서버 운영에 직접적인 도움이 돼요! 후원 시 캐시를 받아 다양한
-          아이템과 혜택을 누릴 수 있어요.
-          <br />
-          ⚠️ 후원한 금액은 환불이 불가능하니 신중히 결정해주세요.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[
-          {
-            step: 1,
-            icon: "🌐",
-            title: "후원 페이지 접속",
-            desc: "공식 디스코드 서버의 공지 또는 네이버 카페에서 후원 링크를 확인하세요.",
-          },
-          {
-            step: 2,
-            icon: "💳",
-            title: "금액 선택 및 결제",
-            desc: "원하는 후원 금액을 선택하고 카드/계좌이체 등으로 결제해요.",
-          },
-          {
-            step: 3,
-            icon: "💎",
-            title: "캐시 수령",
-            desc: "결제 완료 후 인게임 캐시가 지급돼요. /캐시 명령어로 잔액을 확인할 수 있어요.",
-          },
-          {
-            step: 4,
-            icon: "🏪",
-            title: "캐시 상점 이용",
-            desc: "캐시 상점에서 다양한 아이템, 등급 업그레이드, 특별 혜택 등을 구매하세요.",
-          },
-        ].map((s) => (
-          <div
-            key={s.step}
-            className="bg-white border border-violet-100 rounded-2xl p-4 shadow-sm flex items-start gap-3"
-          >
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-xl"
-              style={{ background: "#7c3aed20" }}
-            >
-              {s.icon}
-            </div>
-            <div>
-              <div className="flex items-center gap-2 mb-0.5">
-                <span
-                  className="bg-violet-100 text-violet-600 rounded-full px-1.5 py-0.5"
-                  style={{ fontSize: "10px", fontWeight: 700 }}
-                >
-                  {s.step}
-                </span>
-                <span
-                  className="text-slate-700"
-                  style={{ fontSize: "14px", fontWeight: 700 }}
-                >
-                  {s.title}
-                </span>
-              </div>
-              <p
-                className="text-slate-500"
-                style={{ fontSize: "12px", lineHeight: 1.6 }}
-              >
-                {s.desc}
-              </p>
-            </div>
+      {/* Steps */}
+      <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-amber-50" style={{ background: "#fffef5" }}>
+          <div className="flex items-center gap-2">
+            <span className="text-xl">📋</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: "#92400e" }}>후원 절차</span>
           </div>
-        ))}
+        </div>
+        <div className="p-5 space-y-3">
+          {steps.map((s) => (
+            <div key={s.step} className="flex items-start gap-4 p-4 rounded-2xl bg-amber-50 border border-amber-100">
+              <div
+                className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 text-white"
+                style={{ background: "linear-gradient(135deg, #f5c842, #f59e0b)", color: "#1a1200", fontSize: "16px", fontWeight: 900 }}
+              >
+                {s.step}
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-xl">{s.icon}</span>
+                  <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>{s.title}</span>
+                </div>
+                <p className="text-slate-600" style={{ fontSize: "13px", lineHeight: 1.6 }}>{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="bg-white border border-violet-100 rounded-2xl p-5 shadow-sm">
-        <div
-          className="text-slate-700 mb-3"
-          style={{ fontSize: "15px", fontWeight: 700 }}
-        >
-          📋 후원 유의사항
+
+      {/* Payment methods */}
+      <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
+        <div className="px-5 py-4 border-b border-amber-50" style={{ background: "#fffef5" }}>
+          <div className="flex items-center gap-2">
+            <span className="text-xl">💳</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: "#92400e" }}>결제 수단</span>
+          </div>
+        </div>
+        <div className="p-5">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { icon: "💳", name: "신용카드" },
+              { icon: "🏦", name: "계좌이체" },
+              { icon: "📱", name: "간편결제" },
+              { icon: "🎁", name: "문화상품권" },
+            ].map((m) => (
+              <div key={m.name} className="flex flex-col items-center gap-2 p-4 rounded-2xl border-2 border-amber-100 bg-amber-50 text-center">
+                <span className="text-3xl">{m.icon}</span>
+                <span style={{ fontSize: "13px", fontWeight: 700, color: "#92400e" }}>{m.name}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-slate-400 mt-3 text-center" style={{ fontSize: "12px" }}>
+            지원 결제 수단은 후원 사이트에서 확인하세요.
+          </p>
+        </div>
+      </div>
+
+      {/* Notices */}
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xl">⚠️</span>
+          <span style={{ fontSize: "15px", fontWeight: 800, color: "#991b1b" }}>주의 사항</span>
         </div>
         <ul className="space-y-2">
-          {[
-            "후원한 금액은 절대 환불이 불가능합니다.",
-            "캐시는 인게임 캐시 상점에서만 사용 가능해요.",
-            "캐시 거래(유저 간 캐시 교환)는 허용되지만, 서버 시세표 기준을 따라야 해요.",
-            "후원 문의는 공식 디스코드 또는 네이버 카페를 통해 해주세요.",
-            "이벤트/업데이트에 따라 캐시 상품이 변경될 수 있어요.",
-          ].map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-1.5 text-slate-600"
-              style={{ fontSize: "13px" }}
-            >
-              <span className="text-violet-400 flex-shrink-0 mt-0.5">▸</span>{" "}
-              {item}
+          {notices.map((n) => (
+            <li key={n} className="flex items-start gap-2 text-red-700" style={{ fontSize: "13px", lineHeight: 1.6 }}>
+              <span className="flex-shrink-0 mt-0.5">▸</span>
+              {n}
             </li>
           ))}
         </ul>
@@ -113,172 +102,154 @@ function MethodContent() {
   );
 }
 
-function RanksContent() {
-  const supportRanks = [
-    {
-      name: "기본 후원자",
-      emoji: "🌟",
-      desc: "첫 후원을 완료한 유저",
-      perks: ["후원자 칭호", "전용 채팅 색상", "감사 인사"],
-      color: "#f59e0b",
-    },
-    {
-      name: "실버 후원자",
-      emoji: "🥈",
-      desc: "일정 금액 이상 후원한 유저",
-      perks: ["실버 칭호", "추가 캐시 보너스", "전용 이모티콘"],
-      color: "#94a3b8",
-    },
-    {
-      name: "골드 후원자",
-      emoji: "🥇",
-      desc: "높은 금액을 후원한 유저",
-      perks: ["골드 칭호", "VIP 전용 채널 접근", "추가 혜택"],
-      color: "#f59e0b",
-    },
-    {
-      name: "다이아 후원자",
-      emoji: "💎",
-      desc: "최고 등급 후원자",
-      perks: ["다이아 칭호", "특별 VIP 혜택", "전용 아이템", "GM 직통 문의"],
-      color: "#60a5fa",
-    },
-  ];
+const donationRanks = [
+  {
+    name: "브론즈",
+    emoji: "🥉",
+    price: "5,000원",
+    color: "#cd7f32",
+    bg: "#fdf6ee",
+    border: "#e8d0b0",
+    benefits: [
+      "브론즈 칭호 지급",
+      "캐시 500 지급",
+      "인벤토리 확장 아이템",
+    ],
+  },
+  {
+    name: "실버",
+    emoji: "🥈",
+    price: "10,000원",
+    color: "#6b7280",
+    bg: "#f9fafb",
+    border: "#d1d5db",
+    benefits: [
+      "실버 칭호 지급",
+      "캐시 1,200 지급",
+      "인벤토리 확장 아이템",
+      "전용 닉네임 색상",
+    ],
+  },
+  {
+    name: "골드",
+    emoji: "🥇",
+    price: "20,000원",
+    color: "#d97706",
+    bg: "#fffbeb",
+    border: "#fde68a",
+    benefits: [
+      "골드 칭호 지급",
+      "캐시 3,000 지급",
+      "인벤토리 확장 아이템",
+      "전용 닉네임 색상",
+      "후원 전용 아이템 지급",
+    ],
+  },
+  {
+    name: "다이아",
+    emoji: "💎",
+    price: "30,000원",
+    color: "#0284c7",
+    bg: "#f0f9ff",
+    border: "#bae6fd",
+    benefits: [
+      "다이아 칭호 지급",
+      "캐시 5,000 지급",
+      "인벤토리 확장 아이템",
+      "전용 닉네임 색상",
+      "후원 전용 아이템 지급",
+      "VIP 채널 접근",
+    ],
+  },
+  {
+    name: "VIP",
+    emoji: "👑",
+    price: "50,000원",
+    color: "#7c3aed",
+    bg: "#faf5ff",
+    border: "#ddd6fe",
+    benefits: [
+      "VIP 칭호 지급",
+      "캐시 10,000 지급",
+      "인벤토리 확장 아이템",
+      "전용 닉네임 색상 & 이펙트",
+      "후원 전용 아이템 지급",
+      "VIP 채널 접근",
+      "추가 창고 슬롯",
+      "확성기 무제한 (30일)",
+    ],
+  },
+];
 
+function RanksContent() {
   return (
     <div className="space-y-6">
-      <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4">
-        <p
-          className="text-violet-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          💡 후원 등급 및 혜택은 운영진에 의해 업데이트될 수 있어요. 자세한
-          정보는 디스코드 공지를 확인하세요.
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <p className="text-amber-800" style={{ fontSize: "13px", lineHeight: 1.7 }}>
+          💡 후원 등급은 1회성 후원으로 지급됩니다. 후원 등급별 혜택은 서버 업데이트에 따라 변경될 수 있으며,
+          최신 혜택은 디스코드 공지를 확인하세요.
         </p>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {supportRanks.map((r) => (
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {donationRanks.map((rank) => (
           <div
-            key={r.name}
-            className="bg-white border rounded-2xl p-5 shadow-sm"
-            style={{ borderColor: r.color + "30" }}
+            key={rank.name}
+            className="rounded-2xl overflow-hidden shadow-sm border-2 flex flex-col"
+            style={{ background: rank.bg, borderColor: rank.border }}
           >
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-3xl">{r.emoji}</span>
-              <div>
-                <div
-                  style={{ fontSize: "16px", fontWeight: 800, color: r.color }}
-                >
-                  {r.name}
-                </div>
-                <div className="text-slate-400" style={{ fontSize: "12px" }}>
-                  {r.desc}
+            {/* Header */}
+            <div className="px-5 py-4 border-b-2" style={{ borderColor: rank.border }}>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl">{rank.emoji}</span>
+                <div>
+                  <div style={{ fontSize: "18px", fontWeight: 900, color: rank.color }}>{rank.name}</div>
+                  <div
+                    className="inline-flex items-center rounded-full px-2.5 py-0.5 mt-1"
+                    style={{ background: rank.color + "20", color: rank.color, fontSize: "13px", fontWeight: 800 }}
+                  >
+                    {rank.price}
+                  </div>
                 </div>
               </div>
             </div>
-            <ul className="space-y-1">
-              {r.perks.map((p) => (
-                <li
-                  key={p}
-                  className="flex items-center gap-1.5 text-slate-600"
-                  style={{ fontSize: "13px" }}
-                >
-                  <span style={{ color: r.color }}>✓</span> {p}
-                </li>
-              ))}
-            </ul>
+
+            {/* Benefits */}
+            <div className="p-4 flex-1">
+              <div className="text-slate-500 mb-2" style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                혜택
+              </div>
+              <ul className="space-y-2">
+                {rank.benefits.map((b) => (
+                  <li key={b} className="flex items-start gap-2" style={{ fontSize: "13px", color: "#374151" }}>
+                    <span style={{ color: rank.color, flexShrink: 0, marginTop: "1px" }}>✓</span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-function CashContent() {
-  return (
-    <div className="space-y-6">
-      <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4">
-        <p
-          className="text-violet-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          📦 캐시(후원) 아이템의 확률은 상품에 따라 다르며, 운영진에 의해
-          공지됩니다. 최신 확률 정보는 후원 페이지 또는 디스코드 공지를
-          확인하세요.
-        </p>
-      </div>
-      <div className="bg-white border border-violet-100 rounded-2xl p-6 shadow-sm text-center">
-        <div className="text-4xl mb-3">📦</div>
-        <div
-          className="text-slate-700 mb-2"
-          style={{ fontSize: "16px", fontWeight: 700 }}
-        >
-          캐시 아이템 확률 안내
+      {/* Cash info */}
+      <div className="bg-white border border-amber-100 rounded-2xl p-5 shadow-sm">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-xl">💰</span>
+          <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>캐시 안내</span>
         </div>
-        <p
-          className="text-slate-500 mb-4"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          캐시 아이템별 확률은 서버 업데이트에 따라 변경될 수 있어요.
-          <br />
-          구체적인 확률은 후원 페이지 또는 인게임 캐시 상점에서 확인 가능합니다.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            {
-              tier: "일반",
-              color: "#64748b",
-              items: [
-                "기본 아이템 묶음",
-                "소라고동",
-                "일반 소라고동",
-                "뼈다귀 묶음",
-              ],
-            },
-            {
-              tier: "희귀",
-              color: "#3b82f6",
-              items: [
-                "강화서 묶음",
-                "커스텀 도구 재료",
-                "특수 씨앗",
-                "포션 묶음",
-              ],
-            },
-            {
-              tier: "전설",
-              color: "#f59e0b",
-              items: [
-                "마법의 소라고동",
-                "천연 토종꿀",
-                "특별 칭호 아이템",
-                "한정판 꾸미기",
-              ],
-            },
-          ].map((tier) => (
-            <div
-              key={tier.tier}
-              className="rounded-2xl p-4"
-              style={{
-                background: tier.color + "10",
-                border: `1px solid ${tier.color}30`,
-              }}
-            >
-              <div
-                className="mb-2"
-                style={{ fontSize: "13px", fontWeight: 700, color: tier.color }}
-              >
-                {tier.tier} 등급
+            { icon: "🎁", title: "캐시 사용처", desc: "확성기, 아이템 구매, 커스텀 아이템 제작 등에 활용 가능합니다." },
+            { icon: "🔄", title: "캐시 전송", desc: "6등급 이상부터 /캐시 보내기 명령어로 다른 유저에게 캐시를 전송할 수 있어요." },
+            { icon: "📦", title: "캐시 아이템", desc: "캐시로 구매 가능한 전용 아이템은 디스코드 상점 채널에서 확인하세요." },
+          ].map((item) => (
+            <div key={item.title} className="p-3 rounded-xl bg-amber-50 border border-amber-100">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-xl">{item.icon}</span>
+                <span style={{ fontSize: "13px", fontWeight: 700, color: "#92400e" }}>{item.title}</span>
               </div>
-              {tier.items.map((item) => (
-                <div
-                  key={item}
-                  className="text-slate-600"
-                  style={{ fontSize: "12px" }}
-                >
-                  • {item}
-                </div>
-              ))}
+              <p className="text-slate-500" style={{ fontSize: "12px", lineHeight: 1.6 }}>{item.desc}</p>
             </div>
           ))}
         </div>
@@ -287,167 +258,37 @@ function CashContent() {
   );
 }
 
-function PackagesContent() {
-  return (
-    <div className="space-y-6">
-      <div className="bg-violet-50 border border-violet-200 rounded-2xl p-4">
-        <p
-          className="text-violet-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          🎁 패키지 상품은 기간 한정으로 판매되며, 포함 아이템과 확률은
-          패키지마다 다를 수 있어요.
-        </p>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[
-          {
-            name: "신규 유저 스타터 패키지",
-            emoji: "🌱",
-            desc: "서버를 처음 시작하는 분들을 위한 기본 아이템 패키지",
-            items: [
-              "기본 농기구 세트",
-              "씨앗 묶음",
-              "초보자 가이드북",
-              "은행 현금 뭉텅이",
-            ],
-            color: "#16a34a",
-          },
-          {
-            name: "채광꾼 패키지",
-            emoji: "⛏️",
-            desc: "채광 특성 유저를 위한 특별 패키지",
-            items: [
-              "강화된 곡괭이",
-              "광물창고 확장권",
-              "크리스탈 확률 부스터",
-              "황금 뼛가루 묶음",
-            ],
-            color: "#6366f1",
-          },
-          {
-            name: "농부의 패키지",
-            emoji: "🌽",
-            desc: "수확·요리 특성 유저를 위한 패키지",
-            items: [
-              "이리듐 물뿌리개",
-              "고급 비료 묶음",
-              "커스텀 씨앗 세트",
-              "스프링쿨러",
-            ],
-            color: "#f59e0b",
-          },
-          {
-            name: "바다꾼 패키지",
-            emoji: "🎣",
-            desc: "어부 특성 유저를 위한 낚시 패키지",
-            items: [
-              "황금색 낚싯대",
-              "우아한 바다진주 묶음",
-              "수수께끼 구슬",
-              "낚시 미끼 세트",
-            ],
-            color: "#0284c7",
-          },
-        ].map((pkg) => (
-          <div
-            key={pkg.name}
-            className="bg-white border rounded-2xl p-5 shadow-sm"
-            style={{ borderColor: pkg.color + "30" }}
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-3xl">{pkg.emoji}</span>
-              <div>
-                <div
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 800,
-                    color: pkg.color,
-                  }}
-                >
-                  {pkg.name}
-                </div>
-                <div className="text-slate-400" style={{ fontSize: "12px" }}>
-                  {pkg.desc}
-                </div>
-              </div>
-            </div>
-            <div className="space-y-1">
-              {pkg.items.map((item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-1.5 text-slate-600"
-                  style={{ fontSize: "12px" }}
-                >
-                  <span style={{ color: pkg.color }}>▸</span> {item}
-                </div>
-              ))}
-            </div>
-            <div className="mt-3 pt-3 border-t border-slate-50">
-              <span className="text-slate-400" style={{ fontSize: "11px" }}>
-                * 실제 패키지 구성 및 확률은 판매 페이지에서 확인하세요
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-const contentComponents: Record<string, React.ReactNode> = {
-  method: <MethodContent />,
-  ranks: <RanksContent />,
-  cash: <CashContent />,
-  packages: <PackagesContent />,
-};
-
 export function SupportPage() {
   const [params, setParams] = useSearchParams();
   const activeTab = params.get("tab") ?? "method";
   const current = tabs.find((t) => t.key === activeTab) ?? tabs[0];
 
   return (
-    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
+    <div style={{ background: BG, minHeight: "100vh" }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6">
-          <div
-            className="flex items-center gap-2 text-violet-600 mb-2"
-            style={{ fontSize: "13px" }}
-          >
-            <Link to="/" className="hover:text-violet-700">
-              홈
-            </Link>
+          <div className="flex items-center gap-2 text-violet-600 mb-2" style={{ fontSize: "13px" }}>
+            <Link to="/" className="hover:text-violet-700">홈</Link>
             <span>›</span>
             <span>후원</span>
             <span>›</span>
-            <span className="text-slate-600">
-              {current.emoji} {current.label}
-            </span>
+            <span className="text-slate-600">{current.emoji} {current.label}</span>
           </div>
-          <h1
-            className="text-slate-800"
-            style={{ fontSize: "24px", fontWeight: 900 }}
-          >
-            {current.emoji} {current.label}
+          <h1 className="text-slate-800" style={{ fontSize: "24px", fontWeight: 900 }}>
+            💎 후원 안내
           </h1>
         </div>
 
         {/* Tabs */}
-        <div
-          className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl"
-          style={{ background: "white", border: "2px solid #c4b5fd" }}
-        >
+        <div className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl" style={{ background: "white", border: "2px solid #ddd6fe" }}>
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setParams({ tab: tab.key })}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${
-                activeTab === tab.key
-                  ? "bg-violet-500 text-white shadow-sm"
-                  : "text-slate-600 hover:bg-violet-50 hover:text-violet-700"
-              }`}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all"
               style={{
+                background: activeTab === tab.key ? "#7c3aed" : "transparent",
+                color: activeTab === tab.key ? "white" : "#6b7280",
                 fontSize: "13px",
                 fontWeight: activeTab === tab.key ? 700 : 500,
               }}
@@ -458,7 +299,9 @@ export function SupportPage() {
           ))}
         </div>
 
-        <div>{contentComponents[activeTab] ?? null}</div>
+        <div>
+          {activeTab === "method" ? <MethodContent /> : <RanksContent />}
+        </div>
       </div>
     </div>
   );

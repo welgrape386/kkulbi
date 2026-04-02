@@ -1,7 +1,7 @@
 
-  # Update event page layout
+  # Website Builder
 
-  This is a code bundle for Update event page layout. The original project is available at https://www.figma.com/design/mbFTAf3vi8Jjz8OBOOp9Fp/Update-event-page-layout.
+  This is a code bundle for Website Builder. The original project is available at https://www.figma.com/design/B2i1wU0k1lbWnWrAlujVf0/Website-Builder.
 
   ## Running the code
 

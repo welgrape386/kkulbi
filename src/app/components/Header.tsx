@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import logoImg from "../../imports/image-removebg-preview.png";
 
@@ -41,10 +41,7 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-5">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 group flex-shrink-0"
-          >
+          <Link to="/" className="flex items-center gap-2.5 group flex-shrink-0">
             <img
               src={logoImg}
               alt="꿀비의 숲"
@@ -53,18 +50,11 @@ export function Header() {
             <div className="flex flex-col leading-none">
               <span
                 className="text-amber-700"
-                style={{
-                  fontSize: "15px",
-                  fontWeight: 900,
-                  letterSpacing: "-0.3px",
-                }}
+                style={{ fontSize: "15px", fontWeight: 900, letterSpacing: "-0.3px" }}
               >
                 꿀비의 숲
               </span>
-              <span
-                className="text-slate-400"
-                style={{ fontSize: "10px", fontWeight: 400 }}
-              >
+              <span className="text-slate-400" style={{ fontSize: "10px", fontWeight: 400 }}>
                 비공식 위키
               </span>
             </div>
@@ -72,39 +62,19 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link
-              to="/"
-              className={navLinkClass("/")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
+            <Link to="/" className={navLinkClass("/")} style={{ fontSize: "13px", fontWeight: 600 }}>
               🏠 홈
             </Link>
-            <Link
-              to="/content"
-              className={navLinkClass("/content")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
+            <Link to="/content" className={navLinkClass("/content")} style={{ fontSize: "13px", fontWeight: 600 }}>
               🎮 콘텐츠
             </Link>
-            <Link
-              to="/basics"
-              className={navLinkClass("/basics")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
+            <Link to="/basics" className={navLinkClass("/basics")} style={{ fontSize: "13px", fontWeight: 600 }}>
               📚 기초설명
             </Link>
-            <Link
-              to="/prices"
-              className={navLinkClass("/prices")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
+            <Link to="/prices" className={navLinkClass("/prices")} style={{ fontSize: "13px", fontWeight: 600 }}>
               💰 시세표
             </Link>
-            <Link
-              to="/support"
-              className={navLinkClass("/support")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
+            <Link to="/support" className={navLinkClass("/support")} style={{ fontSize: "13px", fontWeight: 600 }}>
               💎 후원
             </Link>
             <Link
@@ -125,11 +95,7 @@ export function Header() {
             className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-amber-50 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            {mobileOpen ? (
-              <X className="w-5 h-5" />
-            ) : (
-              <Menu className="w-5 h-5" />
-            )}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>

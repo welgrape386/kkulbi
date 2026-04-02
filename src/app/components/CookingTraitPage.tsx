@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 
 const BG = "#fff8dc";
@@ -201,7 +201,7 @@ export function CookingTraitPage() {
             <span
               style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}
             >
-              요리 도구 & 예시 메뉴
+              요리 도구 &amp; 예시 메뉴
             </span>
           </div>
           <div className="p-5 grid grid-cols-1 sm:grid-cols-2 gap-3">

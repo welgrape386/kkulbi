@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Search, X, ChevronRight } from "lucide-react";
-import spawnImg from "../../imports/스폰-1.png";
+import spawnImg from "../../imports/스폰.png";
 
 // ─── Item Badge Helper ────────────────────────────────────────────────────────
 function getItemStyle(item: string): string {

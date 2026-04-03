@@ -28,7 +28,7 @@ function getItemStyle(item: string): string {
   return "bg-slate-100 text-slate-700 border border-slate-200";
 }
 
-// ─── Search ───────────────────────────────────────────────────────────────────
+// ─── Search Data ──────────────────────────────────────────────────────────────
 type SearchItem = {
   id: string;
   title: string;
@@ -153,7 +153,7 @@ const searchData: SearchItem[] = [
     content: "아이템 시세 가격표 광물 물고기 보물 캐시",
     category: "기초설명",
     emoji: "💰",
-    route: "/basics?tab=prices",
+    route: "/prices",
   },
   {
     id: "support-method",
@@ -205,6 +205,7 @@ const searchData: SearchItem[] = [
   },
 ];
 
+// ─── Search Bar ───────────────────────────────────────────────────────────────
 function SearchBar() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -232,6 +233,7 @@ function SearchBar() {
         setFocused(false);
       }
     }
+
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
   }, []);
@@ -252,10 +254,12 @@ function SearchBar() {
             ? "border-2 border-amber-400 shadow-lg shadow-amber-100"
             : "border-2 border-amber-200 shadow-md hover:border-amber-300"
         }`}
-        style={{ background: "rgba(255,255,255,30)" }}
+        style={{ background: "rgba(255,255,255,0.92)" }}
       >
         <Search
-          className={`w-5 h-5 flex-shrink-0 transition-colors ${focused ? "text-amber-500" : "text-slate-400"}`}
+          className={`w-5 h-5 flex-shrink-0 transition-colors ${
+            focused ? "text-amber-500" : "text-slate-400"
+          }`}
         />
         <input
           ref={inputRef}
@@ -274,6 +278,7 @@ function SearchBar() {
               inputRef.current?.focus();
             }}
             className="flex-shrink-0 text-slate-400 hover:text-slate-600 transition-colors"
+            aria-label="검색어 지우기"
           >
             <X className="w-4 h-4" />
           </button>
@@ -297,39 +302,42 @@ function SearchBar() {
                   className="text-slate-400"
                   style={{ fontSize: "12px", fontWeight: 600 }}
                 >
-                  검색 결과
-                </span>
-                <span
-                  className="bg-amber-100 text-amber-600 rounded-full px-2 py-0.5"
-                  style={{ fontSize: "11px", fontWeight: 700 }}
-                >
-                  {results.length}개
+                  검색 결과 {results.length}개
                 </span>
               </div>
+
               {results.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleSelect(item)}
-                  className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-amber-50 transition-colors text-left border-b border-slate-50 last:border-0"
+                  className="w-full text-left px-4 py-3.5 hover:bg-amber-50 transition-colors border-b border-slate-50 last:border-b-0"
                 >
-                  <span className="text-xl flex-shrink-0">{item.emoji}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                      <span
-                        className="text-slate-800"
-                        style={{ fontSize: "14px", fontWeight: 700 }}
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">{item.emoji}</span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span
+                          className="text-slate-700"
+                          style={{ fontSize: "14px", fontWeight: 700 }}
+                        >
+                          {item.title}
+                        </span>
+                        <span
+                          className="bg-slate-100 text-slate-500 rounded-full px-2 py-0.5"
+                          style={{ fontSize: "10px", fontWeight: 700 }}
+                        >
+                          {item.category}
+                        </span>
+                      </div>
+                      <p
+                        className="text-slate-400 truncate"
+                        style={{ fontSize: "12px" }}
                       >
-                        {item.title}
-                      </span>
-                      <span
-                        className="bg-amber-100 text-amber-600 rounded-full px-2 py-0.5 flex-shrink-0"
-                        style={{ fontSize: "10px", fontWeight: 700 }}
-                      >
-                        {item.category}
-                      </span>
+                        {item.content}
+                      </p>
                     </div>
+                    <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0 mt-0.5" />
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-300 flex-shrink-0" />
                 </button>
               ))}
             </div>
@@ -340,87 +348,119 @@ function SearchBar() {
   );
 }
 
-// ─── Quick Nav Cards ──────────────────────────────────────────────────────────
-function QuickNavSection() {
-  const cards = [
-    {
-      emoji: "🎮",
-      title: "콘텐츠",
-      desc: "랭크, 특성, 파쿠르, 블럭워즈, 제단 등 다양한 콘텐츠 안내",
-      href: "/content",
-      color: "#d97706",
-      bg: "#fffbef",
-      border: "#f5e098",
-    },
-    {
-      emoji: "📚",
-      title: "기초설명",
-      desc: "접속 방법부터 명령어, 규칙까지 신규 유저 필독",
-      href: "/basics",
-      color: "#16a34a",
-      bg: "#f0fdf4",
-      border: "#bbf7d0",
-    },
-    {
-      emoji: "💎",
-      title: "후원",
-      desc: "후원 방법, 등급별 혜택, 아이템 확률 안내",
-      href: "/support",
-      color: "#7c3aed",
-      bg: "#faf5ff",
-      border: "#e9d5ff",
-    },
-    {
-      emoji: "⚖️",
-      title: "운영원칙 (법전)",
-      desc: "서버 운영 원칙, 제재 기준, 유저 권리 전문",
-      href: "/law",
-      color: "#dc2626",
-      bg: "#fef2f2",
-      border: "#fecaca",
-    },
-  ];
+// ─── Quick Links ──────────────────────────────────────────────────────────────
+const quickLinks = [
+  {
+    title: "콘텐츠",
+    desc: "랭크, 특성, 양봉, 이벤트, 제단 등",
+    emoji: "🎮",
+    to: "/content",
+    color: "#d97706",
+    bg: "#fff7ed",
+    border: "#fed7aa",
+  },
+  {
+    title: "기초설명",
+    desc: "서버 접속, 명령어, 규칙, FAQ",
+    emoji: "📚",
+    to: "/basics",
+    color: "#0284c7",
+    bg: "#f0f9ff",
+    border: "#bae6fd",
+  },
+  {
+    title: "시세표",
+    desc: "광물, 물고기, 작물 가격 확인",
+    emoji: "💰",
+    to: "/prices",
+    color: "#16a34a",
+    bg: "#f0fdf4",
+    border: "#bbf7d0",
+  },
+  {
+    title: "후원",
+    desc: "후원 방법과 등급 혜택 안내",
+    emoji: "💎",
+    to: "/support",
+    color: "#7c3aed",
+    bg: "#faf5ff",
+    border: "#ddd6fe",
+  },
+  {
+    title: "운영원칙",
+    desc: "서버 규칙과 법전 확인",
+    emoji: "⚖️",
+    to: "/law",
+    color: "#dc2626",
+    bg: "#fef2f2",
+    border: "#fecaca",
+  },
+  {
+    title: "일일보상",
+    desc: "1일부터 31일까지 전체 보상 확인",
+    emoji: "🎁",
+    to: "/daily-rewards",
+    color: "#f59e0b",
+    bg: "#fffbeb",
+    border: "#fde68a",
+  },
+];
 
+function QuickLinksSection() {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {cards.map((card) => (
-        <Link
-          key={card.title}
-          to={card.href}
-          className="group rounded-2xl p-5 border-2 transition-all hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center"
-          style={{ background: card.bg, borderColor: card.border }}
+    <section>
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-2xl">🚀</span>
+        <h2
+          className="text-slate-800"
+          style={{ fontSize: "20px", fontWeight: 800 }}
         >
-          <div className="text-4xl mb-3">{card.emoji}</div>
-          <div
-            className="mb-2"
-            style={{ fontSize: "16px", fontWeight: 800, color: card.color }}
-          >
-            {card.title}
-          </div>
-          <p
-            className="text-slate-500 mb-4"
-            style={{ fontSize: "12px", lineHeight: 1.6 }}
-          >
-            {card.desc}
-          </p>
-          <div
-            className="flex items-center gap-1 rounded-full px-3 py-1"
+          바로가기
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {quickLinks.map((item) => (
+          <Link
+            key={item.title}
+            to={item.to}
+            className="group rounded-2xl border-2 p-5 shadow-sm hover:shadow-md transition-all"
             style={{
-              background: card.color + "18",
-              color: card.color,
-              fontSize: "12px",
-              fontWeight: 700,
+              background: item.bg,
+              borderColor: item.border,
             }}
           >
-            바로가기 <ChevronRight className="w-3.5 h-3.5" />
-          </div>
-        </Link>
-      ))}
-    </div>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <div className="mb-1" style={{ fontSize: "28px" }}>
+                  {item.emoji}
+                </div>
+                <div
+                  style={{
+                    fontSize: "16px",
+                    fontWeight: 800,
+                    color: item.color,
+                  }}
+                >
+                  {item.title}
+                </div>
+                <p
+                  className="mt-1 text-slate-500"
+                  style={{ fontSize: "12px", lineHeight: 1.6 }}
+                >
+                  {item.desc}
+                </p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-slate-500 transition-colors mt-1" />
+            </div>
+          </Link>
+        ))}
+      </div>
+    </section>
   );
 }
 
-// ─── Event Section ────────────────────────────────────────────────────────────
+// ─── Daily Rewards Data ───────────────────────────────────────────────────────
 const allDailyRewards: { day: number; items: string[] }[] = [
   { day: 1, items: ["[화폐] 자연은 주괴"] },
   {
@@ -451,7 +491,10 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "엘레베이터 블럭",
     ],
   },
-  { day: 5, items: ["가공된 꿀조각", "산삼 씨앗", "뼈 (10개)"] },
+  {
+    day: 5,
+    items: ["가공된 꿀조각", "산삼 씨앗", "뼈 (10개)"],
+  },
   {
     day: 6,
     items: [
@@ -492,7 +535,10 @@ const allDailyRewards: { day: number; items: string[] }[] = [
       "[화폐] 빛나는 다이아 주괴",
     ],
   },
-  { day: 11, items: ["황금 뼈가루 (20개)", "제초기"] },
+  {
+    day: 11,
+    items: ["황금 뼈가루 (20개)", "제초기"],
+  },
   {
     day: 12,
     items: [
@@ -583,53 +629,40 @@ const allDailyRewards: { day: number; items: string[] }[] = [
   {
     day: 22,
     items: [
-      "도토리 (20개)",
-      "폭죽 로켓 (10개)",
-      "[화폐] 화려한 이리듐 주괴",
-      "뼈 (15개)",
-      "우아한 바다진주",
       "일반 소라고동",
+      "상급 두루마리 강화서 [70% 주문서 뽑기]",
+      "[화폐] 화려한 금 주괴 (5개)",
     ],
   },
   {
     day: 23,
     items: [
-      "엘레베이터 블럭",
-      "빛 (5개)",
-      "황금 지렁이",
-      "상급 두루마리 강화서 [70% 주문서 뽑기]",
+      "황금 뼈가루 (20개)",
       "자연 꿀밀랍",
+      "도토리 (15개)",
       "은행 현금 뭉텅이",
     ],
   },
   {
     day: 24,
     items: [
-      "[화폐] 화려한 금 주괴 (2개)",
-      "하급 두루마리 강화서 [50% 주문서 뽑기]",
-      "빛 (5개)",
-      "지렁이 (10개)",
+      "자동심기 기술 주문서 (+5000회)",
+      "[화폐] 화려한 이리듐 주괴",
+      "산삼 씨앗",
     ],
   },
   {
     day: 25,
     items: [
-      "폭죽 로켓 (10개)",
-      "[화폐] 화려한 이리듐 주괴",
-      "양조기",
-      "자연 꿀밀랍",
-      "우아한 바다진주",
+      "의문의 빨강포션",
+      "의문의 파랑포션",
+      "상급 두루마리 강화서 [70% 주문서 뽑기]",
+      "일반 소라고동",
     ],
   },
   {
     day: 26,
-    items: [
-      "중급 두루마리 강화서 [60% 주문서 뽑기]",
-      "상급 두루마리 강화서 [70% 주문서 뽑기]",
-      "반짝반짝 빛나는 거울",
-      "의문의 빨강포션",
-      "[화폐] 빛나는 다이아 주괴",
-    ],
+    items: ["천연 토종꿀", "제초기 (2개)", "반짝반짝 빛나는 거울", "빛 (5개)"],
   },
   {
     day: 27,
@@ -705,8 +738,14 @@ const hottimeExtraRewards = [
   "황금 뼈가루 (15개)",
 ];
 
+// ─── Events Section ───────────────────────────────────────────────────────────
 function EventsSection() {
   const today = new Date().getDate();
+
+  const weekGroup = Math.floor((today - 1) / 7);
+  const startIndex = weekGroup * 7;
+  const visibleRewards = allDailyRewards.slice(startIndex, startIndex + 7);
+  const weekLabel = `${startIndex + 1}~${Math.min(startIndex + 7, 31)}일차`;
 
   return (
     <section>
@@ -721,217 +760,174 @@ function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* ── Left: 일일보상 전체 ──────────────────────────────────────────── */}
-        <div className="lg:col-span-2 bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-amber-100 flex-shrink-0">
+        {/* Left: 주차별 일일보상 */}
+        <div className="lg:col-span-2 bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+          <div
+            className="px-5 py-4 border-b border-amber-200 flex items-center justify-between"
+            style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
+          >
             <div className="flex items-center gap-2">
               <span className="text-lg">🎁</span>
               <span
-                className="text-slate-700"
-                style={{ fontSize: "16px", fontWeight: 700 }}
+                className="text-amber-900"
+                style={{ fontSize: "16px", fontWeight: 800 }}
               >
                 일일보상
               </span>
               <span
-                className="bg-amber-100 text-amber-600 rounded-full px-2 py-0.5"
-                style={{ fontSize: "11px", fontWeight: 700 }}
+                className="rounded-full px-2 py-0.5"
+                style={{
+                  background: "rgba(255,255,255,0.65)",
+                  color: "#92400e",
+                  fontSize: "11px",
+                  fontWeight: 800,
+                }}
               >
-                1~31일차
+                {weekLabel}
               </span>
             </div>
+
             <Link
               to="/daily-rewards"
-              className="flex items-center gap-1 text-amber-600 hover:text-amber-700 transition-colors px-2.5 py-1 rounded-lg hover:bg-amber-50"
+              className="flex items-center gap-1 text-amber-800 hover:text-amber-900 transition-colors px-2.5 py-1 rounded-lg hover:bg-white/40"
               style={{ fontSize: "12px", fontWeight: 700 }}
             >
               전체보기 <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          <div
-            className="divide-y divide-slate-50 overflow-y-auto"
-            style={{ maxHeight: "520px" }}
-          >
-            {allDailyRewards.map((r) => (
+          <div className="divide-y divide-slate-50">
+            {visibleRewards.map((r) => (
               <div
                 key={r.day}
                 className={`flex items-start gap-3 px-5 py-3 transition-colors ${
-                  r.day === today ? "bg-amber-50" : "hover:bg-slate-50/50"
+                  r.day === today ? "bg-amber-50" : "hover:bg-slate-50/60"
                 }`}
               >
-                {/* Day Badge */}
                 <div
-                  className="w-9 h-9 rounded-xl flex flex-col items-center justify-center flex-shrink-0"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{
                     background:
                       r.day === today
                         ? "linear-gradient(135deg, #f5c842, #f59e0b)"
-                        : "linear-gradient(135deg,#f1f5f9,#e2e8f0)",
+                        : "#f1f5f9",
                     color: r.day === today ? "#1a1200" : "#64748b",
                     fontSize: "13px",
                     fontWeight: 900,
                     boxShadow:
                       r.day === today
-                        ? "0 2px 8px rgba(245,200,66,0.4)"
+                        ? "0 2px 10px rgba(245, 158, 11, 0.35)"
                         : "none",
                   }}
                 >
                   {r.day}
                 </div>
 
-                {/* Items */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap gap-1 pt-1">
-                    {r.items.map((item, idx) => (
+                  <div
+                    className="mb-1"
+                    style={{
+                      fontSize: "13px",
+                      fontWeight: 700,
+                      color: r.day === today ? "#92400e" : "#334155",
+                    }}
+                  >
+                    {r.day}일차 보상
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5">
+                    {r.items.map((item) => (
                       <span
-                        key={idx}
-                        className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(item)}`}
-                        style={{
-                          fontSize: "11px",
-                          fontWeight: 600,
-                          lineHeight: 1.5,
-                        }}
+                        key={item}
+                        className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                          item,
+                        )}`}
+                        style={{ fontSize: "11px", fontWeight: 600 }}
                       >
                         {item}
                       </span>
                     ))}
                   </div>
                 </div>
-
-                {r.day === today && (
-                  <span
-                    className="flex-shrink-0 rounded-full px-2 py-0.5 mt-1"
-                    style={{
-                      background: "linear-gradient(135deg, #f5c842, #f59e0b)",
-                      color: "#1a1200",
-                      fontSize: "10px",
-                      fontWeight: 800,
-                    }}
-                  >
-                    오늘!
-                  </span>
-                )}
               </div>
             ))}
           </div>
-
-          <div className="px-5 py-3 border-t border-amber-50 flex-shrink-0">
-            <Link
-              to="/daily-rewards"
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl transition-all hover:shadow-md"
-              style={{
-                background: "linear-gradient(135deg, #fef3c7, #fde68a)",
-                color: "#92400e",
-                fontSize: "13px",
-                fontWeight: 700,
-              }}
-            >
-              📅 1일 ~ 31일 전체 보상 보기
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
         </div>
 
-        {/* ── Right: 마인리스트 + 핫타임 ──────────────────────────────── */}
-        <div className="flex flex-col gap-5">
-          {/* 마인리스트 추천 보상 */}
-          <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-            <div
-              className="px-4 py-3.5 border-b border-amber-100"
-              style={{
-                background: "linear-gradient(135deg, #fffef5, #fef9c3)",
-              }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">👍</span>
-                <div>
-                  <div
-                    className="text-slate-700"
-                    style={{ fontSize: "14px", fontWeight: 700 }}
-                  >
-                    마인리스트 추천 보상
-                  </div>
-                  <div
-                    className="text-amber-600"
-                    style={{ fontSize: "10px", fontWeight: 600 }}
-                  >
-                    minelist.kr 추천 시 지급
-                  </div>
-                </div>
+        {/* Right: other event cards */}
+        <div className="space-y-4">
+          <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">🌐</span>
+              <div
+                className="text-slate-700"
+                style={{ fontSize: "15px", fontWeight: 800 }}
+              >
+                마인리스트 추천 보상
               </div>
             </div>
-            <div className="px-4 py-3">
-              <div className="flex flex-wrap gap-1.5">
-                {minelistRewards.map((item) => (
-                  <span
-                    key={item}
-                    className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(item)}`}
-                    style={{ fontSize: "11px", fontWeight: 600 }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
+            <p
+              className="text-slate-500 mb-3"
+              style={{ fontSize: "12px", lineHeight: 1.6 }}
+            >
+              마인리스트 추천 참여 시 받을 수 있는 전체지급 보상이에요.
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {minelistRewards.map((item) => (
+                <span
+                  key={item}
+                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                    item,
+                  )}`}
+                  style={{ fontSize: "11px", fontWeight: 600 }}
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
 
-          {/* 핫타임 보상 */}
-          <div className="bg-white border-2 border-rose-200 rounded-2xl overflow-hidden shadow-sm">
-            <div
-              className="px-4 py-3.5 border-b border-rose-100"
-              style={{
-                background: "linear-gradient(135deg, #fff5f5, #fee2e2)",
-              }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🔥</span>
-                <div>
-                  <div
-                    className="text-slate-700"
-                    style={{ fontSize: "14px", fontWeight: 700 }}
-                  >
-                    핫타임 보상
-                  </div>
-                  <div
-                    className="text-rose-500"
-                    style={{ fontSize: "10px", fontWeight: 600 }}
-                  >
-                    핫타임 접속 시 지급
-                  </div>
-                </div>
+          <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">🔥</span>
+              <div
+                className="text-slate-700"
+                style={{ fontSize: "15px", fontWeight: 800 }}
+              >
+                핫타임 보상
               </div>
             </div>
-            <div className="px-4 py-3 space-y-3">
-              <div className="flex flex-wrap gap-1.5">
-                {hottimeRewards.map((item) => (
-                  <span
-                    key={item}
-                    className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(item)}`}
-                    style={{ fontSize: "11px", fontWeight: 600 }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <div className="pt-2 border-t border-rose-50">
-                <div
-                  className="text-slate-500 mb-1.5"
-                  style={{ fontSize: "11px", fontWeight: 700 }}
+            <p
+              className="text-slate-500 mb-3"
+              style={{ fontSize: "12px", lineHeight: 1.6 }}
+            >
+              핫타임 이벤트에서 지급되는 대표 보상이에요.
+            </p>
+            <div className="flex flex-wrap gap-1.5 mb-2">
+              {hottimeRewards.map((item) => (
+                <span
+                  key={item}
+                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                    item,
+                  )}`}
+                  style={{ fontSize: "11px", fontWeight: 600 }}
                 >
-                  🎁 마인리스트 추천 시 추가 보상
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {hottimeExtraRewards.map((item) => (
-                    <span
-                      key={item}
-                      className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(item)}`}
-                      style={{ fontSize: "11px", fontWeight: 600 }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                  {item}
+                </span>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
+              {hottimeExtraRewards.map((item) => (
+                <span
+                  key={item}
+                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                    item,
+                  )}`}
+                  style={{ fontSize: "11px", fontWeight: 600 }}
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
@@ -943,59 +939,62 @@ function EventsSection() {
 // ─── Home ─────────────────────────────────────────────────────────────────────
 export function Home() {
   return (
-    <div>
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       {/* Hero */}
-      <div className="relative overflow-hidden" style={{ minHeight: "820px" }}>
+      <section
+        className="relative overflow-hidden"
+        style={{ minHeight: "620px" }}
+      >
         <img
           src={spawnImg}
-          alt="꿀비의 숲 서버"
+          alt="꿀비의 숲 스폰"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 40%" }}
+          style={{ objectPosition: "center 42%" }}
         />
+
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(15,8,0,0.35) 0%, rgba(15,8,0,0.65) 55%, #fff8dc 100%)",
+              "linear-gradient(to bottom, rgba(15,8,0,0.22) 0%, rgba(15,8,0,0.52) 58%, #fff8dc 100%)",
           }}
         />
-        <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-30 pb-28 text-center">
-          <h1
-            className="text-white mb-3"
-            style={{
-              fontSize: "clamp(2rem, 5.5vw, 3rem)",
-              fontWeight: 900,
-              letterSpacing: "-0.5px",
-              lineHeight: 1.15,
-              textShadow: "0 2px 16px rgba(0,0,0,0.8)",
-            }}
-          >
-            꿀비의 숲 위키
-          </h1>
-          <p
-            className="text-amber-200 mb-8"
-            style={{
-              fontSize: "15px",
-              lineHeight: 1.7,
-              fontWeight: 500,
-              textShadow: "0 1px 4px rgba(0,0,0,0.6)",
-            }}
-          >
-            마인팜 꿀비의 숲 · 공식 위키
-          </p>
-          <SearchBar />
+
+        <div className="relative z-10 min-h-[620px] flex items-center justify-center">
+          <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <h1
+              className="text-white mb-3"
+              style={{
+                fontSize: "clamp(2rem, 5.5vw, 3rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.5px",
+                lineHeight: 1.15,
+                textShadow: "0 2px 16px rgba(0,0,0,0.8)",
+              }}
+            >
+              꿀비의 숲 위키
+            </h1>
+
+            <p
+              className="text-amber-200 mb-8"
+              style={{
+                fontSize: "15px",
+                lineHeight: 1.7,
+                fontWeight: 500,
+                textShadow: "0 1px 4px rgba(0,0,0,0.6)",
+              }}
+            >
+              마인팜 꿀비의 숲 공식위키
+            </p>
+
+            <SearchBar />
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Main Content */}
-      <div
-        className="max-w-6xl mx-auto px-4 sm:px-6 pb-16 space-y-10"
-        style={{ marginTop: "-20px", position: "relative", zIndex: 1 }}
-      >
-        {/* Quick Nav */}
-        <QuickNavSection />
-
-        {/* Events Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+        <QuickLinksSection />
         <EventsSection />
       </div>
     </div>

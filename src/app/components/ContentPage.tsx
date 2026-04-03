@@ -1,5 +1,4 @@
-import { useSearchParams, useLocation, Link, useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import { useSearchParams, Link, useNavigate } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -706,1722 +705,57 @@ function BeekeepingContent() {
           className="text-amber-700"
           style={{ fontSize: "14px", lineHeight: 1.8 }}
         >
-          벌집과 꿀벌 생성알을 이용해 꿀을 채집할 수 있어요! 꿀은 다양한 아이템
-          제작 및 판매에 활용됩니다.
+          꿀비의 숲에서는 양봉을 통해 꿀 관련 아이템을 생산할 수 있어요! 일일
+          보상과 아이템 제작에 다양하게 활용됩니다.
         </p>
       </div>
-      <div className="bg-white border border-amber-100 rounded-2xl p-5 shadow-sm">
-        <div
-          className="text-slate-700 mb-4"
-          style={{ fontSize: "15px", fontWeight: 800 }}
-        >
-          📋 양봉 순서
-        </div>
-        <div className="space-y-3">
-          {[
-            {
-              step: 1,
-              title: "벌집 & 꿀벌 생성알 구매",
-              desc: "상점에서 벌집과 꿀벌 생성알을 구매합니다.",
-            },
-            {
-              step: 2,
-              title: "벌집 설치 & 꿀벌 소환",
-              desc: "벌집을 설치한 뒤 꿀벌을 소환하고, 벌집 근처에 꽃을 설치합니다.",
-            },
-            {
-              step: 3,
-              title: "꿀 채집",
-              desc: "꿀이 가득 차면 가위를 들고 벌집을 우클릭하여 벌꿀을 채집할 수 있습니다!",
-            },
-          ].map((s) => (
-            <div
-              key={s.step}
-              className="flex items-start gap-3 p-3 rounded-xl bg-amber-50 border border-amber-100"
-            >
-              <div
-                className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{
-                  background: "#f5c842",
-                  color: "#1a1200",
-                  fontSize: "13px",
-                  fontWeight: 900,
-                }}
-              >
-                {s.step}
-              </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {[
+          {
+            icon: "🏠",
+            title: "벌통 설치",
+            desc: "섬에 벌집 블럭을 설치하고 꿀벌을 유인하세요. 근처에 꽃이 있으면 꿀벌이 활동해요.",
+          },
+          {
+            icon: "🍯",
+            title: "꿀 수확",
+            desc: "벌집에 꿀이 가득 차면 병으로 꿀을 수집할 수 있어요. 분노하지 않게 캠프파이어를 아래에 설치하세요.",
+          },
+          {
+            icon: "🕯️",
+            title: "밀랍 수확",
+            desc: "가위로 벌집을 우클릭하면 밀랍을 수확할 수 있어요. 자연 꿀밀랍은 다양한 아이템 제작에 사용됩니다.",
+          },
+          {
+            icon: "💰",
+            title: "꿀 판매",
+            desc: "수집한 꿀과 밀랍은 상점에서 판매하거나 아이템 제작에 활용하세요. 천연 토종꿀은 고가 아이템이에요!",
+          },
+        ].map((item) => (
+          <div
+            key={item.title}
+            className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm"
+          >
+            <div className="flex items-start gap-3">
+              <span className="text-2xl">{item.icon}</span>
               <div>
                 <div
-                  className="text-slate-700 mb-0.5"
-                  style={{ fontSize: "13px", fontWeight: 700 }}
+                  className="text-slate-700 mb-1"
+                  style={{ fontSize: "14px", fontWeight: 700 }}
                 >
-                  {s.title}
+                  {item.title}
                 </div>
                 <p
                   className="text-slate-500"
-                  style={{ fontSize: "12px", lineHeight: 1.6 }}
+                  style={{ fontSize: "13px", lineHeight: 1.6 }}
                 >
-                  {s.desc}
+                  {item.desc}
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
-          <div
-            className="text-blue-800 mb-1"
-            style={{ fontSize: "13px", fontWeight: 700 }}
-          >
-            💡 벌집 확인
           </div>
-          <p
-            className="text-blue-700"
-            style={{ fontSize: "12px", lineHeight: 1.6 }}
-          >
-            벌집을 맨손으로 우클릭하면 벌집 안을 확인할 수 있어요!
-          </p>
-        </div>
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
-          <div
-            className="text-red-800 mb-1"
-            style={{ fontSize: "13px", fontWeight: 700 }}
-          >
-            ⚠️ 모닥불 주의
-          </div>
-          <p
-            className="text-red-700"
-            style={{ fontSize: "12px", lineHeight: 1.6 }}
-          >
-            벌집 아래 모닥불에 불을 지피지 않은 채로 꿀을 채집하면 꿀벌이 화가
-            나서 독침을 쏘고 죽어버려요!
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Royal Supply Content ─────────────────────────────────────────────────────
-function RoyalSupplyContent() {
-  const royalShopItems = [
-    { name: "상급 두루마리 강화서 [ 70% 뽑기 ]", price: "60 포인트" },
-    { name: "프리미엄 닉네임 변경권", price: "400 포인트" },
-    { name: "신호기", price: "240 포인트" },
-    { name: "자유로운 왕꿀벌", price: "640 포인트" },
-    { name: "칭호 랜덤 뽑기권", price: "300 포인트" },
-    { name: "공룡 치장팩", price: "200 포인트" },
-    { name: "일반 치장팩", price: "200 포인트" },
-    { name: "아기 드라코니 부화알", price: "400 포인트" },
-    { name: "아기 고양이 털뭉치", price: "400 포인트" },
-    { name: "미가공 복구석ㆍ거친 원석", price: "45 포인트" },
-    { name: "미가공 복구석ㆍ고급 원석", price: "300 포인트" },
-    { name: "지구의 머리", price: "30 포인트" },
-    { name: "왕대두 지구", price: "1,500 포인트" },
-    { name: "왕대두 꿀떡", price: "1,500 포인트" },
-  ];
-  return (
-    <div className="space-y-6">
-      <div className="bg-white border-2 border-purple-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-purple-100"
-          style={{ background: "linear-gradient(135deg, #f5f3ff, #ede9fe)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🏛️</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#6d28d9" }}
-            >
-              왕실경매
-            </span>
-          </div>
-        </div>
-        <div className="p-5 space-y-3">
-          {[
-            "왕실경매는 1~3일 마다 진행되며, 랜덤한 아이템을 재화 또는 왕실포인트 중 하나의 방식으로 경매가 진행됩니다.",
-            "경매는 정해진 시간에 종료되며, 종료 직전까지 가장 높은 입찰가를 적은 유저의 우편함에 보상이 지급됩니다.",
-          ].map((text, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-2 text-slate-600"
-              style={{ fontSize: "13px", lineHeight: 1.7 }}
-            >
-              <span className="text-purple-400 flex-shrink-0 mt-0.5">▸</span>{" "}
-              {text}
-            </div>
-          ))}
-          <div className="p-3 rounded-xl bg-purple-50 border border-purple-100">
-            <code
-              className="text-purple-700"
-              style={{ fontSize: "13px", fontWeight: 700 }}
-            >
-              /왕실경매
-            </code>
-            <span className="text-slate-500 ml-2" style={{ fontSize: "12px" }}>
-              명령어로도 경매창을 열 수 있습니다.
-            </span>
-          </div>
-          <div
-            className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center text-slate-400"
-            style={{ fontSize: "13px" }}
-          >
-            🖼️ 경매 입찰 이미지 (추후 추가 예정)
-          </div>
-        </div>
-      </div>
-      <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-amber-100"
-          style={{ background: "linear-gradient(135deg, #fffbeb, #fef3c7)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">📦</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#b45309" }}
-            >
-              왕실납품
-            </span>
-          </div>
-        </div>
-        <div className="p-5 space-y-3">
-          {[
-            "왕실납품은 본인의 숙련도 / 스킬에 따라 하루마다 납품할 수 있는 개수가 정해져 있습니다.",
-            "숙련도 50 당 1개의 아이템을 납품할 수 있으며 해당 포인트로 상점 이용 또는 왕실 경매에서 사용하실 수 있습니다.",
-          ].map((text, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-2 text-slate-600"
-              style={{ fontSize: "13px", lineHeight: 1.7 }}
-            >
-              <span className="text-amber-400 flex-shrink-0 mt-0.5">▸</span>{" "}
-              {text}
-            </div>
-          ))}
-          <div className="p-3 rounded-xl bg-amber-50 border border-amber-100">
-            <code
-              className="text-amber-700"
-              style={{ fontSize: "13px", fontWeight: 700 }}
-            >
-              /왕실포인트
-            </code>
-            <span className="text-slate-500 ml-2" style={{ fontSize: "12px" }}>
-              명령어로 왕실 포인트를 확인할 수 있습니다.
-            </span>
-          </div>
-        </div>
-      </div>
-      <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-amber-100"
-          style={{ background: "linear-gradient(135deg, #fffbeb, #fef3c7)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🛒</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#b45309" }}
-            >
-              왕실상점
-            </span>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr
-                style={{
-                  background: "#fffbef",
-                  borderBottom: "2px solid #fde68a",
-                }}
-              >
-                <th
-                  className="px-4 py-3 text-left text-amber-800"
-                  style={{ fontSize: "12px", fontWeight: 700 }}
-                >
-                  아이템 이름
-                </th>
-                <th
-                  className="px-4 py-3 text-left text-amber-800"
-                  style={{ fontSize: "12px", fontWeight: 700 }}
-                >
-                  구매 가격
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-amber-50">
-              {royalShopItems.map((item) => (
-                <tr
-                  key={item.name}
-                  className="hover:bg-amber-50/40 transition-colors"
-                >
-                  <td
-                    className="px-4 py-2.5 text-slate-700"
-                    style={{ fontSize: "13px" }}
-                  >
-                    {item.name}
-                  </td>
-                  <td className="px-4 py-2.5">
-                    <span
-                      className="bg-purple-100 text-purple-700 rounded-full px-2 py-0.5"
-                      style={{ fontSize: "12px", fontWeight: 700 }}
-                    >
-                      {item.price}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Marriage Content ─────────────────────────────────────────────────────────
-function MarriageContent() {
-  const commands = [
-    { cmd: "/결혼 청혼 [닉네임] [커플이름]", desc: "상대방에게 청혼합니다." },
-    { cmd: "/결혼 수락 [닉네임]", desc: "상대방의 청혼을 수락합니다." },
-    { cmd: "/결혼 거절 [닉네임]", desc: "상대방에게 청혼을 거절합니다." },
-    { cmd: "/결혼 이혼", desc: "결혼한 상대방과 이혼합니다." },
-    { cmd: "/결혼 애정도", desc: "애정도를 확인합니다." },
-    { cmd: "/결혼 텔레포트", desc: "결혼한 상대방에게 텔레포트합니다." },
-    { cmd: "/결혼 채팅", desc: "결혼한 상대방과 채팅합니다." },
-    {
-      cmd: "/결혼 정보 [닉네임]",
-      desc: "다른 유저의 결혼 정보를 확인할 수 있습니다.",
-    },
-  ];
-  const rings = [
-    { name: "사랑의 인장 프리미엄 커플링", price: "29,900 캐시", type: "cash" },
-    { name: "서로의 약속 일반 커플링", price: "50,000,000원", type: "money" },
-  ];
-  return (
-    <div className="space-y-6">
-      <div className="bg-pink-50 border border-pink-200 rounded-2xl p-4">
-        <p
-          className="text-pink-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          💒 <strong>/결혼</strong> 명령어를 통해 다양한 결혼 관련 명령어를 알
-          수 있어요. 결혼 애정도에 따른 숙련도 및 다양한 혜택을 받으실 수
-          있습니다.
-        </p>
-      </div>
-      <div className="bg-white border-2 border-pink-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-pink-100"
-          style={{ background: "linear-gradient(135deg, #fdf2f8, #fce7f3)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💌</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#be185d" }}
-            >
-              결혼 명령어
-            </span>
-          </div>
-        </div>
-        <div className="divide-y divide-pink-50">
-          {commands.map((c) => (
-            <div
-              key={c.cmd}
-              className="flex items-start gap-3 px-5 py-3 hover:bg-pink-50/40 transition-colors"
-            >
-              <code
-                className="rounded-lg px-2 py-0.5 flex-shrink-0"
-                style={{
-                  background: "#fce7f3",
-                  color: "#be185d",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                }}
-              >
-                {c.cmd}
-              </code>
-              <span className="text-slate-600" style={{ fontSize: "13px" }}>
-                {c.desc}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="bg-white border-2 border-pink-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-pink-100"
-          style={{ background: "linear-gradient(135deg, #fdf2f8, #fce7f3)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">💍</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#be185d" }}
-            >
-              반지 (커플링)
-            </span>
-          </div>
-        </div>
-        <div className="p-5 space-y-3">
-          <p className="text-slate-500" style={{ fontSize: "13px" }}>
-            커플링은 결혼식장에서 구매하실 수 있어요.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {rings.map((r) => (
-              <div
-                key={r.name}
-                className="p-4 rounded-xl border-2"
-                style={{
-                  borderColor: r.type === "cash" ? "#f9a8d4" : "#fbcfe8",
-                  background: r.type === "cash" ? "#fdf2f8" : "#fff0f5",
-                }}
-              >
-                <div
-                  className="text-slate-700 mb-1.5"
-                  style={{ fontSize: "13px", fontWeight: 700 }}
-                >
-                  💍 {r.name}
-                </div>
-                <span
-                  className="rounded-full px-2.5 py-0.5"
-                  style={{
-                    background: "#be185d20",
-                    color: "#be185d",
-                    fontSize: "12px",
-                    fontWeight: 800,
-                  }}
-                >
-                  {r.price}
-                </span>
-              </div>
-            ))}
-          </div>
-          <div
-            className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-center text-slate-400"
-            style={{ fontSize: "13px" }}
-          >
-            💍 반지 이미지 (추후 추가 예정)
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Donation King Content ────────────────────────────────────────────────────
-function DonationKingContent() {
-  const traitBenefits = [
-    {
-      trait: "채광",
-      emoji: "⛏️",
-      benefit: "크리스탈 획득 확률 증가",
-      color: "#6366f1",
-    },
-    {
-      trait: "수확",
-      emoji: "🌽",
-      benefit: "산삼씨앗 획득 확률 증가",
-      color: "#16a34a",
-    },
-    {
-      trait: "벌목",
-      emoji: "🪓",
-      benefit: "도토리 획득 확률 증가",
-      color: "#92400e",
-    },
-    {
-      trait: "낚시",
-      emoji: "🎣",
-      benefit: "진주 획득 확률 증가",
-      color: "#0284c7",
-    },
-    {
-      trait: "요리",
-      emoji: "🍳",
-      benefit: "요리 별점 획득 확률 증가",
-      color: "#ea580c",
-    },
-  ];
-  return (
-    <div className="space-y-6">
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <p
-          className="text-amber-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          👑 기부왕은 매달 <strong>1일</strong>과 <strong>16일</strong>에
-          종료됩니다. 기부왕에 가장 많은 돈을 기부한 <strong>1등</strong>에게 약{" "}
-          <strong>15일간</strong>의 기부왕 혜택이 부여됩니다.
-        </p>
-      </div>
-      <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-amber-100"
-          style={{ background: "linear-gradient(135deg, #fffbeb, #fef3c7)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🎁</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#b45309" }}
-            >
-              기부왕 혜택
-            </span>
-          </div>
-        </div>
-        <div className="p-5">
-          <div className="p-3 rounded-xl bg-amber-50 border border-amber-100 mb-4">
-            <div
-              className="text-amber-800"
-              style={{ fontSize: "14px", fontWeight: 700 }}
-            >
-              ✨ 특성 경험치 15% 추가 획득 + 특성별 효과
-            </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {traitBenefits.map((t) => (
-              <div
-                key={t.trait}
-                className="flex items-center gap-3 p-3 rounded-xl border-2"
-                style={{
-                  borderColor: t.color + "40",
-                  background: t.color + "0a",
-                }}
-              >
-                <span className="text-2xl">{t.emoji}</span>
-                <div>
-                  <div
-                    style={{
-                      fontSize: "13px",
-                      fontWeight: 700,
-                      color: t.color,
-                    }}
-                  >
-                    {t.trait} 특성
-                  </div>
-                  <div className="text-slate-500" style={{ fontSize: "12px" }}>
-                    {t.benefit}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 p-3 rounded-xl bg-green-50 border border-green-100">
-            <p
-              className="text-green-700"
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              🍀 기부왕 혜택의 확률은 기본 드랍 확률의 약{" "}
-              <strong>30% 추가</strong>입니다!
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Parkour Content ──────────────────────────────────────────────────────────
-function ParkourContent() {
-  const rankRewards = [
-    { rank: "🥇 1등", coins: 30 },
-    { rank: "🥈 2등", coins: 20 },
-    { rank: "🥉 3등", coins: 10 },
-    { rank: "4~10등", coins: 5 },
-  ];
-  const shopItems = [
-    { name: "스킨 제거 가위", price: "10개" },
-    { name: "다이너마이트", price: "3개" },
-    { name: "천연 토종꿀", price: "1개" },
-    { name: "최상급 두루마리 강화서 [ 80% ]", price: "10개" },
-    { name: "프리미엄 닉네임 변경권 ( 1회용 )", price: "50개" },
-    { name: "엘레베이터 블럭", price: "2개" },
-    { name: "엔더 상자", price: "3개" },
-    { name: "[ 경작 ] 허수아비 괭이", price: "30개" },
-    { name: "마술봉 원터치 막대", price: "35개" },
-    { name: "무한의 겉날개", price: "25개" },
-  ];
-  return (
-    <div className="space-y-6">
-      <div className="bg-orange-50 border border-orange-200 rounded-2xl p-4">
-        <p
-          className="text-orange-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          🏃 스폰 파쿠르는 매주 <strong>일요일 오후 10시</strong>에 자동으로
-          순위가 초기화됩니다!
-        </p>
-      </div>
-      <div className="bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-orange-100"
-          style={{ background: "linear-gradient(135deg, #fff7ed, #ffedd5)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🏆</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#c2410c" }}
-            >
-              순위별 보상
-            </span>
-            <span
-              className="bg-orange-100 text-orange-600 rounded-full px-2 py-0.5"
-              style={{ fontSize: "11px", fontWeight: 700 }}
-            >
-              점핑 점핑 파쿠르 번개 코인
-            </span>
-          </div>
-        </div>
-        <div className="p-5 grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {rankRewards.map((r) => (
-            <div
-              key={r.rank}
-              className="p-4 rounded-xl text-center"
-              style={{ background: "#fff7ed", border: "2px solid #fed7aa" }}
-            >
-              <div
-                className="text-slate-700 mb-1"
-                style={{ fontSize: "14px", fontWeight: 700 }}
-              >
-                {r.rank}
-              </div>
-              <div
-                style={{ fontSize: "22px", fontWeight: 900, color: "#ea580c" }}
-              >
-                {r.coins}
-              </div>
-              <div className="text-slate-400" style={{ fontSize: "11px" }}>
-                번개 코인
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-orange-100"
-          style={{ background: "linear-gradient(135deg, #fff7ed, #ffedd5)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🛒</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#c2410c" }}
-            >
-              파쿠르 상점
-            </span>
-          </div>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr
-                style={{
-                  background: "#fff7ed",
-                  borderBottom: "2px solid #fed7aa",
-                }}
-              >
-                <th
-                  className="px-4 py-3 text-left text-orange-800"
-                  style={{ fontSize: "12px", fontWeight: 700 }}
-                >
-                  아이템 이름
-                </th>
-                <th
-                  className="px-4 py-3 text-left text-orange-800"
-                  style={{ fontSize: "12px", fontWeight: 700 }}
-                >
-                  구매 가격 (번개 코인)
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-orange-50">
-              {shopItems.map((item) => (
-                <tr
-                  key={item.name}
-                  className="hover:bg-orange-50/40 transition-colors"
-                >
-                  <td
-                    className="px-4 py-2.5 text-slate-700"
-                    style={{ fontSize: "13px" }}
-                  >
-                    {item.name}
-                  </td>
-                  <td className="px-4 py-2.5">
-                    <span
-                      className="bg-orange-100 text-orange-700 rounded-full px-2 py-0.5"
-                      style={{ fontSize: "12px", fontWeight: 700 }}
-                    >
-                      {item.price}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Blockwars Content ────────────────────────────────────────────────────────
-function BlockwarsContent() {
-  return (
-    <div className="space-y-6">
-      <div className="bg-white border-2 border-red-200 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-red-100"
-          style={{ background: "linear-gradient(135deg, #fef2f2, #fecaca)" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">⚔️</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#dc2626" }}
-            >
-              블럭워즈란?
-            </span>
-          </div>
-        </div>
-        <div className="p-5">
-          <p
-            className="text-slate-600"
-            style={{ fontSize: "14px", lineHeight: 1.8 }}
-          >
-            블럭워즈는 특정 맵에서 모든 블럭을 설치 및 파괴를 하며 유저들과{" "}
-            <strong>PVP</strong>를 즐길 수 있는 공간입니다.
-          </p>
-        </div>
-      </div>
-      <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
-        <div
-          className="text-red-800 mb-3"
-          style={{ fontSize: "14px", fontWeight: 800 }}
-        >
-          🚫 금지 행위
-        </div>
-        <div className="space-y-2">
-          {["잠금 또는 입구 막기 금지", "물 테러 금지"].map((rule) => (
-            <div
-              key={rule}
-              className="flex items-center gap-2 text-red-700"
-              style={{ fontSize: "13px" }}
-            >
-              <span
-                className="w-5 h-5 rounded-full bg-red-200 flex items-center justify-center flex-shrink-0 text-red-700"
-                style={{ fontSize: "10px", fontWeight: 800 }}
-              >
-                ✕
-              </span>
-              {rule}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ─── Altar Content ────────────────────────────────────────────────────────────
-function AltarContent() {
-  const [subTab, setSubTab] = useState<"points" | "rank" | "level" | "priest">(
-    "points",
-  );
-  const { hash } = useLocation();
-
-  // hash → sub-tab 전환
-  useEffect(() => {
-    const h = hash.slice(1);
-    if (h.startsWith("sect-altar-rank")) setSubTab("rank");
-    else if (h.startsWith("sect-altar-level")) setSubTab("level");
-    else if (h.startsWith("sect-altar-priest")) setSubTab("priest");
-    else if (h.startsWith("sect-altar-")) setSubTab("points");
-  }, [hash]);
-
-  // sub-tab 렌더 후 해당 요소로 스크롤
-  useEffect(() => {
-    if (!hash) return;
-    const id = hash.slice(1);
-    const timer = setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [subTab, hash]);
-
-  const basicPoints = [
-    { name: "구운 감자", pts: "1.5" },
-    { name: "당근", pts: "1" },
-    { name: "감자", pts: "1" },
-    { name: "대나무", pts: "1" },
-    { name: "사탕수수", pts: "1" },
-    { name: "네더사마귀", pts: "1.5" },
-    { name: "네더사마귀 블록", pts: "13.5" },
-    { name: "호박", pts: "2" },
-    { name: "코코아콩", pts: "2" },
-    { name: "독이 있는 감자", pts: "5" },
-    { name: "수박", pts: "2.5" },
-    { name: "황금 당근", pts: "6" },
-    { name: "사탕무", pts: "8" },
-    { name: "밀", pts: "6" },
-    { name: "빵", pts: "20" },
-    { name: "사과", pts: "30" },
-    { name: "사탕무 수프", pts: "40" },
-    { name: "건초 더미", pts: "54" },
-    { name: "정령", pts: "5,000" },
-    { name: "미식가의 별", pts: "70,000" },
-  ];
-  const customCropPoints = [
-    ["토마토", "80", "160", "400"],
-    ["옥수수", "80", "160", "400"],
-    ["가지", "80", "160", "400"],
-    ["고구마", "80", "160", "400"],
-    ["파프리카", "80", "160", "400"],
-    ["양배추", "100", "200", "450"],
-    ["쌀", "100", "200", "450"],
-    ["양파", "100", "200", "450"],
-    ["고추", "60", "120", "300"],
-    ["배추", "120", "250", "600"],
-    ["무", "120", "250", "600"],
-    ["콩", "50", "100", "240"],
-    ["마늘", "70", "140", "300"],
-    ["파", "70", "140", "300"],
-    ["산삼", "6,000", "12,000", "40,000"],
-  ];
-  const rareGiantPoints = [
-    ["토마토", "1,200", "5,000"],
-    ["옥수수", "1,200", "5,000"],
-    ["가지", "1,200", "5,000"],
-    ["고구마", "1,200", "5,000"],
-    ["파프리카", "1,200", "5,000"],
-    ["양배추", "1,600", "7,000"],
-    ["쌀", "1,600", "7,000"],
-    ["양파", "1,600", "7,000"],
-    ["고추", "900", "3,000"],
-    ["배추", "2,200", "10,000"],
-    ["무", "2,200", "10,000"],
-    ["콩", "1,000", "5,000"],
-    ["마늘", "1,250", "4,000"],
-    ["파", "1,250", "4,000"],
-    ["산삼", "100,000", "500,000"],
-  ];
-  const cookingPoints = [
-    { name: "김치", pts: "1,500" },
-    { name: "깍두기", pts: "1,200" },
-    { name: "수박주스", pts: "60" },
-    { name: "시리얼", pts: "540" },
-    { name: "코울슬로", pts: "330" },
-    { name: "또띠아", pts: "400" },
-    { name: "타코", pts: "1,000" },
-    { name: "애플파이", pts: "3,000" },
-    { name: "감자튀김", pts: "188" },
-    { name: "야채튀김", pts: "750" },
-    { name: "자른당근", pts: "30" },
-    { name: "라면", pts: "630" },
-    { name: "미역국", pts: "225" },
-    { name: "육개장", pts: "420" },
-    { name: "오믈렛", pts: "600" },
-  ];
-  const rankRewards: {
-    rank: string;
-    emoji: string;
-    cash?: string;
-    scroll?: string;
-    items: string[];
-  }[] = [
-    {
-      rank: "1등",
-      emoji: "🥇",
-      cash: "50,000캐시",
-      scroll: "증폭된 주문서 [ 70% | 성공70 실패30 파괴0 ] 1개",
-      items: [
-        "천연 토종꿀 8개",
-        "마법의 소라고동 10개",
-        "의문의 빨강포션 4개",
-        "신호기 1개",
-        "미스틱 프로텍트 배리어 2개",
-        "폭죽 로켓 60개",
-        "의문의 벨소리 4개",
-        "[ 화폐 ] 빛나는 다이아 주괴 128개",
-        "빛 블록 40개",
-        "최상급 두루마리 강화서 [ 80% ] 10개",
-        "의문의 파랑포션 4개",
-        "반짝반짝 빛나는 거울 2개",
-        "엘레베이터 블럭 6개",
-        "명장 복구석ㆍ불멸의 빛 3개",
-        "경쟁전 트로피 토큰 100개",
-        "은행 현금 뭉텅이 10개",
-      ],
-    },
-    {
-      rank: "2등",
-      emoji: "🥈",
-      cash: "30,000캐시",
-      scroll: "증폭된 주문서 [ 60% | 성공60 실패40 파괴0 ] 1개",
-      items: [
-        "천연 토종꿀 8개",
-        "의문의 빨강포션 2개",
-        "신호기 1개",
-        "럭키 프로텍트 쉴드 1개",
-        "최상급 두루마리 강화서 [ 80% ] 7개",
-        "빛 블록 30개",
-        "은행 현금 뭉텅이 6개",
-        "의문의 파랑포션 2개",
-        "엘레베이터 블럭 5개",
-        "명장 복구석 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 100개",
-        "경쟁전 트로피 토큰 60개",
-        "폭죽 로켓 40개",
-        "마법의 소라고동 8개",
-        "의문의 벨소리 2개",
-        "반짝반짝 빛나는 거울 2개",
-        "장인의 복구석 2개",
-      ],
-    },
-    {
-      rank: "3등",
-      emoji: "🥉",
-      cash: "10,000캐시",
-      scroll: "증폭된 주문서 [ 50% | 성공50 실패50 파괴0 ] 1개",
-      items: [
-        "천연 토종꿀 6개",
-        "최상급 두루마리 강화서 [ 80% ] 3개",
-        "빛 블록 15개",
-        "폭죽 로켓 40개",
-        "엘레베이터 블럭 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 80개",
-        "경쟁전 트로피 토큰 50개",
-        "장인의 복구석 3개",
-        "마법의 소라고동 6개",
-        "은행 현금 뭉텅이 3개",
-        "의문의 빨강포션 1개",
-        "의문의 파랑포션 1개",
-        "의문의 벨소리 1개",
-        "반짝반짝 빛나는 거울 1개",
-      ],
-    },
-    {
-      rank: "4등",
-      emoji: "4️⃣",
-      items: [
-        "폭죽 로켓 20개",
-        "상급 두루마리 강화서 [ 70% ] 3개",
-        "최상급 두루마리 강화서 [ 80% ] 3개",
-        "의문의 파랑포션 1개",
-        "엘레베이터 블럭 1개",
-        "경쟁전 트로피 토큰 40개",
-        "마법의 소라고동 4개",
-        "빛 블록 15개",
-        "천연 토종꿀 4개",
-        "의문의 빨강포션 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 70개",
-        "은행 현금 뭉텅이 2개",
-        "장인의 복구석 2개",
-      ],
-    },
-    {
-      rank: "5등",
-      emoji: "5️⃣",
-      items: [
-        "폭죽 로켓 10개",
-        "최상급 두루마리 강화서 [ 80% ] 3개",
-        "상급 두루마리 강화서 [ 70% ] 2개",
-        "엘레베이터 블럭 1개",
-        "경쟁전 트로피 토큰 40개",
-        "마법의 소라고동 3개",
-        "빛 블록 15개",
-        "의문의 빨강포션 1개",
-        "의문의 파랑포션 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 70개",
-        "은행 현금 뭉텅이 2개",
-        "장인의 복구석 2개",
-      ],
-    },
-    {
-      rank: "6등",
-      emoji: "6️⃣",
-      items: [
-        "폭죽 로켓 10개",
-        "상급 두루마리 강화서 [ 70% ] 2개",
-        "최상급 두루마리 강화서 [ 80% ] 2개",
-        "경쟁전 트로피 토큰 30개",
-        "빛 블록 6개",
-        "천연 토종꿀 2개",
-        "은행 현금 뭉텅이 2개",
-        "전문가 복구석ㆍ장인의 손길 4개",
-        "의문의 빨강포션 1개",
-        "의문의 파랑포션 1개",
-        "마법의 소라고동 2개",
-        "[ 화폐 ] 빛나는 다이아 주괴 60개",
-      ],
-    },
-    {
-      rank: "7등",
-      emoji: "7️⃣",
-      items: [
-        "폭��� 로켓 8개",
-        "상급 두루마리 강화서 [ 70% ] 2개",
-        "최상급 두루마리 강화서 [ 80% ] 2개",
-        "경쟁전 트로피 토큰 30개",
-        "빛 블록 2개",
-        "천연 토종꿀 1개",
-        "은행 현금 뭉텅이 1개",
-        "일반 소라고동 2개",
-        "의문의 빨강포션 1개",
-        "의문의 파랑포션 1개",
-        "전문가 복구석ㆍ장인의 손길 3개",
-        "[ 화폐 ] 빛나는 다이아 주괴 60개",
-      ],
-    },
-    {
-      rank: "8~10등",
-      emoji: "🎖️",
-      items: [
-        "폭죽 로켓 6개",
-        "상급 두루마리 강화서 [ 70% ] 2개",
-        "최상급 두루마리 강화서 [ 80% ] 1개",
-        "경쟁전 트로피 토큰 20개",
-        "빛 블록 2개",
-        "전문가 복구석ㆍ장인의 손길 2개",
-        "천연 토종꿀 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 50개",
-        "은행 현금 뭉텅이 1개",
-        "일반 소라고동 2개",
-        "의문의 파랑포션 1개",
-      ],
-    },
-  ];
-  const levelRewards = [
-    {
-      pts: "1,000",
-      items: ["뼈다귀 3개", "[ 화폐 ] 자연동 주괴 3개", "경험치 병 7개"],
-    },
-    {
-      pts: "5,000",
-      items: ["뼈다귀 5개", "[ 화폐 ] 자연은 주괴 1개", "경험치 병 1개"],
-    },
-    {
-      pts: "10,000",
-      items: ["뼈다귀 5개", "[ 화폐 ] 화려한 금 주괴 1개", "경험치 병 2개"],
-    },
-    {
-      pts: "50,000",
-      items: [
-        "뼈다귀 5개",
-        "[ 화폐 ] 화려한 금 주괴 3개",
-        "경험치 병 5개",
-        "폭죽 로켓 3개",
-      ],
-    },
-    {
-      pts: "100,000",
-      items: [
-        "뼈다귀 5개",
-        "[ 화폐 ] 화려한 금 주괴 4개",
-        "경험치 병 1개",
-        "폭죽 로켓 3개",
-        "가공된 꿀조각 1개",
-      ],
-    },
-    {
-      pts: "300,000",
-      items: [
-        "뼈다귀 5개",
-        "경험치 병 20개",
-        "폭죽 로켓 3개",
-        "자동심기 기술 주문서 (+1000회) 1개",
-        "엘레베이터 블럭 1개",
-      ],
-    },
-    {
-      pts: "500,000",
-      items: [
-        "뼈다귀 2개",
-        "경험치 병 4개",
-        "폭죽 로켓 3개",
-        "자연 꿀밀랍 1개",
-        "은행 현금 뭉텅이 1개",
-        "일반 복구석ㆍ깨진 조각의 희망 5개",
-      ],
-    },
-    {
-      pts: "1,000,000",
-      items: [
-        "[ 화폐 ] 화려한 이리듐 주괴 1개",
-        "천연 토종꿀 1개",
-        "뼈다귀 4개",
-        "일반 소라고동 1개",
-      ],
-    },
-    {
-      pts: "1,500,000",
-      items: [
-        "하급 두루마리 강화서 [ 50% ] 1개",
-        "빛 블럭 1개",
-        "천연 토종꿀 1개",
-        "[ 화폐 ] 화려한 금 주괴 3개",
-        "폭죽 로켓 5개",
-      ],
-    },
-    {
-      pts: "2,000,000",
-      items: [
-        "빛 블럭 3개",
-        "폭죽 로켓 5개",
-        "뼈다귀 21개",
-        "경험치 병 3개",
-        "일반 소라고동 2개",
-        "중급 두루마리 강화서 [ 60% ] 1개",
-      ],
-    },
-    {
-      pts: "2,500,000",
-      items: [
-        "자동심기 기술 주문서 (+3000회) 1개",
-        "천연 토종꿀 1개",
-        "폭죽 로켓 5개",
-        "[ 화폐 ] 화려한 이리듐 주괴 1개",
-        "반짝반짝 빛나는 거울 1개",
-        "일반 복구석ㆍ깨진 조각의 희망 10개",
-      ],
-    },
-    {
-      pts: "3,000,000",
-      items: [
-        "양조기 1개",
-        "하급 두루마리 강화서 [ 50% ] 1개",
-        "경험치 병 2개",
-        "빛 블럭 3개",
-        "엘레베이터 블럭 1개",
-        "은행 현금 뭉텅이 1개",
-      ],
-    },
-    {
-      pts: "3,500,000",
-      items: [
-        "[ 화폐 ] 화려한 이리듐 주괴 1개",
-        "중급 두루마리 강화서 [ 60% ] 1개",
-        "뼈다귀 1개",
-        "경험치 병 2개",
-        "천연 토종꿀 2개",
-        "엘레베이터 블럭 1개",
-      ],
-    },
-    {
-      pts: "4,000,000",
-      items: [
-        "엔더상자 1개",
-        "하급 두루마리 강화서 [ 50% ] 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 1개",
-        "자연 꿀밀랍 1개",
-        "천연 토종꿀 2개",
-      ],
-    },
-    {
-      pts: "5,000,000",
-      items: [
-        "중급 두루마리 강화서 [ 60% ] 1개",
-        "빛 블럭 3개",
-        "뼈다귀 7개",
-        "경험치 병 10개",
-        "하급 두루마리 강화서 [ 50% ] 1개",
-        "[ 화폐 ] 화려한 이리듐 주괴 1개",
-        "일반 복구석ㆍ깨진 조각의 희망 15개",
-      ],
-    },
-    {
-      pts: "6,000,000",
-      items: [
-        "은행 현금 뭉텅이 1개",
-        "엘레베이터 블럭 1개",
-        "빛 블럭 5개",
-        "양조기 1개",
-        "의문의 빨강포션 1개",
-      ],
-    },
-    {
-      pts: "7,000,000",
-      items: [
-        "상급 두루마리 강화서 [ 70% ] 1개",
-        "엔더상자 1개",
-        "일반 소라고동 3개",
-        "천연 토종꿀 3개",
-        "양조기 1개",
-      ],
-    },
-    {
-      pts: "10,000,000",
-      items: [
-        "의문의 빨강포션 1개",
-        "은행 현금 뭉텅이 2개",
-        "반짝반짝 빛나는 거울 1개",
-        "뼈다귀 1개",
-        "중급 두루마리 강화서 [ 60% ] 1개",
-        "전문가 복구석ㆍ장인의 손길 1개",
-      ],
-    },
-    {
-      pts: "12,000,000",
-      items: [
-        "일반 소라고동 3개",
-        "[ 화폐 ] 빛나는 다이아 주괴 1개",
-        "천연 토종꿀 3개",
-        "은행 현금 뭉텅이 3개",
-        "상급 두루마리 강화서 [ 70% ] 1개",
-        "엘레베이터 블럭 1개",
-        "전문가 복구석ㆍ장인의 손길 1개",
-      ],
-    },
-    {
-      pts: "15,000,000",
-      items: [
-        "최상급 두루마리 강화서 [ 80% ] 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 2개",
-        "엘레베이터 블럭 1개",
-        "의문의 파랑포션 1개",
-        "마법의 소라고동 1개",
-        "폭죽 로켓 10개",
-      ],
-    },
-    {
-      pts: "20,000,000",
-      items: [
-        "마법의 소라고동 1개",
-        "최상급 두루마리 강화서 [ 80% ] 1개",
-        "은행 현금 뭉텅이 3개",
-        "의문의 벨소리 1개",
-        "[ 화폐 ] 빛나는 다이아 주괴 3개",
-        "럭키 프로텍트 쉴드 1개",
-        "장인의 복구석ㆍ세월이 깃든 연마 1개",
-      ],
-    },
-  ];
-
-  function getBadge(item: string) {
-    if (item.includes("화폐") || item.includes("주괴"))
-      return "bg-amber-100 text-amber-800 border border-amber-200";
-    if (item.includes("강화서") || item.includes("주문서"))
-      return "bg-violet-100 text-violet-800 border border-violet-200";
-    if (item.includes("소라고동"))
-      return "bg-cyan-100 text-cyan-800 border border-cyan-200";
-    if (
-      item.includes("토종꿀") ||
-      item.includes("꿀밀랍") ||
-      item.includes("꿀조각")
-    )
-      return "bg-yellow-100 text-yellow-800 border border-yellow-200";
-    if (item.includes("복구석"))
-      return "bg-purple-100 text-purple-800 border border-purple-200";
-    if (item.includes("트로피") || item.includes("토큰"))
-      return "bg-orange-100 text-orange-800 border border-orange-200";
-    if (item.includes("포션"))
-      return "bg-red-100 text-red-800 border border-red-200";
-    if (item.includes("캐시"))
-      return "bg-pink-100 text-pink-800 border border-pink-200";
-    if (item.includes("폭죽") || item.includes("빛 블"))
-      return "bg-sky-100 text-sky-800 border border-sky-200";
-    if (item.includes("현금"))
-      return "bg-green-100 text-green-800 border border-green-200";
-    return "bg-slate-100 text-slate-700 border border-slate-200";
-  }
-
-  const subTabs = [
-    { key: "points" as const, label: "공물 포인트", emoji: "📊" },
-    { key: "rank" as const, label: "순위 보상", emoji: "🏆" },
-    { key: "level" as const, label: "레벨 보상", emoji: "🌟" },
-    { key: "priest" as const, label: "사제 상점", emoji: "⚜️" },
-  ];
-
-  return (
-    <div className="space-y-5">
-      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
-        <p
-          className="text-slate-600"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          🏛️ 제단에 공물을 바쳐 <strong>경쟁 포인트</strong>를 획득하고 순위를
-          올려보세요. 시즌 종료 시 순위 보상과 레벨별 보상을 받을 수 있습니다.
-        </p>
-      </div>
-      <div className="flex flex-wrap gap-1.5 p-2 bg-white border-2 border-stone-200 rounded-2xl">
-        {subTabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setSubTab(t.key)}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all"
-            style={{
-              background: subTab === t.key ? "#78716c" : "transparent",
-              color: subTab === t.key ? "#fff" : "#78716c",
-              border: "2px solid #78716c40",
-              fontSize: "13px",
-              fontWeight: subTab === t.key ? 700 : 500,
-            }}
-          >
-            <span>{t.emoji}</span>
-            <span>{t.label}</span>
-          </button>
         ))}
       </div>
-
-      {subTab === "points" && (
-        <div className="space-y-4">
-          <div
-            id="sect-altar-basic-items"
-            className="bg-white border-2 border-stone-200 rounded-2xl overflow-hidden shadow-sm"
-          >
-            <div
-              className="px-5 py-3.5 border-b border-stone-100"
-              style={{ background: "linear-gradient(135deg,#fafaf9,#f5f5f4)" }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🌾</span>
-                <span
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 800,
-                    color: "#44403c",
-                  }}
-                >
-                  기본 아이템
-                </span>
-              </div>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr
-                    style={{
-                      background: "#fafaf9",
-                      borderBottom: "2px solid #e7e5e4",
-                    }}
-                  >
-                    <th
-                      className="px-4 py-2.5 text-left text-stone-600"
-                      style={{ fontSize: "11px", fontWeight: 700 }}
-                    >
-                      아이템 이름
-                    </th>
-                    <th
-                      className="px-4 py-2.5 text-right text-stone-600"
-                      style={{ fontSize: "11px", fontWeight: 700 }}
-                    >
-                      경쟁 포인트
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-stone-50">
-                  {basicPoints.map((r) => (
-                    <tr
-                      key={r.name}
-                      className="hover:bg-stone-50/50 transition-colors"
-                    >
-                      <td
-                        className="px-4 py-2 text-slate-700"
-                        style={{ fontSize: "13px" }}
-                      >
-                        {r.name}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        <span
-                          className="bg-stone-100 text-stone-700 rounded-full px-2 py-0.5"
-                          style={{ fontSize: "12px", fontWeight: 700 }}
-                        >
-                          {r.pts}pt
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div
-            id="sect-altar-custom-crops"
-            className="bg-white border-2 border-green-200 rounded-2xl overflow-hidden shadow-sm"
-          >
-            <div
-              className="px-5 py-3.5 border-b border-green-100"
-              style={{ background: "linear-gradient(135deg,#f0fdf4,#dcfce7)" }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🌽</span>
-                <span
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 800,
-                    color: "#15803d",
-                  }}
-                >
-                  커스텀 농작물 (일반/실버/골드)
-                </span>
-              </div>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr
-                    style={{
-                      background: "#f0fdf4",
-                      borderBottom: "2px solid #bbf7d0",
-                    }}
-                  >
-                    {["작물 이름", "일반", "실버", "골드"].map((h, i) => (
-                      <th
-                        key={h}
-                        className={`px-4 py-2.5 text-green-700 ${i === 0 ? "text-left" : "text-right"}`}
-                        style={{ fontSize: "11px", fontWeight: 700 }}
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-green-50">
-                  {customCropPoints.map((r) => (
-                    <tr
-                      key={r[0]}
-                      className="hover:bg-green-50/40 transition-colors"
-                    >
-                      <td
-                        className="px-4 py-2 text-slate-700"
-                        style={{ fontSize: "13px" }}
-                      >
-                        {r[0]}
-                      </td>
-                      {[r[1], r[2], r[3]].map((v, i) => (
-                        <td
-                          key={i}
-                          className="px-4 py-2 text-right"
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            color: ["#16a34a", "#0284c7", "#d97706"][i],
-                          }}
-                        >
-                          {v}pt
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-            <div
-              className="px-5 py-3.5 border-b border-amber-100"
-              style={{ background: "linear-gradient(135deg,#fffbeb,#fef3c7)" }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">⭐</span>
-                <span
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 800,
-                    color: "#b45309",
-                  }}
-                >
-                  커스텀 농작물 (희귀/대형)
-                </span>
-              </div>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr
-                    style={{
-                      background: "#fffbef",
-                      borderBottom: "2px solid #fde68a",
-                    }}
-                  >
-                    {["작물 이름", "희귀", "대형"].map((h, i) => (
-                      <th
-                        key={h}
-                        className={`px-4 py-2.5 text-amber-700 ${i === 0 ? "text-left" : "text-right"}`}
-                        style={{ fontSize: "11px", fontWeight: 700 }}
-                      >
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-amber-50">
-                  {rareGiantPoints.map((r) => (
-                    <tr
-                      key={r[0]}
-                      className="hover:bg-amber-50/40 transition-colors"
-                    >
-                      <td
-                        className="px-4 py-2 text-slate-700"
-                        style={{ fontSize: "13px" }}
-                      >
-                        {r[0]}
-                      </td>
-                      <td
-                        className="px-4 py-2 text-right"
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: 600,
-                          color: "#d97706",
-                        }}
-                      >
-                        {r[1]}pt
-                      </td>
-                      <td
-                        className="px-4 py-2 text-right"
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: 600,
-                          color: "#dc2626",
-                        }}
-                      >
-                        {r[2]}pt
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div
-            id="sect-altar-cooking"
-            className="bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm"
-          >
-            <div
-              className="px-5 py-3.5 border-b border-orange-100"
-              style={{ background: "linear-gradient(135deg,#fff7ed,#ffedd5)" }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🍳</span>
-                <span
-                  style={{
-                    fontSize: "15px",
-                    fontWeight: 800,
-                    color: "#c2410c",
-                  }}
-                >
-                  요리
-                </span>
-              </div>
-            </div>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr
-                    style={{
-                      background: "#fff7ed",
-                      borderBottom: "2px solid #fed7aa",
-                    }}
-                  >
-                    <th
-                      className="px-4 py-2.5 text-left text-orange-700"
-                      style={{ fontSize: "11px", fontWeight: 700 }}
-                    >
-                      요리 이름
-                    </th>
-                    <th
-                      className="px-4 py-2.5 text-right text-orange-700"
-                      style={{ fontSize: "11px", fontWeight: 700 }}
-                    >
-                      경쟁 포인트
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-orange-50">
-                  {cookingPoints.map((r) => (
-                    <tr
-                      key={r.name}
-                      className="hover:bg-orange-50/40 transition-colors"
-                    >
-                      <td
-                        className="px-4 py-2 text-slate-700"
-                        style={{ fontSize: "13px" }}
-                      >
-                        {r.name}
-                      </td>
-                      <td className="px-4 py-2 text-right">
-                        <span
-                          className="bg-orange-100 text-orange-700 rounded-full px-2 py-0.5"
-                          style={{ fontSize: "12px", fontWeight: 700 }}
-                        >
-                          {r.pts}pt
-                        </span>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {subTab === "rank" && (
-        <div id="sect-altar-rank-rewards" className="space-y-3">
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-3">
-            <p className="text-slate-500" style={{ fontSize: "12px" }}>
-              🏆 시즌 종료 후 최종 순위에 따라 보상이 우편함으로 지급됩니다.
-            </p>
-          </div>
-          {rankRewards.map((r) => (
-            <div
-              key={r.rank}
-              className="bg-white border border-slate-200 rounded-2xl overflow-hidden"
-            >
-              <div
-                className="px-5 py-3 border-b border-slate-100 flex items-center gap-2.5"
-                style={{ background: "#f8fafc" }}
-              >
-                <span className="text-xl">{r.emoji}</span>
-                <span
-                  style={{
-                    fontSize: "14px",
-                    fontWeight: 700,
-                    color: "#1e293b",
-                  }}
-                >
-                  {r.rank} 보상
-                </span>
-                {r.cash && (
-                  <span
-                    className="ml-auto text-slate-500"
-                    style={{ fontSize: "12px" }}
-                  >
-                    💎 {r.cash}
-                  </span>
-                )}
-              </div>
-              <div className="px-5 py-3">
-                {r.scroll && (
-                  <div
-                    className="mb-2.5 pb-2.5 border-b border-slate-100 text-slate-500"
-                    style={{ fontSize: "12px" }}
-                  >
-                    📜 {r.scroll}
-                  </div>
-                )}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
-                  {r.items.map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2 text-slate-600"
-                      style={{ fontSize: "13px" }}
-                    >
-                      <span className="w-1 h-1 rounded-full bg-slate-300 flex-shrink-0" />
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {subTab === "level" && (
-        <div id="sect-altar-level-rewards" className="space-y-3">
-          <div className="bg-yellow-50 border border-yellow-200 rounded-2xl p-3">
-            <p className="text-yellow-700" style={{ fontSize: "12px" }}>
-              🌟 누적 경쟁 점수가 특정 구간에 도달하면 자동으로 보상이
-              지급됩니다. (총 21단계)
-            </p>
-          </div>
-          <div className="space-y-2">
-            {levelRewards.map((r) => (
-              <div
-                key={r.pts}
-                className="bg-white border-2 border-yellow-200 rounded-2xl overflow-hidden"
-              >
-                <div
-                  className="flex items-center gap-3 px-4 py-2.5 border-b border-yellow-50"
-                  style={{
-                    background: "linear-gradient(135deg,#fefce8,#fef9c3)",
-                  }}
-                >
-                  <span
-                    className="bg-yellow-300 text-yellow-900 rounded-full px-3 py-0.5 flex-shrink-0"
-                    style={{ fontSize: "13px", fontWeight: 800 }}
-                  >
-                    {r.pts} pt
-                  </span>
-                </div>
-                <div className="px-4 py-3 flex flex-wrap gap-1.5">
-                  {r.items.map((item, i) => (
-                    <span
-                      key={i}
-                      className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getBadge(item)}`}
-                      style={{ fontSize: "11px", fontWeight: 600 }}
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {subTab === "priest" && (
-        <div
-          id="sect-altar-priest-shop"
-          className="bg-white border-2 border-stone-200 rounded-2xl overflow-hidden shadow-sm"
-        >
-          <div
-            className="px-5 py-3.5 border-b border-stone-100"
-            style={{ background: "linear-gradient(135deg,#fafaf9,#f5f5f4)" }}
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-lg">⚜️</span>
-              <span
-                style={{ fontSize: "15px", fontWeight: 800, color: "#44403c" }}
-              >
-                사제 상점
-              </span>
-            </div>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr
-                  style={{
-                    background: "#fafaf9",
-                    borderBottom: "2px solid #e7e5e4",
-                  }}
-                >
-                  <th
-                    className="px-4 py-2.5 text-left text-stone-600"
-                    style={{ fontSize: "11px", fontWeight: 700 }}
-                  >
-                    아이템 이름
-                  </th>
-                  <th
-                    className="px-4 py-2.5 text-left text-stone-600"
-                    style={{ fontSize: "11px", fontWeight: 700 }}
-                  >
-                    구매 가격
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="hover:bg-stone-50/50 transition-colors">
-                  <td
-                    className="px-4 py-3 text-slate-700"
-                    style={{ fontSize: "13px" }}
-                  >
-                    미가공 복구석ㆍ거친 원석
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className="bg-stone-100 text-stone-700 rounded-full px-2.5 py-0.5"
-                      style={{ fontSize: "12px", fontWeight: 700 }}
-                    >
-                      2,000,000 포인트
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -2902,7 +1236,571 @@ function EventsContent() {
     </div>
   );
 }
+type ShopRow = {
+  name: string;
+  buy: string;
+  sell: string;
+};
 
+type ShopSection = {
+  key: string;
+  label: string;
+  emoji: string;
+  desc: string;
+  color: string;
+  bg: string;
+  border: string;
+  items: ShopRow[];
+};
+
+const shopSections: ShopSection[] = [
+  {
+    key: "general",
+    label: "광물",
+    emoji: "⛏️",
+    desc: "광물 관련 고정 상점가",
+    color: "#6366f1",
+    bg: "#f5f3ff",
+    border: "#c4b5fd",
+    items: [
+      { name: "석탄", buy: "구매 불가", sell: "4원" },
+      { name: "석탄 광석", buy: "구매 불가", sell: "15원" },
+      { name: "석탄 블록", buy: "구매 불가", sell: "36원" },
+      { name: "구리 원석", buy: "구매 불가", sell: "5원" },
+      { name: "구리 주괴", buy: "구매 불가", sell: "6원" },
+      { name: "구리 원석 블록", buy: "구매 불가", sell: "18원" },
+      { name: "구리 블록", buy: "구매 불가", sell: "54원" },
+      { name: "네더라이트 파편", buy: "구매 불가", sell: "판매 불가" },
+      { name: "네더라이트 주괴", buy: "구매 불가", sell: "판매 불가" },
+      { name: "네더라이트 블록", buy: "구매 불가", sell: "판매 불가" },
+      { name: "철 원석", buy: "구매 불가", sell: "8원" },
+      { name: "철 주괴", buy: "구매 불가", sell: "10원" },
+      { name: "철 광석", buy: "구매 불가", sell: "35원" },
+      { name: "철 블록", buy: "구매 불가", sell: "90원" },
+      { name: "철 원석 블록", buy: "구매 불가", sell: "80원" },
+      { name: "금 원석", buy: "구매 불가", sell: "12원" },
+      { name: "금 주괴", buy: "구매 불가", sell: "15원" },
+      { name: "금 광석", buy: "구매 불가", sell: "45원" },
+      { name: "금 블록", buy: "구매 불가", sell: "135원" },
+      { name: "금 원석 블록", buy: "구매 불가", sell: "108원" },
+      { name: "다이아몬드", buy: "구매 불가", sell: "27원" },
+      { name: "다이아몬드 블록", buy: "구매 불가", sell: "243원" },
+      { name: "다이아몬드 광석", buy: "구매 불가", sell: "120원" },
+      { name: "에메랄드", buy: "구매 불가", sell: "50원" },
+      { name: "에메랄드 블록", buy: "구매 불가", sell: "450원" },
+      { name: "에메랄드 광석", buy: "구매 불가", sell: "200원" },
+      { name: "돌", buy: "구매 불가", sell: "2원" },
+      { name: "조약돌", buy: "구매 불가", sell: "1원" },
+      { name: "청금석", buy: "구매 불가", sell: "1원" },
+      { name: "청금석 광석", buy: "구매 불가", sell: "9원" },
+      { name: "청금석 블록", buy: "구매 불가", sell: "9원" },
+    ],
+  },
+  {
+    key: "crops",
+    label: "농작물",
+    emoji: "🌽",
+    desc: "농작물 및 씨앗 고정 상점가",
+    color: "#16a34a",
+    bg: "#f0fdf4",
+    border: "#86efac",
+    items: [
+      { name: "밀 씨앗", buy: "12원", sell: "1원" },
+      { name: "비트 씨앗", buy: "12원", sell: "1원" },
+      { name: "호박씨", buy: "20원", sell: "판매 불가" },
+      { name: "수박씨", buy: "20원", sell: "판매 불가" },
+      { name: "네더 사마귀", buy: "100원", sell: "26원" },
+      { name: "코코아콩", buy: "150원", sell: "28원" },
+      { name: "당근", buy: "150원", sell: "25원" },
+      { name: "감자", buy: "150원", sell: "27원" },
+      { name: "독이 있는 감자", buy: "구매 불가", sell: "2,000원" },
+      { name: "밀", buy: "구매 불가", sell: "110원" },
+      { name: "비트", buy: "구매 불가", sell: "110원" },
+      { name: "호박", buy: "구매 불가", sell: "90원" },
+      { name: "수박", buy: "구매 불가", sell: "95원" },
+      { name: "수박 조각", buy: "구매 불가", sell: "11원" },
+      { name: "달콤한 열매", buy: "150원", sell: "19원" },
+      { name: "대나무", buy: "150원", sell: "20원" },
+      { name: "대나무 블록", buy: "구매 불가", sell: "198원" },
+      { name: "건초더미", buy: "구매 불가", sell: "990원" },
+      { name: "사탕수수", buy: "150원", sell: "25원" },
+      { name: "지렁이", buy: "구매 불가", sell: "7,000원" },
+      { name: "물 양동이", buy: "100원", sell: "판매 불가" },
+      { name: "네더 사마귀 블록", buy: "구매 불가", sell: "279원" },
+      { name: "도토리", buy: "구매 불가", sell: "5,000원" },
+      { name: "발광 열매", buy: "150원", sell: "판매 불가" },
+      { name: "벌집", buy: "구매 불가", sell: "판매 불가" },
+      { name: "꿀벌 생성알", buy: "구매 불가", sell: "판매 불가" },
+      { name: "벌집 조각", buy: "구매 불가", sell: "판매 불가" },
+    ],
+  },
+  {
+    key: "food",
+    label: "음식",
+    emoji: "🍞",
+    desc: "음식 및 조리 재료 고정 상점가",
+    color: "#ea580c",
+    bg: "#fff7ed",
+    border: "#fdba74",
+    items: [
+      { name: "사과", buy: "구매 불가", sell: "5,000원" },
+      { name: "익히지 않은 양고기", buy: "250원", sell: "판매 불가" },
+      { name: "익힌 양고기", buy: "300원", sell: "판매 불가" },
+      { name: "익히지 않은 소고기", buy: "250원", sell: "판매 불가" },
+      { name: "스테이크", buy: "300원", sell: "판매 불가" },
+      { name: "익히지 않은 돼지고기", buy: "250원", sell: "판매 불가" },
+      { name: "익힌 돼지고기", buy: "300원", sell: "판매 불가" },
+      { name: "익히지 않은 닭고기", buy: "250원", sell: "판매 불가" },
+      { name: "익힌 닭고기", buy: "300원", sell: "판매 불가" },
+      { name: "구운 감자", buy: "200원", sell: "32원" },
+      { name: "호박 파이", buy: "구매 불가", sell: "판매 불가" },
+      { name: "익히지 않은 토끼고기", buy: "250원", sell: "판매 불가" },
+      { name: "익힌 토끼고기", buy: "300원", sell: "판매 불가" },
+      { name: "익힌 대구", buy: "구매 불가", sell: "판매 불가" },
+      { name: "익힌 연어", buy: "구매 불가", sell: "판매 불가" },
+      { name: "빵", buy: "구매 불가", sell: "판매 불가" },
+      { name: "케이크", buy: "구매 불가", sell: "판매 불가" },
+      { name: "쿠키", buy: "구매 불가", sell: "판매 불가" },
+      { name: "꿀이 든 병", buy: "구매 불가", sell: "판매 불가" },
+      { name: "버섯 스튜", buy: "구매 불가", sell: "판매 불가" },
+      { name: "비트 수프", buy: "구매 불가", sell: "판매 불가" },
+      { name: "토끼 스튜", buy: "구매 불가", sell: "판매 불가" },
+    ],
+  },
+  {
+    key: "wood",
+    label: "나무",
+    emoji: "🪵",
+    desc: "원목, 잎, 묘목, 껍질 벗긴 원목 고정 상점가",
+    color: "#92400e",
+    bg: "#fffbeb",
+    border: "#fcd34d",
+    items: [
+      { name: "참나무 원목", buy: "200원", sell: "100원" },
+      { name: "가문비나무 원목", buy: "200원", sell: "100원" },
+      { name: "자작나무 원목", buy: "200원", sell: "100원" },
+      { name: "정글나무 원목", buy: "200원", sell: "100원" },
+      { name: "아카시아나무 원목", buy: "200원", sell: "100원" },
+      { name: "짙은 참나무 원목", buy: "200원", sell: "100원" },
+      { name: "맹그로브나무 원목", buy: "200원", sell: "100원" },
+      { name: "벚나무 원목", buy: "200원", sell: "100원" },
+      { name: "진홍빛 자루", buy: "구매 불가", sell: "100원" },
+      { name: "뒤틀린 자루", buy: "구매 불가", sell: "100원" },
+      { name: "참나무 잎", buy: "100원", sell: "10원" },
+      { name: "가문비나무 잎", buy: "100원", sell: "10원" },
+      { name: "자작나무 잎", buy: "100원", sell: "10원" },
+      { name: "정글나무 잎", buy: "100원", sell: "10원" },
+      { name: "아카시아나무 잎", buy: "100원", sell: "10원" },
+      { name: "짙은 참나무 잎", buy: "100원", sell: "10원" },
+      { name: "맹그로브나무 잎", buy: "100원", sell: "10원" },
+      { name: "벚나무 잎", buy: "100원", sell: "10원" },
+      { name: "진달래 잎", buy: "100원", sell: "10원" },
+      { name: "꽃 핀 진달래 잎", buy: "100원", sell: "10원" },
+      { name: "참나무 묘목", buy: "100원", sell: "30원" },
+      { name: "가문비나무 묘목", buy: "100원", sell: "30원" },
+      { name: "자작나무 묘목", buy: "100원", sell: "30원" },
+      { name: "정글나무 묘목", buy: "100원", sell: "30원" },
+      { name: "아카시아나무 묘목", buy: "100원", sell: "30원" },
+      { name: "짙은 참나무 묘목", buy: "100원", sell: "30원" },
+      { name: "벚나무 묘목", buy: "100원", sell: "30원" },
+      { name: "맹그로브나무 주아", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 참나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 가문비나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 자작나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 정글나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 아카시아나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 짙은 참나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 맹그로브나무 원목", buy: "100원", sell: "30원" },
+      { name: "껍질 벗긴 벚나무 원목", buy: "100원", sell: "30원" },
+    ],
+  },
+  {
+    key: "flowers",
+    label: "꽃",
+    emoji: "🌸",
+    desc: "꽃, 산호, 덩굴류 고정 상점가",
+    color: "#db2777",
+    bg: "#fdf2f8",
+    border: "#f9a8d4",
+    items: [
+      { name: "민들레", buy: "100원", sell: "판매 불가" },
+      { name: "양귀비", buy: "100원", sell: "판매 불가" },
+      { name: "파란색 난초", buy: "100원", sell: "판매 불가" },
+      { name: "알리움", buy: "100원", sell: "판매 불가" },
+      { name: "선애기별꽃", buy: "100원", sell: "판매 불가" },
+      { name: "빨간색 튤립", buy: "100원", sell: "판매 불가" },
+      { name: "주황색 튤립", buy: "100원", sell: "판매 불가" },
+      { name: "하얀색 튤립", buy: "100원", sell: "판매 불가" },
+      { name: "분홍색 튤립", buy: "100원", sell: "판매 불가" },
+      { name: "데이지", buy: "100원", sell: "판매 불가" },
+      { name: "수레국화", buy: "100원", sell: "판매 불가" },
+      { name: "은방울꽃", buy: "100원", sell: "판매 불가" },
+      { name: "분홍 꽃잎", buy: "100원", sell: "판매 불가" },
+      { name: "해바라기", buy: "100원", sell: "판매 불가" },
+      { name: "장미 덤불", buy: "100원", sell: "판매 불가" },
+      { name: "라일락", buy: "100원", sell: "판매 불가" },
+      { name: "덩굴", buy: "100원", sell: "판매 불가" },
+      { name: "늘어진 덩굴", buy: "100원", sell: "판매 불가" },
+      { name: "휘어진 덩굴", buy: "100원", sell: "판매 불가" },
+      { name: "발광 이끼", buy: "100원", sell: "판매 불가" },
+      { name: "매달린 뿌리", buy: "100원", sell: "판매 불가" },
+      { name: "모란", buy: "100원", sell: "판매 불가" },
+      { name: "포자 꽃", buy: "100원", sell: "판매 불가" },
+      { name: "수련잎", buy: "100원", sell: "판매 불가" },
+      { name: "큰 흘림잎", buy: "100원", sell: "판매 불가" },
+      { name: "작은 흘림잎", buy: "100원", sell: "판매 불가" },
+      { name: "해초", buy: "100원", sell: "판매 불가" },
+      { name: "관 산호", buy: "100원", sell: "판매 불가" },
+      { name: "뇌 산호", buy: "100원", sell: "판매 불가" },
+      { name: "거품 산호", buy: "100원", sell: "판매 불가" },
+      { name: "불 산호", buy: "100원", sell: "판매 불가" },
+      { name: "사방산호", buy: "100원", sell: "판매 불가" },
+      { name: "부채형 관 산호", buy: "100원", sell: "판매 불가" },
+      { name: "부채형 뇌 산호", buy: "100원", sell: "판매 불가" },
+      { name: "부채형 거품 산호", buy: "100원", sell: "판매 불가" },
+      { name: "부채형 불 산호", buy: "100원", sell: "판매 불가" },
+      { name: "부채형 사방산호", buy: "100원", sell: "판매 불가" },
+      { name: "불우렁쉥이", buy: "100원", sell: "판매 불가" },
+      { name: "사방산호 블록", buy: "100원", sell: "판매 불가" },
+      { name: "불 블록", buy: "100원", sell: "판매 불가" },
+      { name: "거품 산호 블록", buy: "100원", sell: "판매 불가" },
+      { name: "뇌 산호 블록", buy: "100원", sell: "판매 불가" },
+      { name: "관 산호 블록", buy: "100원", sell: "판매 불가" },
+      { name: "켈프", buy: "200원", sell: "50원" },
+      { name: "마른 덤불", buy: "100원", sell: "판매 불가" },
+    ],
+  },
+  {
+    key: "currency",
+    label: "화폐",
+    emoji: "💰",
+    desc: "화폐 및 기본 장비, 유틸 아이템 고정 상점가",
+    color: "#d97706",
+    bg: "#fffbeb",
+    border: "#fde68a",
+    items: [
+      { name: "[ 화폐 ] 자연동 주괴", buy: "10,000원", sell: "10,000원" },
+      { name: "[ 화폐 ] 자연은 주괴", buy: "50,000원", sell: "50,000원" },
+      { name: "[ 화폐 ] 화려한 금 주괴", buy: "100,000원", sell: "100,000원" },
+      {
+        name: "[ 화폐 ] 화려한 이리듐 주괴",
+        buy: "500,000원",
+        sell: "500,000원",
+      },
+      {
+        name: "[ 화폐 ] 빛나는 다이아 주괴",
+        buy: "1,000,000원",
+        sell: "1,000,000원",
+      },
+      {
+        name: "[ 기본 ] 입주민 상징 [ 헬멧 ]",
+        buy: "15,000원",
+        sell: "판매 불가",
+      },
+      {
+        name: "[ 기본 ] 입주민 상징 [ 상의 ]",
+        buy: "15,000원",
+        sell: "판매 불가",
+      },
+      {
+        name: "[ 기본 ] 입주민 상징 [ 하의 ]",
+        buy: "15,000원",
+        sell: "판매 불가",
+      },
+      {
+        name: "[ 기본 ] 입주민 상징 [ 신발 ]",
+        buy: "15,000원",
+        sell: "판매 불가",
+      },
+      { name: "[ 기본 ] 입주민의 곡괭이", buy: "15,000원", sell: "판매 불가" },
+      { name: "[ 기본 ] 입주민의 도끼", buy: "15,000원", sell: "판매 불가" },
+      { name: "[ 기본 ] 입주민의 삽", buy: "15,000원", sell: "판매 불가" },
+      { name: "[ 기본 ] 입주민의 괭이", buy: "15,000원", sell: "판매 불가" },
+      { name: "일반인의 낚싯대", buy: "15,000원", sell: "판매 불가" },
+      { name: "나만의 특성 재선택권", buy: "7,000,000원", sell: "판매 불가" },
+      {
+        name: "랜덤 두루마리 강화서 [ 50~80% ]",
+        buy: "4,000,000원",
+        sell: "판매 불가",
+      },
+      {
+        name: "일반 복구석 깨진 조각의 희망",
+        buy: "500,000원",
+        sell: "판매 불가",
+      },
+      { name: "특성 및 레벨 복구권", buy: "10,000,000원", sell: "판매 불가" },
+    ],
+  },
+  {
+    key: "blocks",
+    label: "블록",
+    emoji: "🧱",
+    desc: "기본 건축 블록 고정 상점가",
+    color: "#475569",
+    bg: "#f8fafc",
+    border: "#cbd5e1",
+    items: [
+      { name: "돌", buy: "10원", sell: "2원" },
+      { name: "조약돌", buy: "10원", sell: "1원" },
+      { name: "이끼 낀 조약돌", buy: "100원", sell: "30원" },
+      { name: "단단한 진흙", buy: "100원", sell: "30원" },
+      { name: "흙", buy: "100원", sell: "30원" },
+      { name: "잔디 블록", buy: "100원", sell: "30원" },
+      { name: "회백토", buy: "100원", sell: "30원" },
+      { name: "균사체", buy: "100원", sell: "30원" },
+      { name: "흙 길", buy: "100원", sell: "30원" },
+      { name: "섬록암", buy: "100원", sell: "30원" },
+      { name: "안산암", buy: "100원", sell: "30원" },
+      { name: "심층암", buy: "100원", sell: "30원" },
+      { name: "심층암 조약돌", buy: "100원", sell: "30원" },
+      { name: "현무암", buy: "100원", sell: "30원" },
+      { name: "흑암", buy: "100원", sell: "30원" },
+      { name: "프리즈머린", buy: "100원", sell: "30원" },
+      { name: "프리즈머린 벽돌", buy: "100원", sell: "30원" },
+      { name: "짙은 프리즈머린", buy: "100원", sell: "30원" },
+      { name: "네더랙", buy: "100원", sell: "30원" },
+      { name: "네더 벽돌", buy: "100원", sell: "30원" },
+      { name: "엔드 돌", buy: "100원", sell: "30원" },
+      { name: "퍼퍼 블록", buy: "100원", sell: "30원" },
+      { name: "석영 블록", buy: "100원", sell: "30원" },
+      { name: "화강암", buy: "100원", sell: "30원" },
+      { name: "벽돌", buy: "100원", sell: "30원" },
+      { name: "사암", buy: "100원", sell: "30원" },
+      { name: "붉은 사암", buy: "100원", sell: "30원" },
+      { name: "모래", buy: "100원", sell: "30원" },
+      { name: "붉은 모래", buy: "100원", sell: "30원" },
+      { name: "뒤틀린 네사체", buy: "100원", sell: "30원" },
+      { name: "진홍빛 네사체", buy: "100원", sell: "30원" },
+      { name: "흑요석", buy: "100원", sell: "30원" },
+      { name: "응회암", buy: "100원", sell: "30원" },
+      { name: "점토", buy: "100원", sell: "30원" },
+      { name: "뿌리내린 흙", buy: "100원", sell: "30원" },
+      { name: "자갈", buy: "100원", sell: "30원" },
+      { name: "진흙", buy: "100원", sell: "30원" },
+      { name: "거친 흙", buy: "100원", sell: "30원" },
+      { name: "마그마 블록", buy: "100원", sell: "30원" },
+      { name: "영혼 흙", buy: "100원", sell: "30원" },
+      { name: "영혼 모래", buy: "100원", sell: "30원" },
+      { name: "점적석 블록", buy: "100원", sell: "30원" },
+      { name: "이끼 블록", buy: "100원", sell: "30원" },
+      { name: "방해석", buy: "100원", sell: "30원" },
+      { name: "눈 블록", buy: "100원", sell: "30원" },
+      { name: "유리", buy: "100원", sell: "30원" },
+      { name: "차광 유리", buy: "100원", sell: "30원" },
+      { name: "스펀지", buy: "100원", sell: "30원" },
+      { name: "빨간색 버섯 블록", buy: "100원", sell: "30원" },
+      { name: "갈색 버섯 블록", buy: "100원", sell: "30원" },
+      { name: "바다 랜턴", buy: "100원", sell: "30원" },
+      { name: "잔딧빛 개구리불", buy: "100원", sell: "30원" },
+      { name: "진줏빛 개구리불", buy: "100원", sell: "30원" },
+      { name: "황톳빛 개구리불", buy: "100원", sell: "30원" },
+      { name: "버섯불", buy: "100원", sell: "30원" },
+      { name: "발광석", buy: "100원", sell: "30원" },
+      { name: "얼음", buy: "100원", sell: "30원" },
+      { name: "꽁꽁 언 얼음", buy: "100원", sell: "30원" },
+      { name: "푸른얼음", buy: "100원", sell: "30원" },
+      { name: "매끄러운 석영 블록", buy: "100원", sell: "30원" },
+      { name: "매끄러운 사암", buy: "100원", sell: "30원" },
+      { name: "자수정 블록", buy: "100원", sell: "30원" },
+      { name: "꿀 블록", buy: "100원", sell: "30원" },
+      { name: "슬라임 블록", buy: "100원", sell: "30원" },
+      { name: "벌집 조각 블록", buy: "100원", sell: "30원" },
+      { name: "뒤틀린 사마귀 블록", buy: "100원", sell: "30원" },
+      { name: "엔드 석재 벽돌", buy: "100원", sell: "30원" },
+      { name: "매끄러운 돌", buy: "100원", sell: "판매 불가" },
+      { name: "금 간 네더 벽돌", buy: "100원", sell: "판매 불가" },
+      { name: "매끄러운 붉은 사암", buy: "100원", sell: "30원" },
+      { name: "윤나는 흑암", buy: "100원", sell: "30원" },
+      { name: "윤나는 심층암", buy: "100원", sell: "30원" },
+      { name: "석재 벽돌", buy: "100원", sell: "판매 불가" },
+    ],
+  },
+  {
+    key: "colored-blocks",
+    label: "색깔 블록",
+    emoji: "🎨",
+    desc: "색상 계열 건축 블록 고정 상점가",
+    color: "#7c3aed",
+    bg: "#faf5ff",
+    border: "#ddd6fe",
+    items: [
+      { name: "하얀색 양털", buy: "100원", sell: "30원" },
+      { name: "회백색 양털", buy: "100원", sell: "30원" },
+      { name: "회색 양털", buy: "100원", sell: "30원" },
+      { name: "검은색 양털", buy: "100원", sell: "30원" },
+      { name: "갈색 양털", buy: "100원", sell: "30원" },
+      { name: "빨간색 양털", buy: "100원", sell: "30원" },
+      { name: "주황색 양털", buy: "100원", sell: "30원" },
+      { name: "노란색 양털", buy: "100원", sell: "30원" },
+      { name: "연두색 양털", buy: "100원", sell: "30원" },
+      { name: "초록색 양털", buy: "100원", sell: "30원" },
+      { name: "청록색 양털", buy: "100원", sell: "30원" },
+      { name: "하늘색 양털", buy: "100원", sell: "30원" },
+      { name: "파란색 양털", buy: "100원", sell: "30원" },
+      { name: "보라색 양털", buy: "100원", sell: "30원" },
+      { name: "자홍색 양털", buy: "100원", sell: "30원" },
+      { name: "분홍색 양털", buy: "100원", sell: "30원" },
+      { name: "하얀색 테라코타", buy: "100원", sell: "30원" },
+      { name: "회백색 테라코타", buy: "100원", sell: "30원" },
+      { name: "회색 테라코타", buy: "100원", sell: "30원" },
+      { name: "검은색 테라코타", buy: "100원", sell: "30원" },
+      { name: "갈색 테라코타", buy: "100원", sell: "30원" },
+      { name: "빨간색 테라코타", buy: "100원", sell: "30원" },
+      { name: "주황색 테라코타", buy: "100원", sell: "30원" },
+      { name: "노란색 테라코타", buy: "100원", sell: "30원" },
+      { name: "연두색 테라코타", buy: "100원", sell: "30원" },
+      { name: "초록색 테라코타", buy: "100원", sell: "30원" },
+      { name: "테라코타", buy: "100원", sell: "30원" },
+      { name: "청록색 테라코타", buy: "100원", sell: "30원" },
+      { name: "하늘색 테라코타", buy: "100원", sell: "30원" },
+      { name: "파란색 테라코타", buy: "100원", sell: "30원" },
+      { name: "보라색 테라코타", buy: "100원", sell: "30원" },
+      { name: "자홍색 테라코타", buy: "100원", sell: "30원" },
+      { name: "분홍색 테라코타", buy: "100원", sell: "30원" },
+      { name: "하얀색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "회백색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "회색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "검은색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "갈색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "빨간색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "주황색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "노란색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "연두색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "초록색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "청록색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "하늘색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "파란색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "보라색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "자홍색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "분홍색 유광 테라코타", buy: "100원", sell: "30원" },
+      { name: "하얀색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "회백색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "회색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "검은색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "갈색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "빨간색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "주황색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "노란색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "연두색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "초록색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "청록색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "하늘색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "파란색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "보라색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "자홍색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "분홍색 콘크리트", buy: "100원", sell: "30원" },
+      { name: "하얀색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "회백색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "회색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "검은색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "갈색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "빨간색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "주황색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "노란색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "연두색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "초록색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "청록색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "하늘색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "파란색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "보라색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "자홍색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "분홍색 콘크리트 가루", buy: "100원", sell: "30원" },
+      { name: "하얀색 색유리", buy: "100원", sell: "30원" },
+      { name: "회백색 색유리", buy: "100원", sell: "30원" },
+      { name: "회색 색유리", buy: "100원", sell: "30원" },
+      { name: "검은색 색유리", buy: "100원", sell: "30원" },
+      { name: "갈색 색유리", buy: "100원", sell: "30원" },
+      { name: "빨간색 색유리", buy: "100원", sell: "30원" },
+      { name: "주황색 색유리", buy: "100원", sell: "30원" },
+      { name: "노란색 색유리", buy: "100원", sell: "30원" },
+      { name: "연두색 색유리", buy: "100원", sell: "30원" },
+      { name: "초록색 색유리", buy: "100원", sell: "30원" },
+      { name: "청록색 색유리", buy: "100원", sell: "30원" },
+      { name: "하늘색 색유리", buy: "100원", sell: "30원" },
+      { name: "파란색 색유리", buy: "100원", sell: "30원" },
+      { name: "보라색 색유리", buy: "100원", sell: "30원" },
+      { name: "자홍색 색유리", buy: "100원", sell: "30원" },
+      { name: "분홍색 색유리", buy: "100원", sell: "30원" },
+    ],
+  },
+  {
+    key: "etc",
+    label: "기타",
+    emoji: "📦",
+    desc: "기타 장식/재료/도구 고정 상점가",
+    color: "#0f766e",
+    bg: "#f0fdfa",
+    border: "#99f6e4",
+    items: [
+      { name: "엔드 막대기", buy: "300원", sell: "판매 불가" },
+      { name: "사슬", buy: "300원", sell: "판매 불가" },
+      { name: "랜턴", buy: "1,000원", sell: "판매 불가" },
+      { name: "영혼 랜턴", buy: "2,000원", sell: "판매 불가" },
+      { name: "발광 아이템 액자", buy: "100,000원", sell: "판매 불가" },
+      { name: "아이템 액자", buy: "100,000원", sell: "판매 불가" },
+      { name: "숫돌", buy: "100,000원", sell: "판매 불가" },
+      { name: "용광로", buy: "100,000원", sell: "판매 불가" },
+      { name: "훈연기", buy: "100,000원", sell: "판매 불가" },
+      { name: "마법 부여대", buy: "50,000원", sell: "판매 불가" },
+      { name: "조각된 책장", buy: "10,000원", sell: "판매 불가" },
+      { name: "책장", buy: "3,000원", sell: "판매 불가" },
+      { name: "영혼 모닥불", buy: "5,000원", sell: "판매 불가" },
+      { name: "모닥불", buy: "3,000원", sell: "판매 불가" },
+      { name: "초", buy: "100원", sell: "판매 불가" },
+      { name: "종", buy: "5,000원", sell: "판매 불가" },
+      { name: "호퍼", buy: "10,000원", sell: "판매 불가" },
+      { name: "상자", buy: "100원", sell: "판매 불가" },
+      { name: "비계", buy: "100원", sell: "판매 불가" },
+      { name: "통", buy: "100원", sell: "판매 불가" },
+      { name: "하얀색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "회백색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "회색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "검은색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "갈색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "빨간색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "주황색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "노란색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "연두색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "초록색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "청록색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "하늘색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "파란색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "보라색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "자홍색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "분홍색 염료", buy: "100원", sell: "판매 불가" },
+      { name: "발광 먹물 주머니", buy: "100원", sell: "판매 불가" },
+      { name: "블레이즈 가루", buy: "1,000원", sell: "판매 불가" },
+      { name: "베틀", buy: "100,000원", sell: "판매 불가" },
+      { name: "팬텀 막", buy: "1,000원", sell: "판매 불가" },
+      { name: "마그마 크림", buy: "1,000원", sell: "판매 불가" },
+      { name: "가스트 눈물", buy: "1,000원", sell: "판매 불가" },
+      { name: "거미줄", buy: "1,000원", sell: "판매 불가" },
+      { name: "화약", buy: "1,500원", sell: "판매 불가" },
+      { name: "화살", buy: "10원", sell: "판매 불가" },
+      { name: "부싯돌과 부시", buy: "200,000원", sell: "판매 불가" },
+      { name: "발효된 거미 눈", buy: "1,000원", sell: "판매 불가" },
+      { name: "활", buy: "15,000원", sell: "판매 불가" },
+      { name: "책과 깃펜", buy: "50,000원", sell: "판매 불가" },
+      { name: "화분", buy: "1,000원", sell: "판매 불가" },
+      { name: "거미 눈", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 꽃 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 크리퍼 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 해골 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 무언가 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 지구 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "현수막 무늬 [ 돼지 코 ]", buy: "1,000원", sell: "판매 불가" },
+      { name: "그림", buy: "10,000원", sell: "판매 불가" },
+      { name: "작은 자수정 봉오리", buy: "1,000원", sell: "판매 불가" },
+      { name: "중간 자수정 봉오리", buy: "1,000원", sell: "판매 불가" },
+      { name: "큰 자수정 봉오리", buy: "1,000원", sell: "판매 불가" },
+      { name: "자수정 군집", buy: "1,000원", sell: "판매 불가" },
+      { name: "망원경", buy: "100,000원", sell: "판매 불가" },
+      { name: "소리 블록", buy: "300원", sell: "판매 불가" },
+      { name: "크리스탈", buy: "구매 불가", sell: "100,000원" },
+      { name: "크리스탈(NEW)", buy: "구매 불가", sell: "150,000원" },
+    ],
+  },
+];
 // ─── Coming Soon ──────────────────────────────────────────────────────────────
 function ComingSoon({ name }: { name: string }) {
   return (
@@ -2924,14 +1822,9 @@ function ComingSoon({ name }: { name: string }) {
 const contentComponents: Record<string, ReactNode> = {
   rank: <RankContent />,
   traits: <TraitsContent />,
+  shop: <ShopContent />,
   beekeeping: <BeekeepingContent />,
   events: <EventsContent />,
-  "royal-supply": <RoyalSupplyContent />,
-  marriage: <MarriageContent />,
-  "donation-king": <DonationKingContent />,
-  parkour: <ParkourContent />,
-  blockwars: <BlockwarsContent />,
-  altar: <AltarContent />,
 };
 
 // ─── Content Grid (landing page) ─────────────────────────────────────────────
@@ -3074,6 +1967,174 @@ const contentRows = [
   },
 ];
 
+function ShopContent() {
+  const [params, setParams] = useSearchParams();
+  const selectedKey = params.get("s") ?? "general";
+
+  const selectedShop =
+    shopSections.find((section) => section.key === selectedKey) ??
+    shopSections[0];
+
+  const updateShopParam = (shopKey: string) => {
+    const next = new URLSearchParams(params);
+    next.set("tab", "shop");
+    next.set("s", shopKey);
+    setParams(next);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
+        <p
+          className="text-blue-800"
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
+        >
+          🏪 해당 상점가는 변동되지 않는 고정 가격입니다.
+          <br />
+          변동되는 가격은 시세표 페이지에서 따로 확인할 수 있도록 분리하는
+          구성이 좋습니다.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        {shopSections.map((section) => {
+          const isActive = selectedKey === section.key;
+
+          return (
+            <button
+              key={section.key}
+              onClick={() => updateShopParam(section.key)}
+              className="rounded-2xl p-4 border-2 text-left transition-all duration-200 hover:shadow-md"
+              style={{
+                background: section.bg,
+                borderColor: isActive ? section.color : section.border,
+                boxShadow: isActive ? `0 0 0 2px ${section.color}20` : "none",
+              }}
+            >
+              <div className="text-2xl mb-2">{section.emoji}</div>
+              <div
+                style={{
+                  fontSize: "13px",
+                  fontWeight: 800,
+                  color: section.color,
+                }}
+              >
+                {section.label}
+              </div>
+              <p
+                className="text-slate-500 mt-1"
+                style={{ fontSize: "11px", lineHeight: 1.5 }}
+              >
+                {section.desc}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div
+        className="bg-white border-2 rounded-2xl overflow-hidden shadow-sm"
+        style={{
+          borderColor: selectedShop.border,
+        }}
+      >
+        <div className="p-5">
+          <div className="flex items-center gap-2">
+            <span className="text-xl">{selectedShop.emoji}</span>
+            <span
+              style={{
+                fontSize: "16px",
+                fontWeight: 800,
+                color: selectedShop.color,
+              }}
+            >
+              {selectedShop.label} 상점가
+            </span>
+          </div>
+
+          <p
+            className="text-slate-500 mt-1"
+            style={{ fontSize: "12px", lineHeight: 1.6 }}
+          >
+            {selectedShop.desc}
+          </p>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr
+                style={{
+                  background: selectedShop.border + "20", // 연한 배경
+                  borderBottom: `2px solid ${selectedShop.border}`, // 진한 구분선
+                }}
+              >
+                <th
+                  className="px-4 py-3 text-left"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: selectedShop.color,
+                  }}
+                >
+                  아이템 이름
+                </th>
+                <th
+                  className="px-4 py-3 text-left"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: selectedShop.color,
+                  }}
+                >
+                  구매 가격 (개당)
+                </th>
+                <th
+                  className="px-4 py-3 text-left"
+                  style={{
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: selectedShop.color,
+                  }}
+                >
+                  판매 가격 (개당)
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-50">
+              {selectedShop.items.map((item) => (
+                <tr
+                  key={item.name}
+                  className="hover:bg-amber-50/30 transition-colors"
+                >
+                  <td
+                    className="px-4 py-3 text-slate-700"
+                    style={{ fontSize: "13px" }}
+                  >
+                    {item.name}
+                  </td>
+                  <td
+                    className="px-4 py-3 text-slate-600"
+                    style={{ fontSize: "13px" }}
+                  >
+                    {item.buy}
+                  </td>
+                  <td
+                    className="px-4 py-3 text-slate-600"
+                    style={{ fontSize: "13px" }}
+                  >
+                    {item.sell}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ContentGrid() {
   const navigate = useNavigate();
 
@@ -3133,12 +2194,8 @@ function ContentGrid() {
                   <button
                     key={item.key}
                     onClick={() => {
-                      if (item.key === "island") {
-                        navigate("/content/island");
-                      } else if (item.key === "traits") {
-                        navigate("/content/traits");
-                      } else if (item.key === "shop") {
-                        navigate("/content/shop");
+                      if (item.key === "shop") {
+                        navigate("/content?tab=shop&s=general");
                       } else {
                         navigate(`/content?tab=${item.key}`);
                       }
@@ -3178,18 +2235,6 @@ function ContentGrid() {
 // ─── Content Detail ───────────────────────────────────────────────────────────
 function ContentDetail({ activeTab }: { activeTab: string }) {
   const current = tabs.find((t) => t.key === activeTab) ?? tabs[0];
-  const { hash } = useLocation();
-
-  // AltarContent 외 탭: hash 위치로 스크롤
-  useEffect(() => {
-    if (!hash || activeTab === "altar") return;
-    const id = hash.slice(1);
-    const timer = setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [hash, activeTab]);
 
   return (
     <div style={{ background: "#fff8dc", minHeight: "100vh" }}>

@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router";
 import { AppRoot } from "./components/AppRoot";
-import { AppHome } from "./components/AppHome";
-import { ContentPage } from "../imports/ContentPage";
-import { BasicsPage } from "../imports/BasicsPage";
-import { DailyRewardsPage } from "../imports/DailyRewardsPage";
-import { TraitsPage } from "../imports/TraitsPage";
-import { FishingTraitPage } from "../imports/FishingTraitPage";
-import { HarvestTraitPage } from "../imports/HarvestTraitPage";
-import { IslandPage } from "../imports/IslandPage";
+import { Home } from "./components/Home";
+import { ContentPage } from "./components/ContentPage";
+import { BasicsPage } from "./components/BasicsPage";
+import { DailyRewardsPage } from "./components/DailyRewardsPage";
+import { TraitsPage } from "./components/TraitsPage";
+import { FishingTraitPage } from "./components/FishingTraitPage";
+import { HarvestTraitPage } from "./components/HarvestTraitPage";
+import { IslandPage } from "./components/IslandPage";
 import { LawPage } from "./components/LawPage";
 import { SupportPage } from "./components/SupportPage";
 import { PricesPage } from "./components/PricesPage";
@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     path: "/",
     Component: AppRoot,
     children: [
-      { index: true, Component: AppHome },
+      { index: true, Component: Home },
       { path: "content", Component: ContentPage },
       { path: "content/traits", Component: TraitsPage },
       { path: "content/traits/mining", Component: MiningTraitPage },

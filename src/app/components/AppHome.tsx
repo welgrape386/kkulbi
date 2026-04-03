@@ -979,7 +979,7 @@ export function AppHome() {
         {/* Hero content - centered in the image */}
         <div
           className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 text-center w-full"
-          style={{ paddingBottom: "100px" }}
+          style={{ paddingTop: "40px", paddingBottom: "100px" }}
         >
           <h1
             className="text-white mb-4"
@@ -1003,7 +1003,7 @@ export function AppHome() {
               marginBottom: "36px",
             }}
           >
-            비공식 유저 위키 · 랭크, 특성, 이벤트, 명령어 안내
+            마인팜 꿀비의 숲 · 공식 위키
           </p>
           <SearchBar />
         </div>

@@ -67,7 +67,7 @@ export function AppHeader() {
                 className="text-slate-400"
                 style={{ fontSize: "10px", fontWeight: 400 }}
               >
-                비공식 위키
+                공식 위키
               </span>
             </div>
           </Link>

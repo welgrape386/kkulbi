@@ -2194,12 +2194,31 @@ function ContentGrid() {
                   <button
                     key={item.key}
                     onClick={() => {
-                      if (item.key === "shop") {
-                        navigate("/content?tab=shop&s=general");
-                      } else {
-                        navigate(`/content?tab=${item.key}`);
-                      }
-                    }}
+                    const routeMap: Record<string, string> = {
+                      // 🔵 라우터 방식 (페이지 이동)
+                      island: "/content/island",
+                      traits: "/content/traits",
+
+                      // 🟡 쿼리 방식 (ContentPage 내부 처리)
+                      shop: "/content?tab=shop&s=general",
+                      rank: "/content?tab=rank",
+                      enchant: "/content?tab=enchant",
+                      collection: "/content?tab=collection",
+                      altar: "/content?tab=altar",
+                      parkour: "/content?tab=parkour",
+                      blockwars: "/content?tab=blockwars",
+                      marriage: "/content?tab=marriage",
+                      seotda: "/content?tab=seotda",
+                      painting: "/content?tab=painting",
+                      "donation-king": "/content?tab=donation-king",
+                      beekeeping: "/content?tab=beekeeping",
+                      "royal-supply": "/content?tab=royal-supply",
+                      gacha: "/content?tab=gacha",
+                      events: "/content?tab=events",
+                    };
+
+                    navigate(routeMap[item.key]);
+                  }}
                     className="group bg-white rounded-2xl p-4 border-2 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 flex flex-col items-center text-center cursor-pointer"
                     style={{ borderColor: row.border }}
                   >

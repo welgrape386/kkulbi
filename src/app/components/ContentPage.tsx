@@ -3625,12 +3625,204 @@ function EnchantContent() {
   );
 }
 
+// ─── 랜덤 뽑기 Content ─────────────────────────────────────────────────────────
+function GachaProbTable({ rows }: { rows: string[][] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full">
+        <thead>
+          <tr style={{ background: "#f1f5f9", borderBottom: "2px solid #e2e8f0" }}>
+            <th
+              className="px-3 py-2 text-left"
+              style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}
+            >
+              아이템 이름
+            </th>
+            <th
+              className="px-3 py-2 text-right"
+              style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}
+            >
+              확률 (%)
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-slate-50">
+          {rows.map((row, i) => (
+            <tr key={i} className="hover:bg-amber-50/30 transition-colors">
+              <td
+                className="px-3 py-2 text-slate-700"
+                style={{ fontSize: "12px" }}
+              >
+                {row[0]}
+              </td>
+              <td
+                className="px-3 py-2 text-right"
+                style={{ fontSize: "12px", fontWeight: 700, color: "#7c3aed" }}
+              >
+                {row[1]}%
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const gachaScrollRows: string[][] = [
+  ["10%", "3.7"],
+  ["20%", "9.26"],
+  ["30%", "16.67"],
+  ["40%", "25.93"],
+  ["50%", "44.44"],
+];
+
+const gachaSections = [
+  {
+    title: "자동심기 뽑기",
+    subtitle: "의문의 파랑포션",
+    rows: [
+      ["자동심기 [영구제]", "1.85"],
+      ["자동심기 [500회]", "9.25"],
+      ["자동심기 [1000회]", "53.7"],
+      ["자동심기 [2000회]", "27.75"],
+      ["자동심기 [3000회]", "7.4"],
+    ],
+  },
+  {
+    title: "고급광산 뽑기확률",
+    subtitle: "의문의 벨소리",
+    rows: [
+      ["청금석 제거 고급 광산", "1.85"],
+      ["석탄 제거 고급 광산", "1.85"],
+      ["확률업 고급 광산", "1.85"],
+      ["태양열 조각[50%]·강화 효과[1%]", "12.95"],
+      ["태양열 조각[50%]·강화 효과[2%]", "11.1"],
+      ["태양열 조각[60%]·강화 효과[1%]", "12.95"],
+      ["태양열 조각[60%]·강화 효과[2%]", "11.1"],
+      ["태양열 조각[70%]·강화 효과[1%]", "12.95"],
+      ["태양열 조각[70%]·강화 효과[2%]", "11.1"],
+      ["태양열 조각[80%]·강화 효과[1%]", "11.1"],
+      ["태양열 조각[80%]·강화 효과[2%]", "11.1"],
+    ],
+  },
+  {
+    title: "자동조합 뽑기 확률",
+    subtitle: "의문의 빨강포션",
+    rows: [
+      ["자동조합 [영구제]", "1.85"],
+      ["판매스틱 [100회]", "16.65"],
+      ["판매스틱 [200회]", "16.65"],
+      ["판매스틱 [300회]", "16.65"],
+      ["판매스틱 [500회]", "16.65"],
+      ["판매스틱 [800회]", "16.65"],
+      ["판매스틱 [1000회]", "14.8"],
+    ],
+  },
+  {
+    title: "고귀한 나무 정령",
+    subtitle: "의문의 솔방울",
+    rows: [
+      ["고귀한 나무 정령", "1.85"],
+      ["허수아비 5x5청크 1시간", "42.55"],
+      ["허수아비 5x5청크 3시간", "33.3"],
+      ["허수아비 5x5청크 6시간", "22.2"],
+    ],
+  },
+];
+
+function GachaContent() {
+  return (
+    <div className="space-y-6">
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
+        <p
+          className="text-amber-800"
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
+        >
+          🎰 캐시 아이템 뽑기에서 나올 수 있는 아이템의 확률표입니다.
+        </p>
+      </div>
+
+      {/* 두루마리 확률 */}
+      <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
+        <div
+          className="px-4 py-3.5 border-b border-slate-100"
+          style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
+        >
+          <span style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}>
+            40%/50%/60%/70%/80% 두루마리
+          </span>
+          <p
+            className="text-slate-500 mt-1"
+            style={{ fontSize: "12px", lineHeight: 1.6 }}
+          >
+            각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의
+            성공확률은 각 두루마리마다 50%/60%/70%/80%로 동일합니다.
+          </p>
+        </div>
+        <div className="p-4">
+          <div
+            className="text-slate-500 mb-2"
+            style={{ fontSize: "11px", fontWeight: 700 }}
+          >
+            파괴 확률별 등장 비율
+          </div>
+          <GachaProbTable rows={gachaScrollRows} />
+        </div>
+      </div>
+
+      {/* 캐시 뽑기 아이템들 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {gachaSections.map((section) => (
+          <div
+            key={section.title}
+            className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm"
+          >
+            <div
+              className="px-4 py-3.5 border-b border-slate-100"
+              style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
+            >
+              <div className="flex items-center gap-2 flex-wrap">
+                <span
+                  style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}
+                >
+                  {section.title}
+                </span>
+                <span
+                  className="rounded-full px-2.5 py-0.5"
+                  style={{
+                    background: "#ede9fe",
+                    color: "#5b21b6",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                  }}
+                >
+                  {section.subtitle}
+                </span>
+              </div>
+            </div>
+            <GachaProbTable rows={section.rows} />
+          </div>
+        ))}
+      </div>
+
+      <p
+        className="text-slate-400"
+        style={{ fontSize: "11px", lineHeight: 1.6 }}
+      >
+        ※ 소수점 3번째 자리는 제외했기 때문에 99.9%도 나올 수 있습니다
+      </p>
+    </div>
+  );
+}
+
 const contentComponents: Record<string, ReactNode> = {
   rank: <RankContent />,
   traits: <TraitsContent />,
   shop: <ShopContent />,
   beekeeping: <BeekeepingContent />,
   enchant: <EnchantContent />,
+  gacha: <GachaContent />,
   "royal-supply": <RoyalContent />,
   events: <EventsContent />,
   parkour: <ParkourContent />,

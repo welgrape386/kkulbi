@@ -3626,23 +3626,31 @@ function EnchantContent() {
 }
 
 // ─── 랜덤 뽑기 Content ─────────────────────────────────────────────────────────
-function GachaProbTable({ rows }: { rows: string[][] }) {
+function GachaProbTable({
+  color,
+  cols,
+  rows,
+}: {
+  color: string;
+  cols: [string, string];
+  rows: string[][];
+}) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full">
         <thead>
-          <tr style={{ background: "#f1f5f9", borderBottom: "2px solid #e2e8f0" }}>
+          <tr style={{ background: color + "10" }}>
             <th
-              className="px-3 py-2 text-left"
-              style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}
+              className="px-4 py-2.5 text-left"
+              style={{ fontSize: "11px", fontWeight: 700, color }}
             >
-              아이템 이름
+              {cols[0]}
             </th>
             <th
-              className="px-3 py-2 text-right"
-              style={{ fontSize: "11px", fontWeight: 700, color: "#475569" }}
+              className="px-4 py-2.5 text-right"
+              style={{ fontSize: "11px", fontWeight: 700, color }}
             >
-              확률 (%)
+              {cols[1]}
             </th>
           </tr>
         </thead>
@@ -3650,14 +3658,14 @@ function GachaProbTable({ rows }: { rows: string[][] }) {
           {rows.map((row, i) => (
             <tr key={i} className="hover:bg-amber-50/30 transition-colors">
               <td
-                className="px-3 py-2 text-slate-700"
+                className="px-4 py-2.5 text-slate-700"
                 style={{ fontSize: "12px" }}
               >
                 {row[0]}
               </td>
               <td
-                className="px-3 py-2 text-right"
-                style={{ fontSize: "12px", fontWeight: 700, color: "#7c3aed" }}
+                className="px-4 py-2.5 text-right"
+                style={{ fontSize: "12px", fontWeight: 800, color }}
               >
                 {row[1]}%
               </td>
@@ -3669,18 +3677,28 @@ function GachaProbTable({ rows }: { rows: string[][] }) {
   );
 }
 
-const gachaScrollRows: string[][] = [
-  ["10%", "3.7"],
-  ["20%", "9.26"],
-  ["30%", "16.67"],
-  ["40%", "25.93"],
-  ["50%", "44.44"],
-];
-
 const gachaSections = [
+  {
+    title: "40%/50%/60%/70%/80% 두루마리",
+    subtitle: "파괴 확률별 등장 비율",
+    desc: "각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의 성공확률은 각 두루마리마다 50%/60%/70%/80%로 동일합니다.",
+    icon: "📜",
+    color: "#7c3aed",
+    cols: ["파괴 확률", "확률 (%)"] as [string, string],
+    rows: [
+      ["10%", "3.7"],
+      ["20%", "9.26"],
+      ["30%", "16.67"],
+      ["40%", "25.93"],
+      ["50%", "44.44"],
+    ],
+  },
   {
     title: "자동심기 뽑기",
     subtitle: "의문의 파랑포션",
+    icon: "🧪",
+    color: "#2563eb",
+    cols: ["아이템 이름", "확률 (%)"] as [string, string],
     rows: [
       ["자동심기 [영구제]", "1.85"],
       ["자동심기 [500회]", "9.25"],
@@ -3692,6 +3710,9 @@ const gachaSections = [
   {
     title: "고급광산 뽑기확률",
     subtitle: "의문의 벨소리",
+    icon: "🔔",
+    color: "#6366f1",
+    cols: ["아이템 이름", "확률 (%)"] as [string, string],
     rows: [
       ["청금석 제거 고급 광산", "1.85"],
       ["석탄 제거 고급 광산", "1.85"],
@@ -3709,6 +3730,9 @@ const gachaSections = [
   {
     title: "자동조합 뽑기 확률",
     subtitle: "의문의 빨강포션",
+    icon: "🧴",
+    color: "#dc2626",
+    cols: ["아이템 이름", "확률 (%)"] as [string, string],
     rows: [
       ["자동조합 [영구제]", "1.85"],
       ["판매스틱 [100회]", "16.65"],
@@ -3722,6 +3746,9 @@ const gachaSections = [
   {
     title: "고귀한 나무 정령",
     subtitle: "의문의 솔방울",
+    icon: "🌲",
+    color: "#16a34a",
+    cols: ["아이템 이름", "확률 (%)"] as [string, string],
     rows: [
       ["고귀한 나무 정령", "1.85"],
       ["허수아비 5x5청크 1시간", "42.55"],
@@ -3734,84 +3761,79 @@ const gachaSections = [
 function GachaContent() {
   return (
     <div className="space-y-6">
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <p
-          className="text-amber-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
+      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
+        <h3
+          className="text-amber-800 mb-3"
+          style={{ fontSize: "16px", fontWeight: 800 }}
         >
-          🎰 캐시 아이템 뽑기에서 나올 수 있는 아이템의 확률표입니다.
+          🎰 랜덤 뽑기
+        </h3>
+        <p
+          className="text-amber-700"
+          style={{ fontSize: "14px", lineHeight: 1.8 }}
+        >
+          캐시 아이템 뽑기에서 나올 수 있는 아이템의 확률표예요.
+          <br />
+          아래 확률표를 참고해서 원하는 아이템을 뽑아보세요!
         </p>
       </div>
 
-      {/* 두루마리 확률 */}
-      <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-4 py-3.5 border-b border-slate-100"
-          style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
-        >
-          <span style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}>
-            40%/50%/60%/70%/80% 두루마리
-          </span>
-          <p
-            className="text-slate-500 mt-1"
-            style={{ fontSize: "12px", lineHeight: 1.6 }}
-          >
-            각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의
-            성공확률은 각 두루마리마다 50%/60%/70%/80%로 동일합니다.
-          </p>
-        </div>
-        <div className="p-4">
-          <div
-            className="text-slate-500 mb-2"
-            style={{ fontSize: "11px", fontWeight: 700 }}
-          >
-            파괴 확률별 등장 비율
-          </div>
-          <GachaProbTable rows={gachaScrollRows} />
-        </div>
-      </div>
-
-      {/* 캐시 뽑기 아이템들 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {gachaSections.map((section) => (
           <div
             key={section.title}
-            className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm"
+            className="rounded-2xl border-2 overflow-hidden"
+            style={{ borderColor: section.color + "40" }}
           >
             <div
-              className="px-4 py-3.5 border-b border-slate-100"
-              style={{ background: "linear-gradient(135deg, #f8fafc, #f1f5f9)" }}
+              className="px-4 py-3 flex items-center gap-2 flex-wrap"
+              style={{ background: section.color + "15" }}
             >
-              <div className="flex items-center gap-2 flex-wrap">
-                <span
-                  style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}
-                >
-                  {section.title}
-                </span>
-                <span
-                  className="rounded-full px-2.5 py-0.5"
-                  style={{
-                    background: "#ede9fe",
-                    color: "#5b21b6",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {section.subtitle}
-                </span>
-              </div>
+              <span className="text-xl">{section.icon}</span>
+              <span
+                style={{ fontSize: "14px", fontWeight: 800, color: section.color }}
+              >
+                {section.title}
+              </span>
+              <span
+                className="rounded-full px-2 py-0.5"
+                style={{
+                  background: section.color + "20",
+                  color: section.color,
+                  fontSize: "10px",
+                  fontWeight: 700,
+                }}
+              >
+                {section.subtitle}
+              </span>
             </div>
-            <GachaProbTable rows={section.rows} />
+            {section.desc && (
+              <p
+                className="px-4 pt-3 text-slate-500"
+                style={{ fontSize: "12px", lineHeight: 1.6 }}
+              >
+                {section.desc}
+              </p>
+            )}
+            <div className={section.desc ? "pt-2" : ""}>
+              <GachaProbTable
+                color={section.color}
+                cols={section.cols}
+                rows={section.rows}
+              />
+            </div>
           </div>
         ))}
       </div>
 
-      <p
-        className="text-slate-400"
-        style={{ fontSize: "11px", lineHeight: 1.6 }}
-      >
-        ※ 소수점 3번째 자리는 제외했기 때문에 99.9%도 나올 수 있습니다
-      </p>
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4">
+        <p
+          className="text-slate-500"
+          style={{ fontSize: "12px", lineHeight: 1.6 }}
+        >
+          ※ 소수점 3번째 자리는 제외했기 때문에 99.9%도 나올 수 있습니다
+        </p>
+      </div>
     </div>
   );
 }

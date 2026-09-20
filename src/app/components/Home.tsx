@@ -149,8 +149,8 @@ const searchData: SearchItem[] = [
   },
   {
     id: "prices",
-    title: "시세표",
-    content: "아이템 시세 가격표 광물 물고기 보물 캐시",
+    title: "상점가",
+    content: "일반 상점 아이템 고정 가격표",
     category: "기초설명",
     emoji: "💰",
     route: "/prices",
@@ -369,8 +369,8 @@ const quickLinks = [
     border: "#bae6fd",
   },
   {
-    title: "시세표",
-    desc: "광물, 물고기, 작물 가격 확인",
+    title: "상점가",
+    desc: "일반 상점 아이템 고정 가격 확인",
     emoji: "💰",
     to: "/prices",
     color: "#16a34a",

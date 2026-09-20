@@ -3804,9 +3804,6 @@ function ShopContent() {
           style={{ fontSize: "13px", lineHeight: 1.7 }}
         >
           🏪 해당 상점가는 변동되지 않는 고정 가격입니다.
-          <br />
-          변동되는 가격은 시세표 페이지에서 따로 확인할 수 있도록 분리하는
-          구성이 좋습니다.
         </p>
       </div>
 

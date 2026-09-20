@@ -100,7 +100,7 @@ export function AppHeader() {
               className={navLinkClass("/prices")}
               style={{ fontSize: "13px", fontWeight: 600 }}
             >
-              💰 시세표
+              💰 상점가
             </Link>
             <Link
               to="/support"
@@ -166,7 +166,7 @@ export function AppHeader() {
               className="flex items-center gap-2 px-4 py-3 rounded-xl text-slate-700 hover:bg-amber-50 transition-colors"
               style={{ fontSize: "14px", fontWeight: 600 }}
             >
-              💰 시세표
+              💰 상점가
             </Link>
             <Link
               to="/support"

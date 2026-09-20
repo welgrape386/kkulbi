@@ -3790,19 +3790,19 @@ function GachaContent() {
           >
             <div
               className="px-4 py-3 flex items-center gap-2 flex-wrap"
-              style={{ background: section.color }}
+              style={{ background: section.color + "28" }}
             >
               <span className="text-xl">{section.icon}</span>
               <span
-                style={{ fontSize: "14px", fontWeight: 800, color: "white" }}
+                style={{ fontSize: "14px", fontWeight: 800, color: section.color }}
               >
                 {section.title}
               </span>
               <span
                 className="rounded-full px-2 py-0.5"
                 style={{
-                  background: "rgba(255,255,255,0.25)",
-                  color: "white",
+                  background: section.color + "38",
+                  color: section.color,
                   fontSize: "10px",
                   fontWeight: 700,
                 }}

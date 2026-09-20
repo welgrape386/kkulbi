@@ -54,13 +54,13 @@ const customFish = [
 
 const treasureFish = [
   { name: "검정가자미", price: "500,000원", emoji: "🐟" }, { name: "뚱이", price: "750,000원", emoji: "🐡" },
-  { name: "은갈치", price: "750,000원", emoji: "🐟" }, { name: "보름달물해파리", price: "1,200,000원", emoji: "🪼" },
-  { name: "푸른바다거북", price: "1,000,000원", emoji: "🐢" }, { name: "우무문어", price: "2,000,000원", emoji: "🐙" },
-  { name: "비단잉어", price: "1,500,000원", emoji: "🐟" }, { name: "바다악어", price: "3,000,000원", emoji: "🐊" },
-  { name: "블루랍스타", price: "2,000,000원", emoji: "🦞" }, { name: "백상아리", price: "6,000,000원", emoji: "🦈" },
-  { name: "블로브피쉬", price: "2,500,000원", emoji: "🐡" }, { name: "만타가오리", price: "8,000,000원", emoji: "🐟" },
-  { name: "미갈루", price: "4,000,000원", emoji: "🐋" }, { name: "고래상어", price: "10,000,000원", emoji: "🦈" },
-  { name: "분홍돌고래", price: "5,000,000원", emoji: "🐬" },
+  { name: "은갈치", price: "1,000,000원", emoji: "🐟" }, { name: "보름달물해파리", price: "1,500,000원", emoji: "🪼" },
+  { name: "푸른바다거북", price: "2,000,000원", emoji: "🐢" }, { name: "우무문어", price: "3,000,000원", emoji: "🐙" },
+  { name: "비단잉어", price: "2,500,000원", emoji: "🐟" }, { name: "바다악어", price: "3,500,000원", emoji: "🐊" },
+  { name: "블루랍스타", price: "4,000,000원", emoji: "🦞" }, { name: "백상아리", price: "5,000,000원", emoji: "🦈" },
+  { name: "블로브피쉬", price: "4,500,000원", emoji: "🐡" }, { name: "만타가오리", price: "8,000,000원", emoji: "🐟" },
+  { name: "미갈루", price: "6,000,000원", emoji: "🐋" }, { name: "고래상어", price: "10,000,000원", emoji: "🦈" },
+  { name: "분홍돌고래", price: "7,000,000원", emoji: "🐬" },
 ];
 
 const INITIAL_SHOW = 5;

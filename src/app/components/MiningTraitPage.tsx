@@ -197,7 +197,7 @@ const modalContent: Record<
       <div className="space-y-4">
         <div className="p-4 rounded-xl bg-slate-50 border-2 border-slate-200">
           <p style={{ fontSize: "13px", color: "#374151", lineHeight: 1.7 }}>
-            📦 광물 창고는 총 <strong>5만 개</strong>까지만 보관됩니다.
+            📦 광물 창고는 총 <strong>10만 개</strong>까지만 보관됩니다.
           </p>
           <p
             className="mt-2"

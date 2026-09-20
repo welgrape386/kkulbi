@@ -69,7 +69,7 @@ const tabs = [
   },
   {
     key: "parkour",
-    label: "파쿠르",
+    label: "파쿠르 (업데이트예정)",
     emoji: "🏃",
     desc: "파쿠르 코스 규칙 및 보상 안내",
     color: "#ea580c",
@@ -78,7 +78,7 @@ const tabs = [
   },
   {
     key: "blockwars",
-    label: "블럭워즈",
+    label: "블럭워즈 (업데이트예정)",
     emoji: "⚔️",
     desc: "PVP 블럭워즈 규칙 및 전략",
     color: "#dc2626",
@@ -87,7 +87,7 @@ const tabs = [
   },
   {
     key: "marriage",
-    label: "결혼",
+    label: "결혼 (업데이트예정)",
     emoji: "💒",
     desc: "결혼 시스템 및 혜택 안내",
     color: "#db2777",
@@ -96,7 +96,7 @@ const tabs = [
   },
   {
     key: "seotda",
-    label: "섯다",
+    label: "섯다 (업데이트예정)",
     emoji: "🃏",
     desc: "섯다 게임 규칙 안내",
     color: "#ca8a04",
@@ -105,7 +105,7 @@ const tabs = [
   },
   {
     key: "painting",
-    label: "그림",
+    label: "그림 (업데이트예정)",
     emoji: "🎨",
     desc: "그림 아이템 제작 안내",
     color: "#0284c7",
@@ -114,7 +114,7 @@ const tabs = [
   },
   {
     key: "donation-king",
-    label: "기부왕",
+    label: "기부왕 (업데이트예정)",
     emoji: "👑",
     desc: "기부왕 시스템 순위 및 보상",
     color: "#b45309",
@@ -132,7 +132,7 @@ const tabs = [
   },
   {
     key: "royal-supply",
-    label: "왕실납품",
+    label: "왕실납품 (업데이트예정)",
     emoji: "🏰",
     desc: "왕실납품 아이템 및 보상 안내",
     color: "#7c3aed",
@@ -366,7 +366,7 @@ function TraitsContent() {
       color: "#6366f1",
       desc: "섬에서 광물을 주로 캐는 직업이에요. 광물을 캐서 스킬 레벨도 올리고 광물 블럭을 판매하여 수익을 창출해 보세요! 참나무 울타리가 기본 광물 생성기입니다.",
       tips: [
-        "광물 창고는 총 5만 개까지 보관 가능",
+        "광물 창고는 총 10만 개까지 보관 가능",
         "소라고동 아이템으로 광물창고 확장 가능",
         "잠광: 좌클릭 누른 상태에서 F3+T",
         "/광물변환: 광물 대신 크리스탈 확률 증가",
@@ -885,7 +885,7 @@ function RoyalContent() {
           {[
             ["지구의 머리", "30 포인트"],
             ["미가공 복구석ㆍ거친 원석", "45 포인트"],
-            ["상급 두루마리 강화서 [70% 뽑기]", "60 포인트"],
+            ["상급 두루마리 강화서 [60% 뽑기]", "60 포인트"],
             ["공룡 치장팩", "200 포인트"],
             ["일반 치장팩", "200 포인트"],
             ["신호기", "240 포인트"],
@@ -2292,7 +2292,7 @@ function ParkourContent() {
             ["다이너마이트", "3개"],
             ["엔더 상자", "3개"],
             ["스킨 제거 가위", "10개"],
-            ["최상급 두루마리 강화서 [80%]", "10개"],
+            ["최상급 두루마리 강화서 [70%]", "10개"],
             ["무한의 겉날개", "25개"],
             ["[ 경작 ] 허수아비 괭이", "30개"],
             ["마술봉 원터치 막대", "35개"],
@@ -2326,260 +2326,120 @@ function ParkourContent() {
 // ─── Events Content ───────────────────────────────────────────────────────────
 function EventsContent() {
   const dailyRewards: { day: number; items: string[] }[] = [
-    { day: 1, items: ["[화폐] 자연은 주괴"] },
+    { day: 1, items: ["보상 미정 (업데이트예정)"] },
     {
       day: 2,
-      items: [
-        "[화폐] 화려한 금 주괴 2개",
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-        "가공된 꿀조각",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 3,
-      items: [
-        "황금 뼈가루 (10개)",
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-        "은행 현금 뭉텅이",
-        "허수아비",
-        "산삼 씨앗",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 4,
-      items: [
-        "빛 (3개)",
-        "[화폐] 화려한 금 주괴",
-        "가공된 꿀조각",
-        "자동심기 기술 주문서 (+1000회)",
-        "엘레베이터 블럭",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
-    { day: 5, items: ["가공된 꿀조각", "산삼 씨앗", "뼈 (10개)"] },
+    { day: 5, items: ["보상 미정 (업데이트예정)"] },
     {
       day: 6,
-      items: [
-        "[화폐] 화려한 금 주괴 (2개)",
-        "자연 꿀밀랍",
-        "꼬마의 저금통 (5개)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 7,
-      items: [
-        "꼬마의 저금통 (5개)",
-        "의문의 빨강포션",
-        "은행 현금 뭉텅이",
-        "뼈 (5개)",
-        "양조기",
-        "자연 꿀밀랍",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 8,
-      items: [
-        "[화폐] 화려한 금 주괴",
-        "자연 꿀밀랍",
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 9,
-      items: ["가공된 꿀조각", "뼈 (15개)", "자동심기 기술 주문서 (+2000회)"],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 10,
-      items: [
-        "엘레베이터 블럭",
-        "엔더상자",
-        "양조기",
-        "[화폐] 빛나는 다이아 주괴",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
-    { day: 11, items: ["황금 뼈가루 (20개)", "제초기"] },
+    { day: 11, items: ["보상 미정 (업데이트예정)"] },
     {
       day: 12,
-      items: [
-        "반짝반짝 빛나는 거울",
-        "엘레베이터 블럭",
-        "블럭블럭 자동조합 큐브 [1회용] (10개)",
-        "[화폐] 빛나는 다이아 주괴",
-        "중급 두루마리 강화서 [60% 주문서 뽑기]",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 13,
-      items: ["천연 토종꿀", "빛 (5개)", "자동심기 기술 주문서 (+3000회)"],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 14,
-      items: [
-        "의문의 파랑포션",
-        "[화폐] 화려한 이리듐 주괴",
-        "자동심기 기술 주문서 (+3000회) (2개)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 15,
-      items: [
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-        "폭죽 로켓 (10개)",
-        "자동심기 기술 주문서 (+5000회)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 16,
-      items: [
-        "[화폐] 화려한 이리듐 주괴",
-        "일반 소라고동",
-        "은행 현금 뭉텅이",
-        "자연 꿀밀랍",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 17,
-      items: [
-        "황금 뼈가루 (30개)",
-        "제초기 (2개)",
-        "산삼 씨앗 (3개)",
-        "자동심기 기술 주문서 (+5000회)",
-        "[화폐] 화려한 이리듐 주괴",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 18,
-      items: [
-        "일반 소라고동",
-        "상급 두루마리 강화서 [70% 주문서 뽑기]",
-        "은행 현금 뭉텅이",
-        "[화폐] 화려한 금 주괴 (5개)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 19,
-      items: [
-        "자연 꿀밀랍",
-        "뼈 (15개)",
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-        "도토리 (15개)",
-        "우아한 바다진주",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 20,
-      items: [
-        "황금 뼈가루 (30개)",
-        "제초기 (3개)",
-        "산삼 씨앗 (5개)",
-        "일반 소라고동",
-        "[화폐] 화려한 이리듐 주괴",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 21,
-      items: [
-        "천연 토종꿀",
-        "[화폐] 빛나는 다이아 주괴",
-        "의문의 벨소리",
-        "반짝반짝 빛나는 거울",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 22,
-      items: [
-        "도토리 (20개)",
-        "폭죽 로켓 (10개)",
-        "[화폐] 화려한 이리듐 주괴",
-        "뼈 (15개)",
-        "우아한 바다진주",
-        "일반 소라고동",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 23,
-      items: [
-        "엘레베이터 블럭",
-        "빛 (5개)",
-        "황금 지렁이",
-        "상급 두루마리 강화서 [70% 주문서 뽑기]",
-        "자연 꿀밀랍",
-        "은행 현금 뭉텅이",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 24,
-      items: [
-        "[화폐] 화려한 금 주괴 (2개)",
-        "하급 두루마리 강화서 [50% 주문서 뽑기]",
-        "빛 (5개)",
-        "지렁이 (10개)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 25,
-      items: [
-        "폭죽 로켓 (10개)",
-        "[화폐] 화려한 이리듐 주괴",
-        "양조기",
-        "자연 꿀밀랍",
-        "우아한 바다진주",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 26,
-      items: [
-        "중급 두루마리 강화서 [60% 주문서 뽑기]",
-        "상급 두루마리 강화서 [70% 주문서 뽑기]",
-        "반짝반짝 빛나는 거울",
-        "의문의 빨강포션",
-        "[화폐] 빛나는 다이아 주괴",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 27,
-      items: [
-        "중급 두루마리 강화서 [60% 주문서 뽑기]",
-        "천연 토종꿀",
-        "[화폐] 화려한 이리듐 주괴",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 28,
-      items: [
-        "의문의 빨강포션",
-        "의문의 파랑포션",
-        "최상급 두루마리 강화서 [80% 주문서 뽑기]",
-        "일반 소라고동",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 29,
-      items: [
-        "상급 두루마리 강화서 [70% 주문서 뽑기]",
-        "은행 현금 뭉텅이",
-        "양조기",
-        "일반 소라고동 (2개)",
-        "엘레베이터 블럭",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 30,
-      items: [
-        "중급 두루마리 강화서 [60% 주문서 뽑기]",
-        "천연 토종꿀",
-        "뼈 (10개)",
-        "도토리 (30개)",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
     {
       day: 31,
-      items: [
-        "의문의 빨강포션",
-        "의문의 파랑포션",
-        "최상급 두루마리 강화서 [80% 주문서 뽑기]",
-        "의문의 벨소리",
-        "마법의 소라고동",
-      ],
+      items: ["보상 미정 (업데이트예정)"],
     },
   ];
 
@@ -2629,7 +2489,7 @@ function EventsContent() {
     "황금 뼈가루 (15개)",
   ];
   const hottimeExtraRewards = [
-    "하급 두루마리 강화서 [50% 주문서 뽑기]",
+    "하급 두루마리 강화서 [40% 주문서 뽑기]",
     "황금 뼈가루 (15개)",
   ];
 
@@ -2645,7 +2505,7 @@ function EventsContent() {
                 className="text-slate-700"
                 style={{ fontSize: "16px", fontWeight: 700 }}
               >
-                일일보상 (출석 체크)
+                일일보상 (출석 체크) (업데이트예정)
               </span>
               <span
                 className="bg-amber-100 text-amber-600 rounded-full px-2 py-0.5"
@@ -3082,7 +2942,7 @@ const shopSections: ShopSection[] = [
       { name: "일반인의 낚싯대", buy: "15,000원", sell: "판매 불가" },
       { name: "나만의 특성 재선택권", buy: "7,000,000원", sell: "판매 불가" },
       {
-        name: "랜덤 두루마리 강화서 [ 50~80% ]",
+        name: "랜덤 두루마리 강화서 [ 40~70% ]",
         buy: "4,000,000원",
         sell: "판매 불가",
       },
@@ -3416,25 +3276,25 @@ function EnchantContent() {
           {[
             {
               title: "하급 두루마리 강화서",
-              chance: "50% 주문서 뽑기",
+              chance: "40% 주문서 뽑기",
               image:
                 "https://kkulbi-farm.gitbook.io/kkulbi-forest-season-1/~gitbook/image?url=https%3A%2F%2F1465514990-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F10hHnnzC9NsLN7yFlly7%252Fuploads%252FFKcE6qU5BMkYDuXHP2qH%252Fimage.png%3Falt%3Dmedia%26token%3De018ec88-8f83-46ae-b93a-36a3843f9296&width=300&dpr=4&quality=100&sign=55ef0d91&sv=2",
             },
             {
               title: "중급 두루마리 강화서",
-              chance: "60% 주문서 뽑기",
+              chance: "50% 주문서 뽑기",
               image:
                 "https://kkulbi-farm.gitbook.io/kkulbi-forest-season-1/~gitbook/image?url=https%3A%2F%2F1465514990-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F10hHnnzC9NsLN7yFlly7%252Fuploads%252F8qC3U3f4uhvy6XvO4HkU%252Fimage.png%3Falt%3Dmedia%26token%3Dbf2e01a6-a3d9-4577-9b0c-0b5319cc5bca&width=300&dpr=4&quality=100&sign=703c3064&sv=2",
             },
             {
               title: "상급 두루마리 강화서",
-              chance: "70% 주문서 뽑기",
+              chance: "60% 주문서 뽑기",
               image:
                 "https://kkulbi-farm.gitbook.io/kkulbi-forest-season-1/~gitbook/image?url=https%3A%2F%2F1465514990-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F10hHnnzC9NsLN7yFlly7%252Fuploads%252FCjpoto98rwSwx3pNvuPW%252Fimage.png%3Falt%3Dmedia%26token%3D061e61e3-a3d0-48cf-81a1-abe5235ad850&width=300&dpr=4&quality=100&sign=a79de4fc&sv=2",
             },
             {
               title: "최상급 두루마리 강화서",
-              chance: "80% 주문서 뽑기",
+              chance: "70% 주문서 뽑기",
               image:
                 "https://kkulbi-farm.gitbook.io/kkulbi-forest-season-1/~gitbook/image?url=https%3A%2F%2F1465514990-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252F10hHnnzC9NsLN7yFlly7%252Fuploads%252FWTt2rsi4oLa2gy8GQRcc%252Fimage.png%3Falt%3Dmedia%26token%3D6b1ed210-fe64-4a5c-918f-408fa0e80fe6&width=300&dpr=4&quality=100&sign=ead0cf1d&sv=2",
             },
@@ -3487,7 +3347,7 @@ function EnchantContent() {
           className="text-indigo-700 space-y-2"
           style={{ fontSize: "14px", lineHeight: 1.8 }}
         >
-          <li>• 성공 확률은 50%, 60%, 70%, 80%로 고정됩니다.</li>
+          <li>• 성공 확률은 40%, 50%, 60%, 70%로 고정됩니다.</li>
           <li>• 실패 확률과 파괴 확률은 10% ~ 70% 사이에서 랜덤입니다.</li>
           <li>• 강화 시 성공 / 실패 / 파괴 중 하나의 결과가 발생합니다.</li>
         </ul>
@@ -3846,7 +3706,7 @@ const contentRows = [
       },
       {
         key: "royal-supply",
-        label: "왕실납품",
+        label: "왕실납품 (업데이트예정)",
         emoji: "🏰",
         desc: "왕실납품 아이템 및 보상 안내",
       },
@@ -3862,13 +3722,13 @@ const contentRows = [
     items: [
       {
         key: "marriage",
-        label: "결혼",
+        label: "결혼 (업데이트예정)",
         emoji: "💒",
         desc: "결혼 시스템 및 혜택 안내",
       },
       {
         key: "donation-king",
-        label: "기부왕",
+        label: "기부왕 (업데이트예정)",
         emoji: "👑",
         desc: "기부왕 시스템 순위 및 보상",
       },
@@ -3880,7 +3740,7 @@ const contentRows = [
       },
       {
         key: "painting",
-        label: "그림",
+        label: "그림 (업데이트예정)",
         emoji: "🎨",
         desc: "그림 아이템 제작 안내",
       },
@@ -3896,19 +3756,19 @@ const contentRows = [
     items: [
       {
         key: "parkour",
-        label: "파쿠르",
+        label: "파쿠르 (업데이트예정)",
         emoji: "🏃",
         desc: "파쿠르 코스 규칙 및 보상 안내",
       },
       {
         key: "blockwars",
-        label: "블럭워즈",
+        label: "블럭워즈 (업데이트예정)",
         emoji: "⚔️",
         desc: "PVP 블럭워즈 규칙 및 전략",
       },
       {
         key: "seotda",
-        label: "섯다",
+        label: "섯다 (업데이트예정)",
         emoji: "🃏",
         desc: "섯다 게임 규칙 안내",
       },

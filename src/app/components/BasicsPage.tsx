@@ -40,7 +40,7 @@ function ConnectContent() {
               className="text-amber-300"
               style={{ fontSize: "18px", fontWeight: 900 }}
             >
-              kulbi.kr | Kkulbiglobal.skhidc.kr
+              kkulbi.kr | Kkulbiglobal.skhidc.kr
             </div>
             <div className="text-amber-600 mt-1" style={{ fontSize: "12px" }}>
               버전 1.21.10
@@ -360,7 +360,7 @@ function FaqContent() {
   const faqs = [
     {
       q: "광물이 안 나와요.",
-      a: "/광물창고 명령어를 확인해보세요. 광물 창고는 총 5만 개까지만 보관됩니다. 가득 차면 광물이 더 이상 드롭되지 않아요! 소라고동 아이템으로 광물창고를 늘릴 수 있어요.",
+      a: "/광물창고 명령어를 확인해보세요. 광물 창고는 총 10만 개까지만 보관됩니다. 가득 차면 광물이 더 이상 드롭되지 않아요! 소라고동 아이템으로 광물창고를 늘릴 수 있어요.",
     },
     {
       q: "광물변환은 뭔가요?",

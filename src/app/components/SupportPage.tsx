@@ -103,7 +103,7 @@ function MethodContent() {
     <div className="space-y-6">
       {/* 사이트 링크 배너 */}
       <a
-        href="https://skhcs.com/kkulbif"
+        href="https://kkulbi.codix.kr/donate"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-between p-5 rounded-2xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all group"
@@ -118,7 +118,7 @@ function MethodContent() {
               후원 사이트 바로가기
             </div>
             <div className="text-violet-400" style={{ fontSize: "12px" }}>
-              skhcs.com/kkulbif
+              kkulbi.codix.kr/donate
             </div>
           </div>
         </div>
@@ -160,12 +160,12 @@ function MethodContent() {
                 <>
                   후원 사이트{" "}
                   <a
-                    href="https://skhcs.com/kkulbif"
+                    href="https://kkulbi.codix.kr/donate"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-violet-600 underline hover:text-violet-800"
                   >
-                    skhcs.com/kkulbif
+                    kkulbi.codix.kr/donate
                   </a>
                   에 접속합니다.
                 </>
@@ -575,14 +575,14 @@ const cashLootboxes: ProbSection[] = [
       { name: "청금석 제거 고급 광산", prob: "1.85" },
       { name: "석탄 제거 고급 광산", prob: "1.85" },
       { name: "확률업 고급 광산", prob: "1.85" },
+      { name: "태양열 조각 [ 40% ] · 강화 효과 [ 1% ]", prob: "12.95" },
+      { name: "태양열 조각 [ 40% ] · 강화 효과 [ 2% ]", prob: "11.1" },
       { name: "태양열 조각 [ 50% ] · 강화 효과 [ 1% ]", prob: "12.95" },
       { name: "태양열 조각 [ 50% ] · 강화 효과 [ 2% ]", prob: "11.1" },
       { name: "태양열 조각 [ 60% ] · 강화 효과 [ 1% ]", prob: "12.95" },
       { name: "태양열 조각 [ 60% ] · 강화 효과 [ 2% ]", prob: "11.1" },
-      { name: "태양열 조각 [ 70% ] · 강화 효과 [ 1% ]", prob: "12.95" },
+      { name: "태양열 조각 [ 70% ] · 강화 효과 [ 1% ]", prob: "11.1" },
       { name: "태양열 조각 [ 70% ] · 강화 효과 [ 2% ]", prob: "11.1" },
-      { name: "태양열 조각 [ 80% ] · 강화 효과 [ 1% ]", prob: "11.1" },
-      { name: "태양열 조각 [ 80% ] · 강화 효과 [ 2% ]", prob: "11.1" },
     ],
   },
   {
@@ -792,7 +792,7 @@ function ProbabilityContent() {
               <span
                 style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}
               >
-                50% / 60% / 70% / 80% 두루마리
+                40% / 50% / 60% / 70% 두루마리
               </span>
             </div>
             <p
@@ -800,7 +800,7 @@ function ProbabilityContent() {
               style={{ fontSize: "12px", lineHeight: 1.6 }}
             >
               각 두루마리에서 나오는 아이템의 확률입니다. 주문서의 성공확률은 각
-              두루마리마다 50%/60%/70%/80%로 동일합니다.
+              두루마리마다 40%/50%/60%/70%로 동일합니다.
             </p>
           </div>
           <div className="p-4">
@@ -838,7 +838,7 @@ function ProbabilityContent() {
                   fontWeight: 700,
                 }}
               >
-                성공확률 80%
+                성공확률 70%
               </span>
             </div>
             <p className="text-slate-500 mt-1" style={{ fontSize: "12px" }}>

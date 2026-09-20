@@ -300,7 +300,7 @@ const currency: string[][] = [
   ["[ 기본 ] 입주민의 괭이", "15,000원", "판매 불가"],
   ["일반인의 낚싯대", "15,000원", "판매 불가"],
   ["나만의 특성 재선택권", "7,000,000원", "판매 불가"],
-  ["랜덤 두루마리 강화서 [ 50~80%]", "4,000,000원", "판매 불가"],
+  ["랜덤 두루마리 강화서 [ 40~70%]", "4,000,000원", "판매 불가"],
   ["일반 복구석 깨진 조각의 희망", "500,000원", "판매 불가"],
   ["특성 및 레벨 복구권", "10,000,000원", "판매 불가"],
 ];
@@ -615,6 +615,20 @@ function ShopTab() {
         </p>
       </div>
 
+      {/* 시세 미확정 안내 */}
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-4 flex items-center gap-3">
+        <span className="text-xl flex-shrink-0">⚠️</span>
+        <p
+          className="text-red-800"
+          style={{ fontSize: "13px", lineHeight: 1.7 }}
+        >
+          <strong>
+            시세표는 아직 시세가 확정되지 않아 업데이트 예정입니다.
+          </strong>{" "}
+          일부 아이템의 표기 가격이 실제 서버 상점가와 다를 수 있습니다.
+        </p>
+      </div>
+
       {/* 검색 */}
       <div className="flex items-center gap-3 bg-white rounded-2xl px-5 py-3.5 border-2 border-amber-200 shadow-sm">
         <Search className="w-5 h-5 text-amber-400 flex-shrink-0" />
@@ -862,22 +876,22 @@ const priceSections: PriceSection[] = [
     color: "#7c3aed",
     rows: [
       {
-        name: "하급 두루마리 강화서 [50% 뽑기]",
+        name: "하급 두루마리 강화서 [40% 뽑기]",
         price: "248만원",
         cash: "990캐시",
       },
       {
-        name: "중급 두루마리 강화서 [60% 뽑기]",
+        name: "중급 두루마리 강화서 [50% 뽑기]",
         price: "400만원",
         cash: "1,600캐시",
       },
       {
-        name: "상급 두루마리 강화서 [70% 뽑기]",
+        name: "상급 두루마리 강화서 [60% 뽑기]",
         price: "550만원",
         cash: "2,200캐시",
       },
       {
-        name: "최상급 두루마리 강화서 [80% 뽑기]",
+        name: "최상급 두루마리 강화서 [70% 뽑기]",
         price: "725만원",
         cash: "2,900캐시",
       },
@@ -1060,6 +1074,17 @@ function PricesTab() {
             내 시세보다 낮게 측정될 수 있습니다.
             <br />
             수요와 공급 등락폭에 따라 주기와 무관하게 변동될 수 있습니다.
+          </p>
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-2xl p-4">
+          <p
+            className="text-red-800"
+            style={{ fontSize: "13px", lineHeight: 1.7 }}
+          >
+            ⚠️{" "}
+            <strong>
+              시세표는 아직 시세가 확정되지 않아 업데이트 예정입니다.
+            </strong>
           </p>
         </div>
       </div>

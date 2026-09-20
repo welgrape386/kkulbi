@@ -61,9 +61,9 @@ const upgrades = [
   {
     title: "호퍼 제한", icon: "🔧", color: "#6366f1", unit: "개",
     stages: [
-      { stage: 1, value: "100", cost: "0원 (기본)" }, { stage: 2, value: "150", cost: "5,000,000원" },
-      { stage: 3, value: "200", cost: "20,000,000원" }, { stage: 4, value: "250", cost: "50,000,000원" },
-      { stage: 5, value: "300", cost: "70,000,000원" },
+      { stage: 1, value: "100", cost: "0원 (기본)" }, { stage: 2, value: "60", cost: "5,000,000원" },
+      { stage: 3, value: "90", cost: "20,000,000원" }, { stage: 4, value: "120", cost: "50,000,000원" },
+      { stage: 5, value: "300", cost: "100,000,000원" },
     ],
   },
   {
@@ -85,17 +85,33 @@ const upgrades = [
   {
     title: "섬 인원 제한", icon: "👥", color: "#0284c7", unit: "명",
     stages: [
-      { stage: 1, value: "6", cost: "0원 (기본)" }, { stage: 2, value: "8", cost: "3,000,000원" },
-      { stage: 3, value: "10", cost: "10,000,000원" }, { stage: 4, value: "12", cost: "30,000,000원" },
-      { stage: 5, value: "14", cost: "50,000,000원" },
+      { stage: 1, value: "6", cost: "0원 (기본)" }, { stage: 2, value: "8", cost: "10,000,000원" },
+      { stage: 3, value: "10", cost: "30,000,000원" }, { stage: 4, value: "12", cost: "50,000,000원" },
+      { stage: 5, value: "14", cost: "100,000,000원" },
     ],
   },
   {
     title: "섬 크기 제한", icon: "🗺️", color: "#be185d", unit: "",
     stages: [
-      { stage: 1, value: "100×100", cost: "0원 (기본)" }, { stage: 2, value: "200×200", cost: "2,000,000원" },
-      { stage: 3, value: "300×300", cost: "10,000,000원" }, { stage: 4, value: "400×400", cost: "30,000,000원" },
-      { stage: 5, value: "500×500", cost: "50,000,000원" },
+      { stage: 1, value: "x100", cost: "0원 (기본)" }, { stage: 2, value: "x150", cost: "5,000,000원" },
+      { stage: 3, value: "x200", cost: "10,000,000원" }, { stage: 4, value: "x250", cost: "30,000,000원" },
+      { stage: 5, value: "x300", cost: "50,000,000원" }, { stage: 6, value: "x350", cost: "70,000,000원" },
+      { stage: 7, value: "x400", cost: "100,000,000원" }, { stage: 8, value: "x450", cost: "150,000,000원" },
+      { stage: 9, value: "x500", cost: "300,000,000원" },
+    ],
+  },
+  {
+    title: "워프 제한", icon: "🌀", color: "#7c3aed", unit: "개",
+    stages: [
+      { stage: 1, value: "3", cost: "0원 (기본)" }, { stage: 2, value: "4", cost: "10,000,000원" },
+      { stage: 3, value: "5", cost: "30,000,000원" }, { stage: 4, value: "6", cost: "50,000,000원" },
+    ],
+  },
+  {
+    title: "액자 설치 제한", icon: "🖼️", color: "#0d9488", unit: "개",
+    stages: [
+      { stage: 1, value: "20", cost: "0원 (기본)" }, { stage: 2, value: "30", cost: "3,000,000원" },
+      { stage: 3, value: "40", cost: "10,000,000원" }, { stage: 4, value: "50", cost: "30,000,000원" },
     ],
   },
 ];

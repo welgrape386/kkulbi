@@ -27,13 +27,14 @@ const allSkills = [
 ];
 
 const rodUpgrades = [
-  { name: "자연의 낚싯대", recipe: "일반인의 낚싯대 1개 & 우아한 바다진주 10개" },
-  { name: "은색 낚싯대", recipe: "자연의 낚싯대 1개 & 우아한 바다진주 30개" },
-  { name: "뼈다귀 낚싯대", recipe: "은색 낚싯대 1개 & 우아한 바다진주 50개" },
-  { name: "황금색 낚싯대", recipe: "뼈다귀 낚싯대 1개 & 우아한 바다진주 80개" },
-  { name: "마스터 낚싯대", recipe: "황금색 낚싯대 1개 & 우아한 바다진주 120개" },
-  { name: "이리듐 낚싯대", recipe: "마스터 낚싯대 1개 & 우아한 바다진주 150개" },
-  { name: "우주별 낚싯대", recipe: "이리듐 낚싯대 1개 & 우아한 바다진주 200개" },
+  { name: "일반 낚싯대", material: "우아한 바다진주 5개", cost: "300,000원", chance: "70%" },
+  { name: "자연 낚싯대", material: "우아한 바다진주 10개", cost: "700,000원", chance: "50%" },
+  { name: "은색 낚싯대", material: "우아한 바다진주 15개", cost: "1,000,000원", chance: "40%" },
+  { name: "뼈다귀 낚싯대", material: "우아한 바다진주 20개", cost: "3,000,000원", chance: "30%" },
+  { name: "황금색 낚싯대", material: "우아한 바다진주 30개", cost: "5,000,000원", chance: "15%" },
+  { name: "마스터 낚싯대", material: "우아한 바다진주 40개", cost: "10,000,000원", chance: "7%" },
+  { name: "이리듐 낚싯대", material: "우아한 바다진주 50개", cost: "30,000,000원", chance: "3%" },
+  { name: "우주별 낚싯대", material: "정보 없음", cost: "추후 공개", chance: "추후 공개" },
 ];
 
 const pearls = [
@@ -239,12 +240,14 @@ export function FishingTraitPage() {
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
               🪸 <strong>우아한 바다진주</strong>를 사용하여 낚시대를 업그레이드 해보세요!
             </p>
-            <div className="rounded-2xl border-2 border-sky-200 overflow-hidden">
+            <div className="overflow-x-auto rounded-2xl border-2 border-sky-200 overflow-hidden">
               <table className="w-full">
                 <thead>
                   <tr style={{ background: "#e0f2fe" }}>
                     <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>낚싯대 이름</th>
                     <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>필요 재료</th>
+                    <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>필요 재화</th>
+                    <th className="px-4 py-3 text-right" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>성공 확률</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -255,7 +258,9 @@ export function FishingTraitPage() {
                           🎣 {rod.name}
                         </span>
                       </td>
-                      <td className="px-4 py-3" style={{ fontSize: "12px", color: "#374151" }}>{rod.recipe}</td>
+                      <td className="px-4 py-3" style={{ fontSize: "12px", color: "#374151" }}>{rod.material}</td>
+                      <td className="px-4 py-3" style={{ fontSize: "12px", color: "#374151" }}>{rod.cost}</td>
+                      <td className="px-4 py-3 text-right" style={{ fontSize: "12px", fontWeight: 800, color: "#0284c7" }}>{rod.chance}</td>
                     </tr>
                   ))}
                 </tbody>

@@ -51,7 +51,7 @@ const tabs = [
   },
   {
     key: "collection",
-    label: "도감",
+    label: "도감 (업데이트예정)",
     emoji: "📖",
     desc: "수집가 도감 완료 방법 안내",
     color: "#0891b2",
@@ -3910,7 +3910,7 @@ const contentRows = [
       },
       {
         key: "collection",
-        label: "도감",
+        label: "도감 (업데이트예정)",
         emoji: "📖",
         desc: "수집가 도감 완료 방법 안내",
       },

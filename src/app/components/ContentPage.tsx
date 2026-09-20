@@ -3636,10 +3636,10 @@ function GachaProbTable({
   rows: string[][];
 }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto bg-white">
       <table className="w-full">
         <thead>
-          <tr style={{ background: color + "10" }}>
+          <tr style={{ background: color + "22" }}>
             <th
               className="px-4 py-2.5 text-left"
               style={{ fontSize: "11px", fontWeight: 700, color }}
@@ -3654,9 +3654,12 @@ function GachaProbTable({
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-50">
+        <tbody className="divide-y divide-slate-100">
           {rows.map((row, i) => (
-            <tr key={i} className="hover:bg-amber-50/30 transition-colors">
+            <tr
+              key={i}
+              className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}
+            >
               <td
                 className="px-4 py-2.5 text-slate-700"
                 style={{ fontSize: "12px" }}
@@ -3782,24 +3785,24 @@ function GachaContent() {
         {gachaSections.map((section) => (
           <div
             key={section.title}
-            className="rounded-2xl border-2 overflow-hidden"
-            style={{ borderColor: section.color + "40" }}
+            className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm"
+            style={{ borderColor: section.color + "55" }}
           >
             <div
               className="px-4 py-3 flex items-center gap-2 flex-wrap"
-              style={{ background: section.color + "15" }}
+              style={{ background: section.color }}
             >
               <span className="text-xl">{section.icon}</span>
               <span
-                style={{ fontSize: "14px", fontWeight: 800, color: section.color }}
+                style={{ fontSize: "14px", fontWeight: 800, color: "white" }}
               >
                 {section.title}
               </span>
               <span
                 className="rounded-full px-2 py-0.5"
                 style={{
-                  background: section.color + "20",
-                  color: section.color,
+                  background: "rgba(255,255,255,0.25)",
+                  color: "white",
                   fontSize: "10px",
                   fontWeight: 700,
                 }}
@@ -3809,13 +3812,13 @@ function GachaContent() {
             </div>
             {section.desc && (
               <p
-                className="px-4 pt-3 text-slate-500"
+                className="px-4 pt-3 bg-white text-slate-500"
                 style={{ fontSize: "12px", lineHeight: 1.6 }}
               >
                 {section.desc}
               </p>
             )}
-            <div className={section.desc ? "pt-2" : ""}>
+            <div className={section.desc ? "pt-2 bg-white" : ""}>
               <GachaProbTable
                 color={section.color}
                 cols={section.cols}

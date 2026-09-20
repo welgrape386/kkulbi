@@ -548,12 +548,10 @@ type ProbSection = {
 
 const scrollTableRows = [
   ["10%", "3.7"],
-  ["20%", "7.4"],
-  ["30%", "11.1"],
-  ["40%", "14.8"],
-  ["50%", "18.5"],
-  ["60%", "22.2"],
-  ["70%", "22.2"],
+  ["20%", "9.26"],
+  ["30%", "16.67"],
+  ["40%", "25.93"],
+  ["50%", "44.44"],
 ];
 
 const cashLootboxes: ProbSection[] = [
@@ -575,14 +573,14 @@ const cashLootboxes: ProbSection[] = [
       { name: "청금석 제거 고급 광산", prob: "1.85" },
       { name: "석탄 제거 고급 광산", prob: "1.85" },
       { name: "확률업 고급 광산", prob: "1.85" },
-      { name: "태양열 조각 [ 40% ] · 강화 효과 [ 1% ]", prob: "12.95" },
-      { name: "태양열 조각 [ 40% ] · 강화 효과 [ 2% ]", prob: "11.1" },
       { name: "태양열 조각 [ 50% ] · 강화 효과 [ 1% ]", prob: "12.95" },
       { name: "태양열 조각 [ 50% ] · 강화 효과 [ 2% ]", prob: "11.1" },
       { name: "태양열 조각 [ 60% ] · 강화 효과 [ 1% ]", prob: "12.95" },
       { name: "태양열 조각 [ 60% ] · 강화 효과 [ 2% ]", prob: "11.1" },
-      { name: "태양열 조각 [ 70% ] · 강화 효과 [ 1% ]", prob: "11.1" },
+      { name: "태양열 조각 [ 70% ] · 강화 효과 [ 1% ]", prob: "12.95" },
       { name: "태양열 조각 [ 70% ] · 강화 효과 [ 2% ]", prob: "11.1" },
+      { name: "태양열 조각 [ 80% ] · 강화 효과 [ 1% ]", prob: "11.1" },
+      { name: "태양열 조각 [ 80% ] · 강화 효과 [ 2% ]", prob: "11.1" },
     ],
   },
   {
@@ -792,15 +790,15 @@ function ProbabilityContent() {
               <span
                 style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}
               >
-                40% / 50% / 60% / 70% 두루마리
+                40%/50%/60%/70%/80% 두루마리
               </span>
             </div>
             <p
               className="text-slate-500 mt-1"
               style={{ fontSize: "12px", lineHeight: 1.6 }}
             >
-              각 두루마리에서 나오는 아이템의 확률입니다. 주문서의 성공확률은 각
-              두루마리마다 40%/50%/60%/70%로 동일합니다.
+              각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의
+              성공확률은 각 두루마리마다 50%/60%/70%/80%로 동일합니다.
             </p>
           </div>
           <div className="p-4">
@@ -817,48 +815,19 @@ function ProbabilityContent() {
           </div>
         </div>
 
-        {/* 최상급 두루마리 */}
-        <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm mb-5">
-          <div
-            className="px-4 py-3.5 border-b border-slate-100"
-            style={{ background: "linear-gradient(135deg, #faf5ff, #ede9fe)" }}
-          >
-            <div className="flex items-center gap-2">
-              <span
-                style={{ fontSize: "14px", fontWeight: 800, color: "#5b21b6" }}
-              >
-                최상급 두루마리 강화서
-              </span>
-              <span
-                className="rounded-full px-2 py-0.5"
-                style={{
-                  background: "#7c3aed",
-                  color: "white",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                }}
-              >
-                성공확률 70%
-              </span>
-            </div>
-            <p className="text-slate-500 mt-1" style={{ fontSize: "12px" }}>
-              최상급 두루마리에서 나오는 아이템의 확률입니다.
-            </p>
-          </div>
-          <div className="p-4">
-            <ScrollTable
-              headers={["파괴 확률", "확률 (%)"]}
-              rows={scrollTableRows}
-            />
-          </div>
-        </div>
-
         {/* 캐시 뽑기 아이템들 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {cashLootboxes.map((section) => (
             <LootboxCard key={section.title} section={section} />
           ))}
         </div>
+
+        <p
+          className="text-slate-400 mt-3"
+          style={{ fontSize: "11px", lineHeight: 1.6 }}
+        >
+          ※ 소수점 3번째 자리는 제외했기 때문에 99.9%도 나올 수 있습니다
+        </p>
       </div>
 
       {/* 패키지 확률 */}

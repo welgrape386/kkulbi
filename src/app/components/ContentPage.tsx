@@ -164,87 +164,86 @@ function RankContent() {
   const ranks = [
     {
       tier: 1,
+      name: "새싹",
       emoji: "🌱",
       req: { money: "500,000원", time: null, mine: "2회" },
       perms: ["/밥"],
     },
     {
       tier: 2,
+      name: "잎",
       emoji: "🌿",
       req: { money: "1,000,000원", time: null, mine: "3회" },
-      perms: ["/엔더상자", "/창고 1"],
+      perms: ["/창고 2 (54칸)", "/엔더상자"],
     },
     {
       tier: 3,
-      emoji: "🍃",
+      name: "꽃",
+      emoji: "🌸",
       req: { money: "2,000,000원", time: null, mine: "5회" },
-      perms: ["/창고 2", "경매장 등록 15개"],
+      perms: ["유저상점 등록 20개 (10→20)"],
     },
     {
       tier: 4,
+      name: "숲",
       emoji: "🌳",
-      req: { money: "10,000,000원", time: null, mine: "6회" },
-      perms: ["/창고 3"],
+      req: { money: "10,000,000원", time: null, mine: "8회" },
+      perms: ["/창고 3 (54칸)", "/가구염색"],
     },
     {
       tier: 5,
+      name: "벌",
       emoji: "⭐",
-      req: { money: "40,000,000원", time: "60시간", mine: "8회" },
-      perms: ["/조합대", "/수산시장"],
+      req: { money: "40,000,000원", time: "60시간", mine: "12회" },
+      perms: ["/조합대", "/이모지", "그림 기능"],
     },
     {
       tier: 6,
+      name: "벌집",
       emoji: "🌟",
-      req: { money: "70,000,000원", time: "100시간", mine: "10회" },
-      perms: ["/자동줍기", "/창고 4", "/캐시 보내기"],
+      req: { money: "70,000,000원", time: "100시간", mine: "15회" },
+      perms: ["/창고 4 (54칸)", "캐시 보내기 무료", "더블점프"],
     },
     {
       tier: 7,
+      name: "꿀",
       emoji: "💫",
-      req: { money: "100,000,000원", time: "180시간", mine: "15회" },
-      perms: ["확성기 무료", "추천 시 100캐시 지급"],
+      req: { money: "100,000,000원", time: null, mine: null },
+      perms: ["/확성기 무료", "추천 시 100캐시 지급"],
     },
     {
       tier: 8,
+      name: "진꿀",
       emoji: "✨",
-      req: { money: "250,000,000원", time: "240시간", mine: "20회" },
-      perms: ["추가 권한 업데이트 예정"],
+      req: { money: "250,000,000원", time: "240시간", mine: "25회" },
+      perms: ["/창고 5", "/액자", "/수상시장"],
     },
     {
       tier: 9,
+      name: "황꿀",
       emoji: "🏅",
       req: { money: "500,000,000원", time: "360시간", mine: "30회" },
-      perms: ["경매장 세금 면제", "/창고 5", "/액자"],
+      perms: ["/자동조합", "/상점열기"],
     },
     {
       tier: 10,
+      name: "군락",
       emoji: "🥇",
       req: { money: "1,000,000,000원", time: "500시간", mine: "40회" },
-      perms: ["/자동조합", "/상점열기", "/창고 6"],
+      perms: ["/창고 6 (54칸)", "특별 메시지", "무한 플라이", "원격제단"],
     },
     {
       tier: 11,
+      name: "꿀비",
       emoji: "💎",
       req: { money: "3,000,000,000원", time: "720시간", mine: "50회" },
-      perms: ["/제단", "특별 메세지", "무한플라이"],
-    },
-    {
-      tier: 12,
-      emoji: "👑",
-      req: { money: "5,000,000,000원", time: "720시간", mine: "50회" },
-      perms: ["특별 메세지", "커스텀 뱃지", "/암시장확인", "/제단열기"],
-    },
-    {
-      tier: 13,
-      emoji: "🔱",
-      req: { money: "10,000,000,000원", time: "720시간", mine: "50회" },
-      perms: ["/창고 7-8", "추천 시 300캐시"],
-    },
-    {
-      tier: 14,
-      emoji: "⚡",
-      req: { money: "최고 등급", time: "720시간", mine: "50회" },
-      perms: ["/창고 9-10", "/발광"],
+      perms: [
+        "특별 메시지",
+        "꿀비 전용 엠블럼",
+        "꿀비 전용 뱃지",
+        "꿀비 전용 발자국",
+        "꿀비 전용 펫",
+      ],
     },
   ];
 
@@ -312,7 +311,7 @@ function RankContent() {
                         className="text-slate-700"
                         style={{ fontSize: "13px", fontWeight: 600 }}
                       >
-                        {r.tier}등급
+                        {r.name}
                       </span>
                     </div>
                   </td>
@@ -332,7 +331,7 @@ function RankContent() {
                     className="px-4 py-3 text-slate-500"
                     style={{ fontSize: "13px" }}
                   >
-                    {r.req.mine}
+                    {r.req.mine ?? "-"}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">

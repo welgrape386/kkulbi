@@ -61,7 +61,7 @@ const upgrades = [
   {
     title: "호퍼 제한", icon: "🔧", color: "#6366f1", unit: "개",
     stages: [
-      { stage: 1, value: "100", cost: "0원 (기본)" }, { stage: 2, value: "60", cost: "5,000,000원" },
+      { stage: 1, value: "30", cost: "0원 (기본)" }, { stage: 2, value: "60", cost: "5,000,000원" },
       { stage: 3, value: "90", cost: "20,000,000원" }, { stage: 4, value: "120", cost: "50,000,000원" },
       { stage: 5, value: "300", cost: "100,000,000원" },
     ],

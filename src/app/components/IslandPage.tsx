@@ -2,8 +2,21 @@ import { useState } from "react";
 import type { ReactNode } from "react";
 import { Link } from "react-router";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
+import island1Img from "../../imports/i1.png";
+import island2Img from "../../imports/i2.png";
+import island3Img from "../../imports/i3.png";
+import island4Img from "../../imports/i4.png";
+import island5Img from "../../imports/i5.png";
 
 const BG = "#fff8dc";
+
+const islandPreviews = [
+  { name: "꽃바람 섬", img: island1Img },
+  { name: "새싹의 섬", img: island2Img },
+  { name: "벚꽃의 섬", img: island3Img },
+  { name: "새싹 온실섬", img: island4Img },
+  { name: "다정한 들섬", img: island5Img },
+];
 
 const permissions = [
   { name: "모든 권한", desc: "섬의 모든 권한을 이용할 수 있습니다." },
@@ -203,19 +216,13 @@ export function IslandPage() {
         {/* 2. 섬 프리뷰 */}
         <SectionCard>
           <SectionHeader emoji="🌍" title="섬 프리뷰" sub="섬 선택 시 생성 유형" />
-          <div className="p-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { name: "새싹의 섬", type: "기본형", emoji: "🌱", desc: "일반적인 기본 형태의 섬입니다. 어떤 플레이도 가능합니다.", color: "#16a34a", bg: "#f0fdf4" },
-              { name: "반짝의 섬", type: "채광형", emoji: "⛏️", desc: "광물 채취에 특화된 형태의 섬입니다. 광물 생성기 구조 최적화.", color: "#6366f1", bg: "#f5f3ff" },
-              { name: "도토리의 섬", type: "벌목형", emoji: "🪓", desc: "나무 채취에 특화된 형태의 섬입니다. 벌목장 구조 최적화.", color: "#92400e", bg: "#fffbeb" },
-            ].map((island) => (
-              <div key={island.name} className="rounded-2xl border-2 p-5 text-center" style={{ background: island.bg, borderColor: island.color + "40" }}>
-                <div className="text-4xl mb-3">{island.emoji}</div>
-                <div style={{ fontSize: "16px", fontWeight: 800, color: island.color }}>{island.name}</div>
-                <div className="inline-block rounded-full px-3 py-0.5 my-2" style={{ background: island.color + "20", color: island.color, fontSize: "11px", fontWeight: 700 }}>
-                  {island.type}
+          <div className="p-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            {islandPreviews.map((island) => (
+              <div key={island.name} className="rounded-2xl border-2 border-amber-100 overflow-hidden hover:shadow-md transition-shadow">
+                <img src={island.img} alt={island.name} className="w-full aspect-square object-cover" />
+                <div className="p-3 text-center" style={{ fontSize: "13px", fontWeight: 800, color: "#92400e" }}>
+                  {island.name}
                 </div>
-                <p style={{ fontSize: "12px", color: "#78716c", lineHeight: 1.6 }}>{island.desc}</p>
               </div>
             ))}
           </div>

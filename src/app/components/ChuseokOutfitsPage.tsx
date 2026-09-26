@@ -35,10 +35,7 @@ function OutfitGallery({ images, emptyLabel }: { images: string[]; emptyLabel: s
   }
 
   return (
-    <div
-      className="grid gap-4"
-      style={{ gridTemplateColumns: "repeat(auto-fit, minmax(440px, 1fr))" }}
-    >
+    <div className="grid grid-cols-2 gap-4">
       {images.map((src) => (
         <div
           key={src}

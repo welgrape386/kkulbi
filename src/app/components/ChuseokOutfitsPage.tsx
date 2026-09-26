@@ -2,16 +2,52 @@ import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 import { CHUSEOK_COLOR } from "./ChuseokEventContent";
 
-const outfitImages = Object.entries(
-  import.meta.glob<string>("../../imports/착용샷-*.{png,jpg,jpeg,webp}", {
+function loadImages(glob: Record<string, string>) {
+  return Object.entries(glob)
+    .sort(([a], [b]) => a.localeCompare(b, "ko", { numeric: true }))
+    .map(([, src]) => src);
+}
+
+const toolOutfitImages = loadImages(
+  import.meta.glob<string>("../../imports/도구*.{png,jpg,jpeg,webp}", {
     eager: true,
     import: "default",
   }),
-)
-  .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, src]) => src);
+);
+
+const costumeOutfitImages = loadImages(
+  import.meta.glob<string>("../../imports/치장*.{png,jpg,jpeg,webp}", {
+    eager: true,
+    import: "default",
+  }),
+);
 
 const COLOR = CHUSEOK_COLOR;
+
+function OutfitGallery({ images, emptyLabel }: { images: string[]; emptyLabel: string }) {
+  if (images.length === 0) {
+    return (
+      <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+        <span className="text-xl flex-shrink-0">🖼️</span>
+        <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>{emptyLabel}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {images.map((src) => (
+        <div
+          key={src}
+          className="bg-white rounded-xl border-2 overflow-hidden shadow-sm"
+          style={{ borderColor: COLOR + "33" }}
+        >
+          <img src={src} alt="추석 이벤트 착용샷" className="w-full h-auto" />
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export function ChuseokOutfitsPage() {
   return (
@@ -41,26 +77,41 @@ export function ChuseokOutfitsPage() {
           </div>
         </div>
 
-        {outfitImages.length === 0 ? (
-          <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
-            <span className="text-xl flex-shrink-0">🖼️</span>
-            <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
-              착용샷은 곧 업데이트될 예정입니다.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {outfitImages.map((src) => (
-              <div
-                key={src}
-                className="bg-white rounded-xl border-2 overflow-hidden shadow-sm"
-                style={{ borderColor: COLOR + "33" }}
+        <div className="space-y-6">
+          {/* 도구스킨 섹션 */}
+          <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: COLOR + "55" }}>
+            <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+              <span className="text-xl">🛠️</span>
+              <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 도구스킨 착용샷</span>
+              <span
+                className="rounded-full px-2 py-0.5"
+                style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
               >
-                <img src={src} alt="추석 이벤트 착용샷" className="w-full h-auto" />
-              </div>
-            ))}
+                {toolOutfitImages.length}장
+              </span>
+            </div>
+            <div className="p-4">
+              <OutfitGallery images={toolOutfitImages} emptyLabel="도구스킨 착용샷은 곧 업데이트될 예정입니다." />
+            </div>
           </div>
-        )}
+
+          {/* 코스튬 섹션 */}
+          <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: COLOR + "55" }}>
+            <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+              <span className="text-xl">👘</span>
+              <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 코스튬 착용샷</span>
+              <span
+                className="rounded-full px-2 py-0.5"
+                style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
+              >
+                {costumeOutfitImages.length}장
+              </span>
+            </div>
+            <div className="p-4">
+              <OutfitGallery images={costumeOutfitImages} emptyLabel="코스튬 착용샷은 곧 업데이트될 예정입니다." />
+            </div>
+          </div>
+        </div>
 
         {/* Bottom nav */}
         <div className="mt-6 flex flex-wrap gap-3">

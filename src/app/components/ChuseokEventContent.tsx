@@ -67,18 +67,18 @@ export function ChuseokEventContent() {
       {/* 헤더 */}
       <div
         className="px-5 py-4 border-b border-amber-200 flex items-center justify-between flex-wrap gap-3"
-        style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
+        style={{ background: "linear-gradient(135deg, #f97316, #ea580c)" }}
       >
         <div className="flex items-center gap-2">
           <span className="text-lg">🎉</span>
-          <span className="text-amber-900" style={{ fontSize: "16px", fontWeight: 800 }}>
+          <span className="text-white" style={{ fontSize: "16px", fontWeight: 800 }}>
             추석 이벤트
           </span>
         </div>
         <Link
           to="/chuseok-event/outfits"
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all hover:shadow-md"
-          style={{ background: `linear-gradient(135deg, #f97316, #ea580c)`, color: "#fff", fontSize: "12px", fontWeight: 800 }}
+          style={{ background: "rgba(255,255,255,0.9)", color: "#c2410c", fontSize: "12px", fontWeight: 800 }}
         >
           📸 착용샷 보기
         </Link>

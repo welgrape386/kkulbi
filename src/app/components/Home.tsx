@@ -404,15 +404,6 @@ const quickLinks = [
     bg: "#fffbeb",
     border: "#fde68a",
   },
-  {
-    title: "추석 이벤트",
-    desc: "추석 랜덤 뽑기권 확률표 및 도구/코스튬 스킨 안내",
-    emoji: "🎑",
-    to: "/chuseok-event",
-    color: "#4338ca",
-    bg: "#eef2ff",
-    border: "#c7d2fe",
-  },
 ];
 
 function QuickLinksSection() {
@@ -738,6 +729,32 @@ function EventsSection() {
 
         {/* Right: other event cards */}
         <div className="space-y-4">
+          <Link
+            to="/chuseok-event"
+            className="block bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all"
+          >
+            <div
+              className="px-4 py-3.5 flex items-center justify-between"
+              style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🎉</span>
+                <span
+                  className="text-amber-900"
+                  style={{ fontSize: "15px", fontWeight: 800 }}
+                >
+                  이벤트 안내
+                </span>
+              </div>
+              <ChevronRight className="w-4 h-4 text-amber-700" />
+            </div>
+            <div className="px-4 py-3">
+              <p className="text-slate-500" style={{ fontSize: "12px", lineHeight: 1.6 }}>
+                추석 랜덤 뽑기권 확률표 및 도구/코스튬 스킨 안내를 확인해보세요.
+              </p>
+            </div>
+          </Link>
+
           <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">🌐</span>

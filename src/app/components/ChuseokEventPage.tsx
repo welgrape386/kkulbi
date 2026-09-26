@@ -71,12 +71,21 @@ export function ChuseokEventPage() {
         </div>
 
         {/* 사용법 안내 */}
-        <div className="rounded-2xl p-4 mb-6 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+        <div className="rounded-2xl p-4 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
           <span className="text-xl flex-shrink-0">💡</span>
           <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
             인게임에서 왼손에 들고 <strong>F</strong>를 누르면 확률 및 아이템을 확인할 수 있습니다.
           </p>
         </div>
+
+        {/* 착용샷 보기 버튼 */}
+        <Link
+          to="/chuseok-event/outfits"
+          className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl mb-6 transition-all hover:shadow-md"
+          style={{ background: `linear-gradient(135deg, ${COLOR}, #6366f1)`, color: "#fff", fontSize: "14px", fontWeight: 800 }}
+        >
+          📸 착용샷 보기
+        </Link>
 
         {/* 확률표 (아코디언) */}
         <details className="group bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>

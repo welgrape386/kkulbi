@@ -148,7 +148,7 @@ export function ChuseokEventBody() {
                 해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
               </p>
             </div>
-            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", width: "100%", maxWidth: "300px" }} />
+            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", width: "100%", maxWidth: "200px" }} />
           </div>
         </div>
     </div>

@@ -1,38 +1,11 @@
 import { useState, useEffect, useRef } from "react";
-import type { ReactNode } from "react";
 import { useNavigate, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
 import spawnImg from "../../imports/스폰.png";
-import { ChuseokEventBody, CHUSEOK_COLOR } from "./ChuseokEventContent";
+import { ChuseokEventContent } from "./ChuseokEventContent";
 
-// 이벤트 종료 후 복원 방법: DEFAULT_EVENT_TAB을 "daily"로 바꾸고,
-// 아래 EventInfoTabs에서 "chuseok" 탭 버튼과 그 내용 분기를 제거하면 됩니다.
-const DEFAULT_EVENT_TAB: "chuseok" | "daily" = "chuseok";
-
-function EventTabButton({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="px-4 py-2.5 transition-colors"
-      style={{
-        fontSize: "13px",
-        fontWeight: 800,
-        color: active ? CHUSEOK_COLOR : "#94a3b8",
-        borderBottom: active ? `2px solid ${CHUSEOK_COLOR}` : "2px solid transparent",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
+// 일일보상이 확정되면 true로 되돌리면 홈 화면 카드가 복원됩니다.
+const SHOW_DAILY_REWARDS_CARD = false;
 
 // ─── Item Badge Helper ────────────────────────────────────────────────────────
 function getItemStyle(item: string): string {
@@ -644,8 +617,6 @@ const hottimeExtraRewards = [
 
 // ─── Events Section ───────────────────────────────────────────────────────────
 function EventsSection() {
-  const [activeTab, setActiveTab] = useState<"chuseok" | "daily">(DEFAULT_EVENT_TAB);
-
   const today = new Date().getDate();
 
   const weekGroup = Math.floor((today - 1) / 7);
@@ -666,128 +637,104 @@ function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Left: 이벤트 안내 탭 박스 (추석 이벤트 / 일일보상) */}
-        <div className="lg:col-span-2 bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
-          {/* 헤더 */}
-          <div
-            className="px-5 py-4 border-b border-orange-200 flex items-center gap-2"
-            style={{ background: "linear-gradient(135deg, #fff7ed, #fed7aa)" }}
-          >
-            <span className="text-lg">🎉</span>
-            <span style={{ fontSize: "16px", fontWeight: 800, color: CHUSEOK_COLOR }}>
-              이벤트 안내
-            </span>
-          </div>
+        {/* Left: 추석 이벤트 인라인 콘텐츠 + (숨김) 주차별 일일보상 */}
+        <div className="lg:col-span-2 space-y-4">
+          <ChuseokEventContent />
 
-          {/* 탭 */}
-          <div className="flex border-b border-slate-100 px-5">
-            <EventTabButton active={activeTab === "chuseok"} onClick={() => setActiveTab("chuseok")}>
-              🎉 추석 이벤트
-            </EventTabButton>
-            <EventTabButton active={activeTab === "daily"} onClick={() => setActiveTab("daily")}>
-              🎁 일일보상
-            </EventTabButton>
-          </div>
-
-          {/* 탭 콘텐츠 */}
-          <div className="p-5">
-            {activeTab === "chuseok" && <ChuseokEventBody />}
-
-            {activeTab === "daily" && (
-              <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden">
-                <div
-                  className="px-5 py-4 border-b border-amber-200 flex items-center justify-between flex-wrap gap-2"
-                  style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
+          {SHOW_DAILY_REWARDS_CARD && (
+          <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+            <div
+              className="px-5 py-4 border-b border-amber-200 flex items-center justify-between"
+              style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-lg">🎁</span>
+                <span
+                  className="text-amber-900"
+                  style={{ fontSize: "16px", fontWeight: 800 }}
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">🎁</span>
-                    <span
-                      className="text-amber-900"
-                      style={{ fontSize: "16px", fontWeight: 800 }}
-                    >
-                      일일보상 (업데이트예정)
-                    </span>
-                    <span
-                      className="rounded-full px-2 py-0.5"
-                      style={{
-                        background: "rgba(255,255,255,0.65)",
-                        color: "#92400e",
-                        fontSize: "11px",
-                        fontWeight: 800,
-                      }}
-                    >
-                      {weekLabel}
-                    </span>
+                  일일보상 (업데이트예정)
+                </span>
+                <span
+                  className="rounded-full px-2 py-0.5"
+                  style={{
+                    background: "rgba(255,255,255,0.65)",
+                    color: "#92400e",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                  }}
+                >
+                  {weekLabel}
+                </span>
+              </div>
+
+              <Link
+                to="/daily-rewards"
+                className="flex items-center gap-1 text-amber-800 hover:text-amber-900 transition-colors px-2.5 py-1 rounded-lg hover:bg-white/40"
+                style={{ fontSize: "12px", fontWeight: 700 }}
+              >
+                전체보기 <ChevronRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
+            <div className="divide-y divide-slate-50">
+              {visibleRewards.map((r) => (
+                <div
+                  key={r.day}
+                  className={`flex items-start gap-3 px-5 py-3 transition-colors ${
+                    r.day === today ? "bg-amber-50" : "hover:bg-slate-50/60"
+                  }`}
+                >
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background:
+                        r.day === today
+                          ? "linear-gradient(135deg, #f5c842, #f59e0b)"
+                          : "#f1f5f9",
+                      color: r.day === today ? "#1a1200" : "#64748b",
+                      fontSize: "13px",
+                      fontWeight: 900,
+                      boxShadow:
+                        r.day === today
+                          ? "0 2px 10px rgba(245, 158, 11, 0.35)"
+                          : "none",
+                    }}
+                  >
+                    {r.day}
                   </div>
 
-                  <Link
-                    to="/daily-rewards"
-                    className="flex items-center gap-1 text-amber-800 hover:text-amber-900 transition-colors px-2.5 py-1 rounded-lg hover:bg-white/40"
-                    style={{ fontSize: "12px", fontWeight: 700 }}
-                  >
-                    전체보기 <ChevronRight className="w-3.5 h-3.5" />
-                  </Link>
-                </div>
-
-                <div className="divide-y divide-slate-50">
-                  {visibleRewards.map((r) => (
+                  <div className="flex-1 min-w-0">
                     <div
-                      key={r.day}
-                      className={`flex items-start gap-3 px-5 py-3 transition-colors ${
-                        r.day === today ? "bg-amber-50" : "hover:bg-slate-50/60"
-                      }`}
+                      className="mb-1"
+                      style={{
+                        fontSize: "13px",
+                        fontWeight: 700,
+                        color: r.day === today ? "#92400e" : "#334155",
+                      }}
                     >
-                      <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                        style={{
-                          background:
-                            r.day === today
-                              ? "linear-gradient(135deg, #f5c842, #f59e0b)"
-                              : "#f1f5f9",
-                          color: r.day === today ? "#1a1200" : "#64748b",
-                          fontSize: "13px",
-                          fontWeight: 900,
-                          boxShadow:
-                            r.day === today
-                              ? "0 2px 10px rgba(245, 158, 11, 0.35)"
-                              : "none",
-                        }}
-                      >
-                        {r.day}
-                      </div>
-
-                      <div className="flex-1 min-w-0">
-                        <div
-                          className="mb-1"
-                          style={{
-                            fontSize: "13px",
-                            fontWeight: 700,
-                            color: r.day === today ? "#92400e" : "#334155",
-                          }}
-                        >
-                          {r.day}일차 보상
-                        </div>
-
-                        <div className="flex flex-wrap gap-1.5">
-                          {r.items.map((item) => (
-                            <span
-                              key={item}
-                              className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                                item,
-                              )}`}
-                              style={{ fontSize: "11px", fontWeight: 600 }}
-                            >
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+                      {r.day}일차 보상
                     </div>
-                  ))}
+
+                    <div className="flex flex-wrap gap-1.5">
+                      {r.items.map((item) => (
+                        <span
+                          key={item}
+                          className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                            item,
+                          )}`}
+                          style={{ fontSize: "11px", fontWeight: 600 }}
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
           </div>
+          )}
         </div>
 
         {/* Right: other event cards */}

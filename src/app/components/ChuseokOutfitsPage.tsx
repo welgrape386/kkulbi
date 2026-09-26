@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
 
 const outfitImages = Object.entries(
-  import.meta.glob<string>("../../imports/outfit-*.{png,jpg,jpeg,webp}", {
+  import.meta.glob<string>("../../imports/착용샷-*.{png,jpg,jpeg,webp}", {
     eager: true,
     import: "default",
   }),

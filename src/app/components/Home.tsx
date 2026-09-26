@@ -2,6 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
 import spawnImg from "../../imports/스폰.png";
+import { ChuseokEventContent } from "./ChuseokEventContent";
+
+// 일일보상이 확정되면 true로 되돌리면 홈 화면 카드가 복원됩니다.
+const SHOW_DAILY_REWARDS_CARD = false;
 
 // ─── Item Badge Helper ────────────────────────────────────────────────────────
 function getItemStyle(item: string): string {
@@ -633,29 +637,11 @@ function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Left: 추석 이벤트 배너 + 주차별 일일보상 */}
+        {/* Left: 추석 이벤트 인라인 콘텐츠 + (숨김) 주차별 일일보상 */}
         <div className="lg:col-span-2 space-y-4">
-          <Link
-            to="/chuseok-event"
-            className="block rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all"
-            style={{ background: "linear-gradient(135deg, #fbbf24, #f97316)" }}
-          >
-            <div className="px-5 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🎉</span>
-                <span className="text-white" style={{ fontSize: "16px", fontWeight: 800 }}>
-                  이벤트 안내
-                </span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-white" />
-            </div>
-            <div className="px-5 pb-4">
-              <p className="text-white/90" style={{ fontSize: "12px", lineHeight: 1.6 }}>
-                추석 랜덤 뽑기권 확률표 및 도구/코스튬 스킨 안내를 확인해보세요.
-              </p>
-            </div>
-          </Link>
+          <ChuseokEventContent />
 
+          {SHOW_DAILY_REWARDS_CARD && (
           <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
             <div
               className="px-5 py-4 border-b border-amber-200 flex items-center justify-between"
@@ -748,6 +734,7 @@ function EventsSection() {
               ))}
             </div>
           </div>
+          )}
         </div>
 
         {/* Right: other event cards */}

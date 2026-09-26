@@ -35,14 +35,17 @@ function OutfitGallery({ images, emptyLabel }: { images: string[]; emptyLabel: s
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+    <div
+      className="grid gap-4"
+      style={{ gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}
+    >
       {images.map((src) => (
         <div
           key={src}
           className="bg-white rounded-xl border-2 overflow-hidden shadow-sm"
           style={{ borderColor: COLOR + "33" }}
         >
-          <img src={src} alt="추석 이벤트 착용샷" className="w-full h-auto" />
+          <img src={src} alt="추석 이벤트 착용샷" className="w-full h-auto object-contain" />
         </div>
       ))}
     </div>

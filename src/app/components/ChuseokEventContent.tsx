@@ -59,33 +59,20 @@ function ProbRow({ item }: { item: { name: string; pct: number } }) {
   );
 }
 
-export function ChuseokEventContent() {
+export function ChuseokEventBody() {
   const COLOR = CHUSEOK_COLOR;
 
   return (
-    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-      {/* 헤더 */}
-      <div
-        className="px-5 py-4 border-b border-amber-200 flex items-center justify-between flex-wrap gap-3"
-        style={{ background: "linear-gradient(135deg, #fff7ed, #fed7aa)" }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="text-lg">🎉</span>
-          <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>
-            추석 이벤트
-          </span>
-        </div>
+    <div className="space-y-4">
+        {/* 착용샷 보기 버튼 */}
         <Link
           to="/chuseok-event/outfits"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all hover:shadow-md"
-          style={{ background: "rgba(255,255,255,0.75)", color: "#c2410c", fontSize: "12px", fontWeight: 800 }}
+          className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl transition-all hover:shadow-md"
+          style={{ background: `linear-gradient(135deg, #f97316, #ea580c)`, color: "#fff", fontSize: "14px", fontWeight: 800 }}
         >
           📸 착용샷 보기
         </Link>
-      </div>
 
-      {/* 본문 */}
-      <div className="p-5 space-y-4">
         {/* 사용법 안내 */}
         <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
           <span className="text-xl flex-shrink-0">💡</span>
@@ -144,7 +131,7 @@ export function ChuseokEventContent() {
                 해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
               </p>
             </div>
-            <img src={toolSkinImg} alt="추석 도구스킨 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+            <img src={toolSkinImg} alt="추석 도구스킨 목록" className="w-full rounded-xl border border-slate-100" style={{ imageRendering: "pixelated" }} />
           </div>
         </div>
 
@@ -161,9 +148,32 @@ export function ChuseokEventContent() {
                 해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
               </p>
             </div>
-            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+            <img src={costumeImg} alt="추석 코스튬 목록" className="w-full rounded-xl border border-slate-100" style={{ imageRendering: "pixelated" }} />
           </div>
         </div>
+    </div>
+  );
+}
+
+export function ChuseokEventContent() {
+  const COLOR = CHUSEOK_COLOR;
+
+  return (
+    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+      {/* 헤더 */}
+      <div
+        className="px-5 py-4 border-b border-amber-200 flex items-center gap-2"
+        style={{ background: "linear-gradient(135deg, #fff7ed, #fed7aa)" }}
+      >
+        <span className="text-lg">🎉</span>
+        <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>
+          추석 이벤트
+        </span>
+      </div>
+
+      {/* 본문 */}
+      <div className="p-5">
+        <ChuseokEventBody />
       </div>
     </div>
   );

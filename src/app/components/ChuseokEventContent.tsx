@@ -41,7 +41,7 @@ export const probItems: { name: string; pct: number }[] = [
   { name: "의문의 벨소리", pct: 0.5 },
 ];
 
-export const CHUSEOK_COLOR = "#4338ca";
+export const CHUSEOK_COLOR = "#c2410c";
 
 const probHalf = Math.ceil(probItems.length / 2);
 const probColumns = [probItems.slice(0, probHalf), probItems.slice(probHalf)];
@@ -78,7 +78,7 @@ export function ChuseokEventContent() {
         <Link
           to="/chuseok-event/outfits"
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all hover:shadow-md"
-          style={{ background: `linear-gradient(135deg, ${COLOR}, #6366f1)`, color: "#fff", fontSize: "12px", fontWeight: 800 }}
+          style={{ background: `linear-gradient(135deg, #f97316, #ea580c)`, color: "#fff", fontSize: "12px", fontWeight: 800 }}
         >
           📸 착용샷 보기
         </Link>

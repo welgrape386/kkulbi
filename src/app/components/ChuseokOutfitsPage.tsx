@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
+import { CHUSEOK_COLOR } from "./ChuseokEventContent";
 
 const outfitImages = Object.entries(
   import.meta.glob<string>("../../imports/착용샷-*.{png,jpg,jpeg,webp}", {
@@ -10,7 +11,7 @@ const outfitImages = Object.entries(
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([, src]) => src);
 
-const COLOR = "#4338ca";
+const COLOR = CHUSEOK_COLOR;
 
 export function ChuseokOutfitsPage() {
   return (
@@ -74,7 +75,7 @@ export function ChuseokOutfitsPage() {
           <Link
             to="/chuseok-event"
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all hover:shadow-md"
-            style={{ background: `linear-gradient(135deg, ${COLOR}, #6366f1)`, color: "#fff", fontSize: "13px", fontWeight: 700 }}
+            style={{ background: `linear-gradient(135deg, #f97316, #ea580c)`, color: "#fff", fontSize: "13px", fontWeight: 700 }}
           >
             🎰 확률표로 돌아가기
           </Link>

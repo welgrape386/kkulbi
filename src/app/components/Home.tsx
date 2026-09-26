@@ -404,6 +404,15 @@ const quickLinks = [
     bg: "#fffbeb",
     border: "#fde68a",
   },
+  {
+    title: "추석 이벤트",
+    desc: "추석 랜덤 뽑기권 확률표 및 도구/코스튬 스킨 안내",
+    emoji: "🎑",
+    to: "/chuseok-event",
+    color: "#4338ca",
+    bg: "#eef2ff",
+    border: "#c7d2fe",
+  },
 ];
 
 function QuickLinksSection() {

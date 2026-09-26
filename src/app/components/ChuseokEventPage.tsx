@@ -1,0 +1,187 @@
+import { Link } from "react-router";
+import { ArrowLeft } from "lucide-react";
+import probImg from "../../imports/c1.png";
+import toolSkinImg from "../../imports/c2.png";
+import costumeImg from "../../imports/c3.png";
+
+const probItems: { name: string; pct: number }[] = [
+  { name: "새싹토리", pct: 0.25 },
+  { name: "블루포포", pct: 0.25 },
+  { name: "삐요", pct: 0.25 },
+  { name: "루루", pct: 0.25 },
+  { name: "가을잎 발자국", pct: 0.2 },
+  { name: "밤의달 발자국", pct: 0.2 },
+  { name: "추석 도구 뽑기", pct: 0.5 },
+  { name: "추석 코스튬 뽑기", pct: 0.5 },
+  { name: "추석 칭호 선택권", pct: 0.4 },
+  { name: "추석 뱃지 선택권", pct: 0.3 },
+  { name: "추석 엠블럼 선택권", pct: 0.3 },
+  { name: "최상급 두루마리", pct: 1 },
+  { name: "상급 두루마리", pct: 2 },
+  { name: "중급 두루마리", pct: 5 },
+  { name: "하급 두루마리", pct: 10 },
+  { name: "자동심기 1000회", pct: 10 },
+  { name: "자동심기 2000회", pct: 5 },
+  { name: "자동심기 3000회", pct: 2 },
+  { name: "가공된 꿀조각", pct: 15 },
+  { name: "자연 밀랍", pct: 5 },
+  { name: "천연 토종꿀", pct: 3 },
+  { name: "판매스틱 100회", pct: 5 },
+  { name: "돼지 저금통 2개", pct: 10 },
+  { name: "일반 복구석 3개", pct: 5 },
+  { name: "전문가 복구석", pct: 1 },
+  { name: "장인 복구석", pct: 0.5 },
+  { name: "이리듐 주괴", pct: 10 },
+  { name: "은행 현금 뭉텅이", pct: 1 },
+  { name: "바다의 진주", pct: 1 },
+  { name: "엘레베이터 블럭", pct: 1 },
+  { name: "일반 소라고동", pct: 1 },
+  { name: "야채 바구니", pct: 1 },
+  { name: "의문의 파랑포션", pct: 0.8 },
+  { name: "의문의 빨강포션", pct: 0.8 },
+  { name: "의문의 벨소리", pct: 0.5 },
+];
+
+const COLOR = "#4338ca";
+
+export function ChuseokEventPage() {
+  return (
+    <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+        {/* Breadcrumb & Header */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+            <Link to="/" className="hover:text-amber-700">홈</Link>
+            <span>›</span>
+            <span className="text-slate-600">🎑 추석 이벤트</span>
+          </div>
+          <div className="flex items-center gap-3 mb-1">
+            <Link
+              to="/"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
+              style={{ fontSize: "13px", fontWeight: 600 }}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              홈으로
+            </Link>
+            <h1 className="text-slate-800" style={{ fontSize: "24px", fontWeight: 900 }}>
+              🎑 추석 이벤트 - 추석 랜덤 뽑기권
+            </h1>
+          </div>
+        </div>
+
+        {/* 사용법 안내 */}
+        <div className="rounded-2xl p-4 mb-6 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+          <span className="text-xl flex-shrink-0">💡</span>
+          <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+            인게임에서 왼손에 들고 <strong>F</strong>를 누르면 확률 및 아이템을 확인할 수 있습니다.
+          </p>
+        </div>
+
+        {/* 확률표 (아코디언) */}
+        <details className="group bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>
+          <summary
+            className="flex items-center gap-2 px-5 py-4 cursor-pointer list-none flex-wrap"
+            style={{ background: COLOR + "15" }}
+          >
+            <span className="text-xl">🎰</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 랜덤 뽑기권 확률표</span>
+            <span
+              className="rounded-full px-2 py-0.5"
+              style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
+            >
+              {probItems.length}종
+            </span>
+            <span className="ml-auto text-slate-400 group-open:rotate-180 transition-transform" style={{ fontSize: "14px" }}>
+              ▾
+            </span>
+          </summary>
+
+          <div className="p-4 border-b border-slate-50">
+            <img src={probImg} alt="추석 랜덤 뽑기권 아이템 아이콘" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+          </div>
+
+          <div className="overflow-x-auto bg-white">
+            <table className="w-full">
+              <thead>
+                <tr style={{ background: COLOR + "10" }}>
+                  <th className="px-4 py-2.5 text-left" style={{ fontSize: "11px", fontWeight: 700, color: COLOR }}>
+                    아이템 이름
+                  </th>
+                  <th className="px-4 py-2.5 text-right" style={{ fontSize: "11px", fontWeight: 700, color: COLOR }}>
+                    확률 (%)
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {probItems.map((item, i) => (
+                  <tr key={item.name} className={i % 2 === 0 ? "bg-white" : "bg-slate-50"}>
+                    <td className="px-4 py-2.5 text-slate-700" style={{ fontSize: "12px" }}>
+                      {item.name}
+                    </td>
+                    <td className="px-4 py-2.5 text-right" style={{ fontSize: "12px", fontWeight: 800, color: COLOR }}>
+                      {item.pct}%
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </details>
+
+        {/* 추석 도구스킨 뽑기 */}
+        <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>
+          <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+            <span className="text-xl">🛠️</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 도구스킨 뽑기</span>
+          </div>
+          <div className="p-4">
+            <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+              <span className="text-lg flex-shrink-0">⚖️</span>
+              <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+                해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
+              </p>
+            </div>
+            <img src={toolSkinImg} alt="추석 도구스킨 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+          </div>
+        </div>
+
+        {/* 추석 코스튬 뽑기 */}
+        <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>
+          <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+            <span className="text-xl">👘</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 코스튬 뽑기</span>
+          </div>
+          <div className="p-4">
+            <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+              <span className="text-lg flex-shrink-0">⚖️</span>
+              <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+                해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
+              </p>
+            </div>
+            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+          </div>
+        </div>
+
+        {/* Bottom nav */}
+        <div className="flex flex-wrap gap-3">
+          <Link
+            to="/"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
+            style={{ fontSize: "13px", fontWeight: 700 }}
+          >
+            <ArrowLeft className="w-4 h-4" />
+            홈으로 돌아가기
+          </Link>
+          <Link
+            to="/content?tab=events"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all hover:shadow-md"
+            style={{ background: "linear-gradient(135deg, #f5c842, #f59e0b)", color: "#1a1200", fontSize: "13px", fontWeight: 700 }}
+          >
+            🎉 이벤트 전체 안내 보기
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}

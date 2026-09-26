@@ -63,94 +63,108 @@ export function ChuseokEventContent() {
   const COLOR = CHUSEOK_COLOR;
 
   return (
-    <>
-      {/* 사용법 안내 */}
-      <div className="rounded-2xl p-4 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
-        <span className="text-xl flex-shrink-0">💡</span>
-        <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
-          인게임에서 왼손에 들고 <strong>F</strong>를 누르면 확률 및 아이템을 확인할 수 있습니다.
-        </p>
-      </div>
-
-      {/* 착용샷 보기 버튼 */}
-      <Link
-        to="/chuseok-event/outfits"
-        className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl mb-6 transition-all hover:shadow-md"
-        style={{ background: `linear-gradient(135deg, ${COLOR}, #6366f1)`, color: "#fff", fontSize: "14px", fontWeight: 800 }}
+    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+      {/* 헤더 */}
+      <div
+        className="px-5 py-4 border-b border-amber-200 flex items-center justify-between flex-wrap gap-3"
+        style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
       >
-        📸 착용샷 보기
-      </Link>
-
-      {/* 확률표 (아코디언) */}
-      <details className="group bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>
-        <summary
-          className="flex items-center gap-2 px-5 py-4 cursor-pointer list-none flex-wrap"
-          style={{ background: COLOR + "15" }}
+        <div className="flex items-center gap-2">
+          <span className="text-lg">🎉</span>
+          <span className="text-amber-900" style={{ fontSize: "16px", fontWeight: 800 }}>
+            추석 이벤트
+          </span>
+        </div>
+        <Link
+          to="/chuseok-event/outfits"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl transition-all hover:shadow-md"
+          style={{ background: `linear-gradient(135deg, ${COLOR}, #6366f1)`, color: "#fff", fontSize: "12px", fontWeight: 800 }}
         >
-          <span className="text-xl">🎰</span>
-          <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 랜덤 뽑기권 확률표</span>
-          <span
-            className="rounded-full px-2 py-0.5"
-            style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
+          📸 착용샷 보기
+        </Link>
+      </div>
+
+      {/* 본문 */}
+      <div className="p-5 space-y-4">
+        {/* 사용법 안내 */}
+        <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+          <span className="text-xl flex-shrink-0">💡</span>
+          <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+            인게임에서 왼손에 들고 <strong>F</strong>를 누르면 확률 및 아이템을 확인할 수 있습니다.
+          </p>
+        </div>
+
+        {/* 확률표 (아코디언) */}
+        <details className="group bg-white rounded-2xl border-2 overflow-hidden" style={{ borderColor: COLOR + "55" }}>
+          <summary
+            className="flex items-center gap-2 px-5 py-4 cursor-pointer list-none flex-wrap"
+            style={{ background: COLOR + "15" }}
           >
-            {probItems.length}종
-          </span>
-          <span className="ml-auto text-slate-400 group-open:rotate-180 transition-transform" style={{ fontSize: "14px" }}>
-            ▾
-          </span>
-        </summary>
-
-        <div className="p-4 border-b border-slate-50">
-          <img src={probImg} alt="추석 랜덤 뽑기권 아이템 아이콘" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 bg-white">
-          {probColumns.map((col, colIdx) => (
-            <div
-              key={colIdx}
-              className={`divide-y divide-slate-100 ${colIdx === 1 ? "sm:border-l sm:border-slate-100" : ""}`}
+            <span className="text-xl">🎰</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 랜덤 뽑기권 확률표</span>
+            <span
+              className="rounded-full px-2 py-0.5"
+              style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
             >
-              {col.map((item) => (
-                <ProbRow key={item.name} item={item} />
-              ))}
+              {probItems.length}종
+            </span>
+            <span className="ml-auto text-slate-400 group-open:rotate-180 transition-transform" style={{ fontSize: "14px" }}>
+              ▾
+            </span>
+          </summary>
+
+          <div className="p-4 border-b border-slate-50">
+            <img src={probImg} alt="추석 랜덤 뽑기권 아이템 아이콘" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 bg-white">
+            {probColumns.map((col, colIdx) => (
+              <div
+                key={colIdx}
+                className={`divide-y divide-slate-100 ${colIdx === 1 ? "sm:border-l sm:border-slate-100" : ""}`}
+              >
+                {col.map((item) => (
+                  <ProbRow key={item.name} item={item} />
+                ))}
+              </div>
+            ))}
+          </div>
+        </details>
+
+        {/* 추석 도구스킨 뽑기 */}
+        <div className="bg-white rounded-2xl border-2 overflow-hidden" style={{ borderColor: COLOR + "55" }}>
+          <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+            <span className="text-xl">🛠️</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 도구스킨 뽑기</span>
+          </div>
+          <div className="p-4">
+            <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+              <span className="text-lg flex-shrink-0">⚖️</span>
+              <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+                해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
+              </p>
             </div>
-          ))}
-        </div>
-      </details>
-
-      {/* 추석 도구스킨 뽑기 */}
-      <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm mb-6" style={{ borderColor: COLOR + "55" }}>
-        <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
-          <span className="text-xl">🛠️</span>
-          <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 도구스킨 뽑기</span>
-        </div>
-        <div className="p-4">
-          <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
-            <span className="text-lg flex-shrink-0">⚖️</span>
-            <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
-              해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
-            </p>
+            <img src={toolSkinImg} alt="추석 도구스킨 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
           </div>
-          <img src={toolSkinImg} alt="추석 도구스킨 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+        </div>
+
+        {/* 추석 코스튬 뽑기 */}
+        <div className="bg-white rounded-2xl border-2 overflow-hidden" style={{ borderColor: COLOR + "55" }}>
+          <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
+            <span className="text-xl">👘</span>
+            <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 코스튬 뽑기</span>
+          </div>
+          <div className="p-4">
+            <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
+              <span className="text-lg flex-shrink-0">⚖️</span>
+              <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
+                해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
+              </p>
+            </div>
+            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
+          </div>
         </div>
       </div>
-
-      {/* 추석 코스튬 뽑기 */}
-      <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: COLOR + "55" }}>
-        <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
-          <span className="text-xl">👘</span>
-          <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 코스튬 뽑기</span>
-        </div>
-        <div className="p-4">
-          <div className="rounded-2xl p-3.5 mb-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
-            <span className="text-lg flex-shrink-0">⚖️</span>
-            <p style={{ fontSize: "13px", lineHeight: 1.7, color: COLOR }}>
-              해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
-            </p>
-          </div>
-          <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", maxWidth: "100%" }} />
-        </div>
-      </div>
-    </>
+    </div>
   );
 }

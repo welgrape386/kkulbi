@@ -667,10 +667,10 @@ function EventsSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         {/* Left: 이벤트 안내 탭 박스 (추석 이벤트 / 일일보상) */}
-        <div className="lg:col-span-2 bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+        <div className="lg:col-span-2 bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
           {/* 헤더 */}
           <div
-            className="px-5 py-4 border-b border-amber-200 flex items-center gap-2"
+            className="px-5 py-4 border-b border-orange-200 flex items-center gap-2"
             style={{ background: "linear-gradient(135deg, #fff7ed, #fed7aa)" }}
           >
             <span className="text-lg">🎉</span>

@@ -148,7 +148,7 @@ export function ChuseokEventBody() {
                 해당 뽑기권의 확률은 모두 동일하여 <strong>1:1:1 확률</strong>입니다.
               </p>
             </div>
-            <img src={costumeImg} alt="추석 코스튬 목록" className="w-full rounded-xl border border-slate-100" style={{ imageRendering: "pixelated" }} />
+            <img src={costumeImg} alt="추석 코스튬 목록" className="mx-auto rounded-xl border border-slate-100" style={{ imageRendering: "pixelated", width: "100%", maxWidth: "300px" }} />
           </div>
         </div>
     </div>
@@ -159,10 +159,10 @@ export function ChuseokEventContent() {
   const COLOR = CHUSEOK_COLOR;
 
   return (
-    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+    <div className="bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
       {/* 헤더 */}
       <div
-        className="px-5 py-4 border-b border-amber-200 flex items-center gap-2"
+        className="px-5 py-4 border-b border-orange-200 flex items-center gap-2"
         style={{ background: "linear-gradient(135deg, #fff7ed, #fed7aa)" }}
       >
         <span className="text-lg">🎉</span>

@@ -4,7 +4,6 @@ import { Home } from "./components/Home";
 import { ContentPage } from "./components/ContentPage";
 import { BasicsPage } from "./components/BasicsPage";
 import { DailyRewardsPage } from "./components/DailyRewardsPage";
-import { ChuseokEventPage } from "./components/ChuseokEventPage";
 import { ChuseokOutfitsPage } from "./components/ChuseokOutfitsPage";
 import { TraitsPage } from "./components/TraitsPage";
 import { FishingTraitPage } from "./components/FishingTraitPage";
@@ -33,7 +32,6 @@ export const router = createBrowserRouter([
       { path: "content/island", Component: IslandPage },
       { path: "basics", Component: BasicsPage },
       { path: "daily-rewards", Component: DailyRewardsPage },
-      { path: "chuseok-event", Component: ChuseokEventPage },
       { path: "chuseok-event/outfits", Component: ChuseokOutfitsPage },
       { path: "law", Component: LawPage },
       { path: "support", Component: SupportPage },

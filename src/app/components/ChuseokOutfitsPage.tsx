@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
-import { CHUSEOK_COLOR } from "./ChuseokEventContent";
+import { CHUSEOK_COLOR, ChuseokSection } from "./ChuseokEventContent";
 
 function loadImages(glob: Record<string, string>) {
   return Object.entries(glob)
@@ -22,9 +22,16 @@ const costumeOutfitImages = loadImages(
   }),
 );
 
+const petPreviewImages = loadImages(
+  import.meta.glob<string>("../../imports/펫*.{png,jpg,jpeg,webp}", {
+    eager: true,
+    import: "default",
+  }),
+);
+
 const COLOR = CHUSEOK_COLOR;
 
-function OutfitGallery({ images, emptyLabel }: { images: string[]; emptyLabel: string }) {
+function OutfitGallery({ images, alt, emptyLabel }: { images: string[]; alt: string; emptyLabel: string }) {
   if (images.length === 0) {
     return (
       <div className="rounded-2xl p-4 flex items-center gap-3" style={{ background: COLOR + "12", border: `1px solid ${COLOR}33` }}>
@@ -35,15 +42,19 @@ function OutfitGallery({ images, emptyLabel }: { images: string[]; emptyLabel: s
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
-      {images.map((src) => (
-        <div
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+      {images.map((src, i) => (
+        <a
           key={src}
-          className="bg-white rounded-xl border-2 overflow-hidden shadow-sm"
+          href={src}
+          target="_blank"
+          rel="noreferrer"
+          title="원본 크기로 보기"
+          className="block bg-white rounded-xl border-2 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
           style={{ borderColor: COLOR + "33" }}
         >
-          <img src={src} alt="추석 이벤트 착용샷" className="w-full h-auto object-contain" />
-        </div>
+          <img src={src} alt={`${alt} ${i + 1}`} loading="lazy" className="w-full h-auto object-contain" />
+        </a>
       ))}
     </div>
   );
@@ -58,59 +69,45 @@ export function ChuseokOutfitsPage() {
           <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-700">홈</Link>
             <span>›</span>
-            <Link to="/chuseok-event" className="hover:text-amber-700">🎑 추석 이벤트</Link>
-            <span>›</span>
-            <span className="text-slate-600">착용샷</span>
+            <span className="text-slate-600">착용샷 · 펫 미리보기</span>
           </div>
-          <div className="flex items-center gap-3 mb-1">
+          <div className="flex flex-wrap items-center gap-3 mb-1">
             <Link
-              to="/chuseok-event"
+              to="/"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
               style={{ fontSize: "13px", fontWeight: 600 }}
             >
               <ArrowLeft className="w-4 h-4" />
-              확률표로 돌아가기
+              홈으로
             </Link>
             <h1 className="text-slate-800" style={{ fontSize: "24px", fontWeight: 900 }}>
-              📸 추석 이벤트 착용샷
+              📸 추석 착용샷 · 펫 미리보기
             </h1>
           </div>
         </div>
 
-        <div className="space-y-6">
-          {/* 도구스킨 섹션 */}
-          <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: COLOR + "55" }}>
-            <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
-              <span className="text-xl">🛠️</span>
-              <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 도구스킨 착용샷</span>
-              <span
-                className="rounded-full px-2 py-0.5"
-                style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
-              >
-                {toolOutfitImages.length}장
-              </span>
-            </div>
-            <div className="p-4">
-              <OutfitGallery images={toolOutfitImages} emptyLabel="도구스킨 착용샷은 곧 업데이트될 예정입니다." />
-            </div>
-          </div>
+        <p className="text-slate-500 -mt-3 mb-6" style={{ fontSize: "13px" }}>
+          이미지를 누르면 원본 크기로 볼 수 있습니다.
+        </p>
 
-          {/* 코스튬 섹션 */}
-          <div className="bg-white rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: COLOR + "55" }}>
-            <div className="px-5 py-4 flex items-center gap-2" style={{ background: COLOR + "15" }}>
-              <span className="text-xl">👘</span>
-              <span style={{ fontSize: "16px", fontWeight: 800, color: COLOR }}>추석 코스튬 착용샷</span>
-              <span
-                className="rounded-full px-2 py-0.5"
-                style={{ background: COLOR + "28", color: COLOR, fontSize: "11px", fontWeight: 700 }}
-              >
-                {costumeOutfitImages.length}장
-              </span>
-            </div>
+        <div className="space-y-4">
+          <ChuseokSection icon="🐾" title="추석 펫 미리보기" badge={`${petPreviewImages.length}장`} defaultOpen>
             <div className="p-4">
-              <OutfitGallery images={costumeOutfitImages} emptyLabel="코스튬 착용샷은 곧 업데이트될 예정입니다." />
+              <OutfitGallery images={petPreviewImages} alt="추석 펫 미리보기" emptyLabel="펫 미리보기는 곧 업데이트될 예정입니다." />
             </div>
-          </div>
+          </ChuseokSection>
+
+          <ChuseokSection icon="🛠️" title="추석 도구스킨 착용샷" badge={`${toolOutfitImages.length}장`} defaultOpen>
+            <div className="p-4">
+              <OutfitGallery images={toolOutfitImages} alt="추석 도구스킨 착용샷" emptyLabel="도구스킨 착용샷은 곧 업데이트될 예정입니다." />
+            </div>
+          </ChuseokSection>
+
+          <ChuseokSection icon="👘" title="추석 코스튬 착용샷" badge={`${costumeOutfitImages.length}장`} defaultOpen>
+            <div className="p-4">
+              <OutfitGallery images={costumeOutfitImages} alt="추석 코스튬 착용샷" emptyLabel="코스튬 착용샷은 곧 업데이트될 예정입니다." />
+            </div>
+          </ChuseokSection>
         </div>
 
         {/* Bottom nav */}
@@ -122,13 +119,6 @@ export function ChuseokOutfitsPage() {
           >
             <ArrowLeft className="w-4 h-4" />
             홈으로 돌아가기
-          </Link>
-          <Link
-            to="/chuseok-event"
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all hover:shadow-md"
-            style={{ background: `linear-gradient(135deg, #f97316, #ea580c)`, color: "#fff", fontSize: "13px", fontWeight: 700 }}
-          >
-            🎰 확률표로 돌아가기
           </Link>
         </div>
       </div>

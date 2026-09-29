@@ -598,21 +598,23 @@ const minelistRewards = [
   "뼈 (5개)",
 ];
 
-const hottimeRewards = [
-  "자연 꿀밀랍",
-  "자동심기 기술 주문서 (+1000회)",
-  "금 블럭 64개",
-  "다이아몬드 블럭 64개",
-  "에메랄드 블럭 64개",
-  "[화폐] 화려한 금 주괴 (5개)",
-  "뼈 (5개)",
-  "경험치 병 (64개)",
-  "황금 뼈가루 (15개)",
+const playtimeRewards = [
+  { time: "30분", items: ["자연은 주괴", "뼈다귀 3개"] },
+  { time: "1시간", items: ["가공된 꿀조각", "경험치병 64개"] },
+  { time: "2시간", items: ["화려한 금 주괴", "뼈다귀 5개"] },
+  { time: "3시간", items: ["일반 복구석", "자동심기 500회"] },
+  { time: "5시간", items: ["자연 꿀밀랍", "화려한 금 주괴", "일반 복구석"] },
+  {
+    time: "8시간",
+    items: ["일반 복구석 2개", "화려한 금 주괴 2개", "뼈다귀 5개"],
+  },
 ];
 
-const hottimeExtraRewards = [
-  "하급 두루마리 강화서 [40% 주문서 뽑기]",
-  "황금 뼈가루 (15개)",
+const playtimeCompleteRewards = [
+  "천연 토종꿀",
+  "바다의 진주",
+  "화려한 금 주괴",
+  "뼈다귀 10개",
 ];
 
 // ─── Events Section ───────────────────────────────────────────────────────────
@@ -772,45 +774,68 @@ function EventsSection() {
 
           <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">🔥</span>
+              <span className="text-lg">⏱️</span>
               <div
                 className="text-slate-700"
                 style={{ fontSize: "15px", fontWeight: 800 }}
               >
-                핫타임 보상
+                접속시간 보상
               </div>
             </div>
             <p
               className="text-slate-500 mb-3"
               style={{ fontSize: "12px", lineHeight: 1.6 }}
             >
-              핫타임 이벤트에서 지급되는 대표 보상이에요.
+              접속 시간에 따라 단계별로 받을 수 있는 보상이에요.
             </p>
-            <div className="flex flex-wrap gap-1.5 mb-2">
-              {hottimeRewards.map((item) => (
-                <span
-                  key={item}
-                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                    item,
-                  )}`}
-                  style={{ fontSize: "11px", fontWeight: 600 }}
-                >
-                  {item}
-                </span>
+            <div className="space-y-1.5 mb-2">
+              {playtimeRewards.map(({ time, items }) => (
+                <div key={time} className="flex items-start gap-2">
+                  <span
+                    className="flex-shrink-0 w-12 text-center rounded-lg px-1.5 py-0.5 bg-slate-100 text-slate-600"
+                    style={{ fontSize: "11px", fontWeight: 800 }}
+                  >
+                    {time}
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {items.map((item) => (
+                      <span
+                        key={item}
+                        className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                          item,
+                        )}`}
+                        style={{ fontSize: "11px", fontWeight: 600 }}
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
-            <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-100">
-              {hottimeExtraRewards.map((item) => (
-                <span
-                  key={item}
-                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                    item,
-                  )}`}
-                  style={{ fontSize: "11px", fontWeight: 600 }}
-                >
-                  {item}
+            <div className="mt-3 rounded-xl border-2 border-amber-300 bg-amber-50 p-3">
+              <div
+                className="text-amber-800 mb-2"
+                style={{ fontSize: "12px", fontWeight: 800 }}
+              >
+                🏆 완성보상{" "}
+                <span className="text-amber-600" style={{ fontWeight: 600 }}>
+                  [모든 보상 수령시]
                 </span>
-              ))}
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {playtimeCompleteRewards.map((item) => (
+                  <span
+                    key={item}
+                    className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
+                      item,
+                    )}`}
+                    style={{ fontSize: "11px", fontWeight: 600 }}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>

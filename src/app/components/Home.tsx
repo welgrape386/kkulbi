@@ -3,6 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
 import spawnImg from "../../imports/스폰.png";
 import { ChuseokEventContent } from "./ChuseokEventContent";
+import { BeeEasterEgg } from "./BeeEasterEgg";
 import {
   SHOW_DAILY_REWARDS,
   MinelistRewardsCard,
@@ -420,7 +421,7 @@ function QuickLinksSection() {
           className="text-slate-800"
           style={{ fontSize: "20px", fontWeight: 800 }}
         >
-          바로가기
+          바로가기 <BeeEasterEgg />
         </h2>
       </div>
 

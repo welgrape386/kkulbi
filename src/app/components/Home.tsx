@@ -414,7 +414,7 @@ const quickLinks = [
 function QuickLinksSection() {
   return (
     <section>
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-3">
         <span className="text-2xl">🚀</span>
         <h2
           className="text-slate-800"
@@ -429,7 +429,7 @@ function QuickLinksSection() {
           <Link
             key={item.title}
             to={item.to}
-            className="group rounded-2xl border-2 p-5 shadow-sm hover:shadow-md transition-all"
+            className="group rounded-2xl border-2 px-5 py-4 shadow-sm hover:shadow-md transition-all"
             style={{
               background: item.bg,
               borderColor: item.border,
@@ -437,7 +437,7 @@ function QuickLinksSection() {
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="mb-1" style={{ fontSize: "28px" }}>
+                <div className="mb-0.5" style={{ fontSize: "26px", lineHeight: 1.2 }}>
                   {item.emoji}
                 </div>
                 <div
@@ -504,29 +504,31 @@ export function Home() {
   return (
     <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       {/* Hero */}
-      <section
-        className="relative overflow-hidden"
-        style={{ minHeight: "620px" }}
-      >
+      <section className="relative">
         <img
           src={spawnImg}
           alt="꿀비의 숲 스폰"
           className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: "center 42%" }}
+          style={{ objectPosition: "center 30%" }}
         />
 
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(15,8,0,0.22) 0%, rgba(15,8,0,0.52) 58%, #fff8dc 100%)",
+              "linear-gradient(to bottom, rgba(15,8,0,0.25) 0%, rgba(15,8,0,0.5) 78%, #fff8dc 100%)",
           }}
         />
 
-        <div className="relative z-10 min-h-[620px] flex items-center justify-center">
+        {/* 헤더(64px) + 바로가기 2줄(약 300px)을 뺀 나머지 화면을 히어로가 채웁니다.
+            ponytail: 380px은 바로가기 카드 높이 기준 추정치 — 카드 구성이 바뀌면 같이 조정 */}
+        <div
+          className="relative z-10 py-8 flex items-center justify-center"
+          style={{ minHeight: "clamp(360px, calc(100svh - 380px), 600px)" }}
+        >
           <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 text-center">
             <h1
-              className="text-white mb-3"
+              className="text-white mb-2"
               style={{
                 fontSize: "clamp(2rem, 5.5vw, 3rem)",
                 fontWeight: 900,
@@ -539,7 +541,7 @@ export function Home() {
             </h1>
 
             <p
-              className="text-amber-200 mb-8"
+              className="text-amber-200 mb-5"
               style={{
                 fontSize: "15px",
                 lineHeight: 1.7,
@@ -556,7 +558,7 @@ export function Home() {
       </section>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 pb-10 space-y-10">
         <QuickLinksSection />
         <EventsSection />
       </div>

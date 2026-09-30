@@ -104,7 +104,7 @@ export function FishingTraitPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Breadcrumb */}
         <div>
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-800">홈</Link>
             <span>›</span>
             <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>
@@ -133,15 +133,15 @@ export function FishingTraitPage() {
           </p>
         </div>
 
-        {/* 낚시 하는 방법 */}
+        {/* 낚시하는 방법 */}
         <div className="rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center gap-2">
             <span className="text-lg">🎣</span>
-            <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>낚시 하는 방법</span>
+            <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>낚시하는 방법</span>
           </div>
           <div className="p-5 space-y-2">
             {[
-              { icon: "1️⃣", text: "입질이 오면 우클릭을 한 번 누른 다음, 미니게임이 뜨면 초록색에 우클릭 해줍니다." },
+              { icon: "1️⃣", text: "입질이 오면 우클릭을 한 번 누른 다음, 미니게임이 뜨면 초록색에 우클릭해 줍니다." },
               { icon: "2️⃣", text: "물고기는 낚시터 근처에 있는 NPC에게 판매할 수 있어요." },
               { icon: "3️⃣", text: "움직이는 속도는 랜덤이고, 움직이는 하얀 선을 기준으로 잡으시면 됩니다." },
             ].map((item) => (
@@ -184,12 +184,12 @@ export function FishingTraitPage() {
             <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>미니게임 전 참고 사항</span>
           </div>
           <p style={{ fontSize: "13px", color: "#78350f", lineHeight: 1.7, fontWeight: 600 }}>
-            쉬프트를 5번 누르면 <strong>고정 키</strong> 라는 창이 떠서 방해가 되는데, 끄고 하면 낚시가 편해져요!
+            쉬프트를 5번 누르면 <strong>고정 키</strong>라는 창이 떠서 방해가 되는데, 끄고 하면 낚시가 편해져요!
           </p>
           <div className="flex items-center gap-2 mt-2 p-3 rounded-xl bg-white border border-amber-200">
             <span className="text-base">💻</span>
             <p style={{ fontSize: "12px", color: "#92400e", fontWeight: 700 }}>
-              윈도우 검색창에 <strong>'고정 키'</strong> 검색 → 첫번째 클릭 → 고정키 사용을 <strong>'끔'</strong>으로 변경
+              윈도우 검색창에 <strong>'고정 키'</strong> 검색 → 첫 번째 클릭 → 고정 키 사용을 <strong>'끔'</strong>으로 변경
             </p>
           </div>
         </div>
@@ -204,7 +204,7 @@ export function FishingTraitPage() {
                 총 {allSkills.length}개
               </span>
             </div>
-            <span style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 600 }}>
+            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}>
               {showAll ? "전체 표시 중" : `${INITIAL_SHOW}개 표시 중`}
             </span>
           </div>
@@ -230,15 +230,15 @@ export function FishingTraitPage() {
           </div>
         </div>
 
-        {/* 낚시대 강화 */}
+        {/* 낚싯대 강화 */}
         <div className="rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center gap-2">
             <span className="text-lg">🐟</span>
-            <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>낚시대 강화</span>
+            <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>낚싯대 강화</span>
           </div>
           <div className="p-5">
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
-              🪸 <strong>우아한 바다진주</strong>를 사용하여 낚시대를 업그레이드 해보세요!
+              🪸 <strong>우아한 바다진주</strong>를 사용하여 낚싯대를 업그레이드해 보세요!
             </p>
             <div className="overflow-x-auto rounded-2xl border-2 border-sky-200 overflow-hidden">
               <table className="w-full">
@@ -277,7 +277,7 @@ export function FishingTraitPage() {
           </div>
           <div className="p-5 space-y-4">
             <p style={{ fontSize: "13px", color: "#374151", lineHeight: 1.7, fontWeight: 600 }}>
-              수수께끼 구슬로 낚시대를 강화할 수 있어요! 빈칸에 낚시대를 올리고 <strong>강화하기</strong>를 누르면 됩니다!
+              수수께끼 구슬로 낚싯대를 강화할 수 있어요! 빈칸에 낚싯대를 올리고 <strong>강화하기</strong>를 누르면 됩니다!
             </p>
             <p style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6 }}>
               수수께끼 구슬에서는 <strong>해조, 해류, 해심</strong> 총 3가지 종류의 구슬 중 하나의 구슬이 나옵니다.

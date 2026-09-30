@@ -42,7 +42,7 @@ function OutfitGallery({ images, alt, emptyLabel }: { images: string[]; alt: str
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+    <div className="grid grid-cols-2 gap-3">
       {images.map((src, i) => (
         <a
           key={src}
@@ -66,21 +66,23 @@ export function ChuseokOutfitsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb & Header */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex flex-wrap items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-700">홈</Link>
+            <span>›</span>
+            <Link to="/#chuseok-event" className="hover:text-amber-800">🎑 추석 이벤트</Link>
             <span>›</span>
             <span className="text-slate-600">착용샷 · 펫 미리보기</span>
           </div>
           <div className="flex flex-wrap items-center gap-3 mb-1">
             <Link
-              to="/"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
+              to="/#chuseok-event"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
               style={{ fontSize: "13px", fontWeight: 600 }}
             >
               <ArrowLeft className="w-4 h-4" />
-              홈으로
+              추석 이벤트로
             </Link>
-            <h1 className="text-slate-800" style={{ fontSize: "24px", fontWeight: 900 }}>
+            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
               📸 추석 착용샷 · 펫 미리보기
             </h1>
           </div>

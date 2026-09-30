@@ -33,9 +33,9 @@ const INITIAL_SHOW = 5;
 const customCrops = ["토마토", "양배추", "고추", "옥수수", "배추", "마늘", "가지", "양파", "쌀", "고구마", "콩", "파", "파프리카", "무", "산삼"];
 
 const sprinklers = [
-  { name: "기본 스프링쿨러", range: "3×3" },
-  { name: "고급 스프링쿨러", range: "5×5" },
-  { name: "최고급 스프링쿨러", range: "7×7" },
+  { name: "기본 스프링클러", range: "3×3" },
+  { name: "고급 스프링클러", range: "5×5" },
+  { name: "최고급 스프링클러", range: "7×7" },
 ];
 
 const fertilizers = [
@@ -91,7 +91,7 @@ export function HarvestTraitPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Breadcrumb */}
         <div>
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-800">홈</Link>
             <span>›</span>
             <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>
@@ -150,7 +150,7 @@ export function HarvestTraitPage() {
               <div style={{ fontSize: "13px", fontWeight: 800, color: "#1e40af", marginBottom: "6px" }}>Q. 커스텀 농사 경험치 적용 여부</div>
               <div style={{ fontSize: "13px", color: "#3b5bb5", lineHeight: 1.7 }}>
                 A. 수확 특성의 경우, 커스텀 작물 수확 시 특성 경험치를 획득할 수 있습니다. 단, 스킬 추가 경험치는 적용되지 않습니다.<br />
-                <span style={{ fontSize: "11px", color: "#6b82c8", fontWeight: 700 }}>추후 커스텀 도구 강화 시스템 업데이트 예정입니다</span>
+                <span style={{ fontSize: "11px", color: "#475569", fontWeight: 700 }}>추후 커스텀 도구 강화 시스템 업데이트 예정입니다</span>
               </div>
             </div>
           </div>
@@ -182,7 +182,7 @@ export function HarvestTraitPage() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                   {[
-                    { icon: "💡", text: "커스텀 농작물은 빛이 필요없어요!" },
+                    { icon: "💡", text: "커스텀 농작물은 빛이 필요 없어요!" },
                     { icon: "👤", text: "주변에 플레이어가 있어야 작물이 자라요!" },
                     { icon: "🔄", text: "커스텀 농사 씨앗은 한 번 수확했다면 다시 심어줘야 해요!" },
                   ].map((item) => (
@@ -201,7 +201,7 @@ export function HarvestTraitPage() {
                   <span style={{ fontSize: "14px", fontWeight: 800, color: "#854d0e" }}>허수아비</span>
                 </div>
                 <p style={{ fontSize: "13px", color: "#713f12", lineHeight: 1.6 }}>
-                  커스텀 농사를 할 때, 까마귀가 와서 작물을 먹고 도망가요. 그때 허수아비를 설치해놓으면 까마귀를 막을 수 있어요! 허수아비의 범위는 <strong>한 청크</strong>입니다.
+                  커스텀 농사를 할 때, 까마귀가 와서 작물을 먹고 도망가요. 그때 허수아비를 설치해 놓으면 까마귀를 막을 수 있어요! 허수아비의 범위는 <strong>한 청크</strong>입니다.
                 </p>
               </div>
 
@@ -226,11 +226,11 @@ export function HarvestTraitPage() {
                 </div>
               </div>
 
-              {/* 스프링쿨러 */}
+              {/* 스프링클러 */}
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xl">🌊</span>
-                  <span style={{ fontSize: "14px", fontWeight: 800, color: "#0284c7" }}>스프링쿨러</span>
+                  <span style={{ fontSize: "14px", fontWeight: 800, color: "#0284c7" }}>스프링클러</span>
                 </div>
                 <div className="grid grid-cols-3 gap-2">
                   {sprinklers.map((s) => (
@@ -291,7 +291,7 @@ export function HarvestTraitPage() {
                 총 {allSkills.length}개
               </span>
             </div>
-            <span style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 600 }}>
+            <span style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}>
               {showAll ? "전체 표시 중" : `${INITIAL_SHOW}개 표시 중`}
             </span>
           </div>

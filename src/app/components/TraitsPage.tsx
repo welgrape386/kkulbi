@@ -84,7 +84,7 @@ export function TraitsPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-800">홈</Link>
             <span>›</span>
             <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>

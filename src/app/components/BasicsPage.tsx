@@ -40,7 +40,7 @@ function ConnectContent() {
               className="text-amber-300"
               style={{ fontSize: "18px", fontWeight: 900 }}
             >
-              kkulbi.kr | Kkulbiglobal.skhidc.kr
+              kkulbi.kr | kkulbiglobal.skhidc.kr
             </div>
             <div className="text-amber-600 mt-1" style={{ fontSize: "12px" }}>
               버전 1.21.10
@@ -113,7 +113,7 @@ function ConnectContent() {
         <ul className="mt-2 space-y-1">
           {[
             "디스코드 서버 참여 (공지사항 확인 필수!)",
-            "/랭크상점 으로 랭크 및 조건 확인",
+            "/랭크상점으로 랭크 및 조건 확인",
             "특성 선택 후 스킬 구매 시작",
             "섬 개설 후 농장 건설",
             "네이버 카페 가입 (이벤트, 공지 확인용)",
@@ -148,7 +148,7 @@ function CommandsContent() {
       cat: "편의",
       req: "5등급",
     },
-    { cmd: "/수산시장", desc: "수산시장 GUI 열기", cat: "판매", req: "5등급" },
+    { cmd: "/수산시장", desc: "수산시장 GUI 열기", cat: "판매", req: "8등급" },
     {
       cmd: "/자동줍기",
       desc: "아이템 자동 줍기 ON/OFF",
@@ -165,9 +165,9 @@ function CommandsContent() {
       cmd: "/자동조합",
       desc: "자동 조합 기능 사용",
       cat: "편의",
-      req: "10등급",
+      req: "9등급",
     },
-    { cmd: "/상점열기", desc: "개인 상점 열기", cat: "거래", req: "10등급" },
+    { cmd: "/상점열기", desc: "개인 상점 열기", cat: "거래", req: "9등급" },
     { cmd: "/제단", desc: "제단 기능 사용", cat: "고급", req: "11등급" },
     { cmd: "/광물창고", desc: "광물 전용 창고 열기", cat: "채광", req: "기본" },
     {
@@ -206,7 +206,7 @@ function CommandsContent() {
       cmd: "/액자",
       desc: "아이템 액자 기능 사용",
       cat: "꾸미기",
-      req: "9등급",
+      req: "8등급",
     },
   ];
 
@@ -257,7 +257,7 @@ function CommandsContent() {
           💡 명령어는 채팅창에 입력하면 돼요. 일부 명령어는 특정 랭크 이상이거나
           캐시가 필요해요.
           <br />
-          영구 업데이트되는 목록으로, 최신 정보는 디스코드 공지를 확인하세요.
+          계속 업데이트되는 목록이므로 최신 정보는 디스코드 공지를 확인하세요.
         </p>
       </div>
       <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
@@ -375,16 +375,16 @@ function FaqContent() {
       a: "수확 특성의 '빛나는 확률' 스킬이 있으면 모든 작물에서 산삼씨앗을 얻을 수 있어요. 또한 일일 보상, 각종 이벤트에서도 얻을 수 있습니다.",
     },
     {
-      q: "낚시 시 쉬프트 누르면 고정키 창이 뜨는데 어떻게 하나요?",
-      a: "윈도우 검색창에 '고정 키' 검색 → 첫 번째 클릭 → 고정키 사용을 '끔'으로 변경하면 해결돼요!",
+      q: "낚시 시 쉬프트 누르면 고정 키 창이 뜨는데 어떻게 하나요?",
+      a: "윈도우 검색창에 '고정 키' 검색 → 첫 번째 클릭 → 고정 키 사용을 '끔'으로 변경하면 해결돼요!",
     },
     {
       q: "커스텀 작물이 자라지 않아요.",
-      a: "커스텀 작물은 빛이 필요 없지만, 주변에 플레이어가 있어야 자라요! 또한 경작지에 물을 뿌려줘야 해요. 물뿌리개를 물에 우클릭해서 채운 뒤 경작지에 사용하거나, 스프링쿨러를 설치하면 편해요.",
+      a: "커스텀 작물은 빛이 필요 없지만, 주변에 플레이어가 있어야 자라요! 또한 경작지에 물을 뿌려줘야 해요. 물뿌리개를 물에 우클릭해서 채운 뒤 경작지에 사용하거나, 스프링클러를 설치하면 편해요.",
     },
     {
       q: "허수아비는 무엇인가요?",
-      a: "커스텀 농사를 할 때 까마귀가 와서 작물을 먹고 도망가요. 허수아비를 설치해놓으면 까마귀를 막을 수 있어요! 허수아비의 범위는 한 청크입니다.",
+      a: "커스텀 농사를 할 때 까마귀가 와서 작물을 먹고 도망가요. 허수아비를 설치해 놓으면 까마귀를 막을 수 있어요! 허수아비의 범위는 한 청크입니다.",
     },
     {
       q: "부계정을 사용해도 되나요?",
@@ -421,10 +421,10 @@ function FaqContent() {
               {faq.q}
             </span>
             <span
-              className="text-amber-400 flex-shrink-0 group-open:rotate-90 transition-transform"
-              style={{ fontSize: "16px" }}
+              className="text-amber-500 flex-shrink-0 group-open:rotate-180 transition-transform"
+              style={{ fontSize: "14px" }}
             >
-              ▸
+              ▾
             </span>
           </summary>
           <div className="px-5 pb-4 pt-0">
@@ -680,10 +680,10 @@ export function BasicsPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6">
           <div
-            className="flex items-center gap-2 text-green-600 mb-2"
+            className="flex items-center gap-2 text-amber-700 mb-2"
             style={{ fontSize: "13px" }}
           >
-            <Link to="/" className="hover:text-green-700">
+            <Link to="/" className="hover:text-amber-800">
               홈
             </Link>
             <span>›</span>
@@ -693,30 +693,27 @@ export function BasicsPage() {
               {current.emoji} {current.label}
             </span>
           </div>
-          <h1
-            className="text-slate-800"
-            style={{ fontSize: "24px", fontWeight: 900 }}
-          >
+          <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
             {current.emoji} {current.label}
           </h1>
         </div>
 
         <div
           className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl"
-          style={{ background: "white", border: "2px solid #86efac" }}
+          style={{ background: "white", border: "2px solid #fde68a" }}
         >
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setParams({ tab: tab.key })}
               className={`flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${
-                activeTab === tab.key
-                  ? "bg-green-500 text-white shadow-sm"
-                  : "text-slate-600 hover:bg-green-50 hover:text-green-700"
+                current.key === tab.key
+                  ? "bg-amber-500 text-white shadow-sm"
+                  : "text-slate-600 hover:bg-amber-50 hover:text-amber-700"
               }`}
               style={{
                 fontSize: "13px",
-                fontWeight: activeTab === tab.key ? 700 : 500,
+                fontWeight: current.key === tab.key ? 700 : 500,
               }}
             >
               <span>{tab.emoji}</span>
@@ -725,7 +722,7 @@ export function BasicsPage() {
           ))}
         </div>
 
-        <div>{contentComponents[activeTab] ?? null}</div>
+        <div>{contentComponents[current.key]}</div>
       </div>
     </div>
   );

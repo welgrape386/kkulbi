@@ -143,7 +143,7 @@ export function CookingTraitPage() {
         {/* Breadcrumb */}
         <div>
           <div
-            className="flex items-center gap-2 text-amber-600 mb-3"
+            className="flex items-center gap-2 text-amber-700 mb-3"
             style={{ fontSize: "13px" }}
           >
             <Link to="/" className="hover:text-amber-800">

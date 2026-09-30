@@ -1,36 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router";
+import { useNavigate, useLocation, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
 import spawnImg from "../../imports/스폰.png";
 import { ChuseokEventContent } from "./ChuseokEventContent";
-
-// 일일보상이 확정되면 true로 되돌리면 홈 화면 카드가 복원됩니다.
-const SHOW_DAILY_REWARDS_CARD = false;
-
-// ─── Item Badge Helper ────────────────────────────────────────────────────────
-function getItemStyle(item: string): string {
-  if (item.includes("[화폐]"))
-    return "bg-amber-100 text-amber-800 border border-amber-200";
-  if (item.includes("강화서"))
-    return "bg-violet-100 text-violet-800 border border-violet-200";
-  if (item.includes("주문서"))
-    return "bg-blue-100 text-blue-800 border border-blue-200";
-  if (item.includes("포션"))
-    return "bg-red-100 text-red-800 border border-red-200";
-  if (item.includes("소라고동"))
-    return "bg-cyan-100 text-cyan-800 border border-cyan-200";
-  if (item.includes("꿀") || item.includes("토종") || item.includes("밀랍"))
-    return "bg-yellow-100 text-yellow-800 border border-yellow-200";
-  if (item.includes("뼈가루") || item.includes("뼈"))
-    return "bg-stone-100 text-stone-700 border border-stone-200";
-  if (
-    item.includes("도토리") ||
-    item.includes("지렁이") ||
-    item.includes("산삼")
-  )
-    return "bg-green-100 text-green-800 border border-green-200";
-  return "bg-slate-100 text-slate-700 border border-slate-200";
-}
+import {
+  SHOW_DAILY_REWARDS,
+  MinelistRewardsCard,
+  PlaytimeRewardsCard,
+} from "./EventRewards";
 
 // ─── Search Data ──────────────────────────────────────────────────────────────
 type SearchItem = {
@@ -58,7 +35,23 @@ const searchData: SearchItem[] = [
     content: "채광 수확 벌목 어부 요리 직업 특성 스킬 레벨 경험치 광물 낚시",
     category: "콘텐츠",
     emoji: "🔮",
-    route: "/content?tab=traits",
+    route: "/content/traits",
+  },
+  {
+    id: "island",
+    title: "섬",
+    content: "섬 권한 설정 업그레이드 은행 워프 프리뷰 /섬 /is",
+    category: "콘텐츠",
+    emoji: "🏝️",
+    route: "/content/island",
+  },
+  {
+    id: "chuseok",
+    title: "추석 이벤트",
+    content: "추석 랜덤 뽑기권 확률표 도구스킨 코스튬 펫 착용샷",
+    category: "이벤트",
+    emoji: "🎑",
+    route: "/#chuseok-event",
   },
   {
     id: "beekeeping",
@@ -71,27 +64,19 @@ const searchData: SearchItem[] = [
   {
     id: "events-daily",
     title: "이벤트 안내",
-    content: "낚시 대회 전체지급 신의 축복 일일 보상 마인리스트 핫타임",
+    content: "낚시 대회 전체지급 신의 축복 마인리스트 추천 접속시간 보상",
     category: "콘텐츠",
     emoji: "🎉",
     route: "/content?tab=events",
   },
   {
-    id: "daily-reward",
-    title: "일일 보상 전체",
-    content: "출석 체크 일일보상 보상 화폐 주괴 강화서 소라고동",
-    category: "콘텐츠",
-    emoji: "🎁",
-    route: "/daily-rewards",
-  },
-  {
     id: "fishing",
     title: "어부 특성 & 낚시",
     content:
-      "낚시 물고기 보물 월척 해적 진주 낚시대 수수께끼구슬 보물물고기 고래상어 만타가오리",
+      "낚시 물고기 보물 월척 해적 진주 낚싯대 수수께끼 구슬 보물물고기 고래상어 만타가오리",
     category: "콘텐츠",
     emoji: "🎣",
-    route: "/content?tab=traits",
+    route: "/content/traits/fishing",
   },
   {
     id: "mining",
@@ -99,7 +84,7 @@ const searchData: SearchItem[] = [
     content: "채광 광물 광물창고 잠광 잠수 크리스탈 다이아 에메랄드 광물변환",
     category: "콘텐츠",
     emoji: "⛏️",
-    route: "/content?tab=traits",
+    route: "/content/traits/mining",
   },
   {
     id: "cooking",
@@ -107,16 +92,16 @@ const searchData: SearchItem[] = [
     content: "요리 레시피 도마 프라이팬 냄비 튀김기 왕실납품 커스텀작물",
     category: "콘텐츠",
     emoji: "🍳",
-    route: "/content?tab=traits",
+    route: "/content/traits/cooking",
   },
   {
     id: "harvest",
     title: "수확 특성",
     content:
-      "수확 작물 농사 커스텀 허수아비 물뿌리개 스프링쿨러 비료 지렁이 산삼",
+      "수확 작물 농사 커스텀 허수아비 물뿌리개 스프링클러 비료 지렁이 산삼",
     category: "콘텐츠",
     emoji: "🌽",
-    route: "/content?tab=traits",
+    route: "/content/traits/harvest",
   },
   {
     id: "commands",
@@ -138,7 +123,7 @@ const searchData: SearchItem[] = [
   {
     id: "faq",
     title: "자주 묻는 질문",
-    content: "FAQ 자주 물어보는 질문 광물변환 지렁이 산삼 허수아비 고정키",
+    content: "FAQ 자주 물어보는 질문 광물변환 지렁이 산삼 허수아비 고정 키",
     category: "기초설명",
     emoji: "❓",
     route: "/basics?tab=faq",
@@ -155,9 +140,9 @@ const searchData: SearchItem[] = [
     id: "prices",
     title: "상점가",
     content: "일반 상점 아이템 고정 가격표",
-    category: "기초설명",
+    category: "상점가",
     emoji: "💰",
-    route: "/prices",
+    route: "/content?tab=shop",
   },
   {
     id: "support-method",
@@ -207,6 +192,18 @@ const searchData: SearchItem[] = [
     emoji: "🏛️",
     route: "/content?tab=altar",
   },
+  ...(SHOW_DAILY_REWARDS
+    ? [
+        {
+          id: "daily-reward",
+          title: "일일보상 전체",
+          content: "출석 체크 일일보상 보상 화폐 주괴 강화서 소라고동",
+          category: "이벤트",
+          emoji: "🎁",
+          route: "/daily-rewards",
+        },
+      ]
+    : []),
 ];
 
 // ─── Search Bar ───────────────────────────────────────────────────────────────
@@ -294,7 +291,7 @@ function SearchBar() {
           {results.length === 0 ? (
             <div className="px-5 py-8 text-center">
               <div className="text-2xl mb-2">🔍</div>
-              <p className="text-slate-400" style={{ fontSize: "14px" }}>
+              <p className="text-slate-500" style={{ fontSize: "14px" }}>
                 "<span className="text-slate-600">{query}</span>"에 대한 결과가
                 없어요
               </p>
@@ -303,7 +300,7 @@ function SearchBar() {
             <div>
               <div className="px-4 py-2.5 border-b border-slate-50 flex items-center justify-between">
                 <span
-                  className="text-slate-400"
+                  className="text-slate-500"
                   style={{ fontSize: "12px", fontWeight: 600 }}
                 >
                   검색 결과 {results.length}개
@@ -334,7 +331,7 @@ function SearchBar() {
                         </span>
                       </div>
                       <p
-                        className="text-slate-400 truncate"
+                        className="text-slate-500 truncate"
                         style={{ fontSize: "12px" }}
                       >
                         {item.content}
@@ -359,7 +356,7 @@ const quickLinks = [
     desc: "랭크, 특성, 양봉, 이벤트, 제단 등",
     emoji: "🎮",
     to: "/content",
-    color: "#d97706",
+    color: "#c2410c",
     bg: "#fff7ed",
     border: "#fed7aa",
   },
@@ -368,46 +365,50 @@ const quickLinks = [
     desc: "서버 접속, 명령어, 규칙, FAQ",
     emoji: "📚",
     to: "/basics",
-    color: "#0284c7",
-    bg: "#f0f9ff",
-    border: "#bae6fd",
+    color: "#b45309",
+    bg: "#fffbeb",
+    border: "#fde68a",
   },
   {
     title: "상점가",
     desc: "일반 상점 아이템 고정 가격 확인",
     emoji: "💰",
-    to: "/prices",
-    color: "#16a34a",
-    bg: "#f0fdf4",
-    border: "#bbf7d0",
+    to: "/content?tab=shop",
+    color: "#a16207",
+    bg: "#fefce8",
+    border: "#fef08a",
   },
   {
     title: "후원",
     desc: "후원 방법과 등급 혜택 안내",
     emoji: "💎",
     to: "/support",
-    color: "#7c3aed",
-    bg: "#faf5ff",
-    border: "#ddd6fe",
+    color: "#c2410c",
+    bg: "#fff7ed",
+    border: "#fdba74",
   },
   {
     title: "운영원칙",
     desc: "서버 규칙과 법전 확인",
     emoji: "⚖️",
     to: "/law",
-    color: "#dc2626",
-    bg: "#fef2f2",
-    border: "#fecaca",
+    color: "#92400e",
+    bg: "#fef3c7",
+    border: "#fcd34d",
   },
-  {
-    title: "일일보상 (업데이트예정)",
-    desc: "1일부터 31일까지 전체 보상 확인",
-    emoji: "🎁",
-    to: "/daily-rewards",
-    color: "#f59e0b",
-    bg: "#fffbeb",
-    border: "#fde68a",
-  },
+  ...(SHOW_DAILY_REWARDS
+    ? [
+        {
+          title: "일일보상",
+          desc: "1일부터 31일까지 전체 보상 확인",
+          emoji: "🎁",
+          to: "/daily-rewards",
+          color: "#b45309",
+          bg: "#fffbeb",
+          border: "#fde68a",
+        },
+      ]
+    : []),
 ];
 
 function QuickLinksSection() {
@@ -464,168 +465,8 @@ function QuickLinksSection() {
   );
 }
 
-// ─── Daily Rewards Data ───────────────────────────────────────────────────────
-const allDailyRewards: { day: number; items: string[] }[] = [
-  { day: 1, items: ["보상 미정 (업데이트예정)"] },
-  {
-    day: 2,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 3,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 4,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 5,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 6,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 7,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 8,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 9,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 10,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 11,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 12,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 13,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 14,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 15,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 16,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 17,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 18,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 19,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 20,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 21,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 22,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 23,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 24,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 25,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 26,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 27,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 28,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 29,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 30,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-  {
-    day: 31,
-    items: ["보상 미정 (업데이트예정)"],
-  },
-];
-
-const minelistRewards = [
-  "클로버",
-  "자동심기 기술 주문서 (+1000회)",
-  "경험치 병 (64개)",
-  "[화폐] 화려한 금 주괴 (5개)",
-  "자연 꿀밀랍",
-  "뼈 (5개)",
-];
-
-const playtimeRewards = [
-  { time: "30분", items: ["자연은 주괴", "뼈다귀 3개"] },
-  { time: "1시간", items: ["가공된 꿀조각", "경험치병 64개"] },
-  { time: "2시간", items: ["화려한 금 주괴", "뼈다귀 5개"] },
-  { time: "3시간", items: ["일반 복구석", "자동심기 500회"] },
-  { time: "5시간", items: ["자연 꿀밀랍", "화려한 금 주괴", "일반 복구석"] },
-  {
-    time: "8시간",
-    items: ["일반 복구석 2개", "화려한 금 주괴 2개", "뼈다귀 5개"],
-  },
-];
-
-const playtimeCompleteRewards = [
-  "천연 토종꿀",
-  "바다의 진주",
-  "화려한 금 주괴",
-  "뼈다귀 10개",
-];
-
 // ─── Events Section ───────────────────────────────────────────────────────────
 function EventsSection() {
-  const today = new Date().getDate();
-
-  const weekGroup = Math.floor((today - 1) / 7);
-  const startIndex = weekGroup * 7;
-  const visibleRewards = allDailyRewards.slice(startIndex, startIndex + 7);
-  const weekLabel = `${startIndex + 1}~${Math.min(startIndex + 7, 31)}일차`;
-
   return (
     <section>
       <div className="flex items-center gap-2 mb-4">
@@ -639,205 +480,13 @@ function EventsSection() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        {/* Left: 추석 이벤트 인라인 콘텐츠 + (숨김) 주차별 일일보상 */}
-        <div className="lg:col-span-2 space-y-4">
+        <div className="lg:col-span-2">
           <ChuseokEventContent />
-
-          {SHOW_DAILY_REWARDS_CARD && (
-          <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
-            <div
-              className="px-5 py-4 border-b border-amber-200 flex items-center justify-between"
-              style={{ background: "linear-gradient(135deg, #fef3c7, #fbbf24)" }}
-            >
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🎁</span>
-                <span
-                  className="text-amber-900"
-                  style={{ fontSize: "16px", fontWeight: 800 }}
-                >
-                  일일보상 (업데이트예정)
-                </span>
-                <span
-                  className="rounded-full px-2 py-0.5"
-                  style={{
-                    background: "rgba(255,255,255,0.65)",
-                    color: "#92400e",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                  }}
-                >
-                  {weekLabel}
-                </span>
-              </div>
-
-              <Link
-                to="/daily-rewards"
-                className="flex items-center gap-1 text-amber-800 hover:text-amber-900 transition-colors px-2.5 py-1 rounded-lg hover:bg-white/40"
-                style={{ fontSize: "12px", fontWeight: 700 }}
-              >
-                전체보기 <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
-            <div className="divide-y divide-slate-50">
-              {visibleRewards.map((r) => (
-                <div
-                  key={r.day}
-                  className={`flex items-start gap-3 px-5 py-3 transition-colors ${
-                    r.day === today ? "bg-amber-50" : "hover:bg-slate-50/60"
-                  }`}
-                >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{
-                      background:
-                        r.day === today
-                          ? "linear-gradient(135deg, #f5c842, #f59e0b)"
-                          : "#f1f5f9",
-                      color: r.day === today ? "#1a1200" : "#64748b",
-                      fontSize: "13px",
-                      fontWeight: 900,
-                      boxShadow:
-                        r.day === today
-                          ? "0 2px 10px rgba(245, 158, 11, 0.35)"
-                          : "none",
-                    }}
-                  >
-                    {r.day}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div
-                      className="mb-1"
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 700,
-                        color: r.day === today ? "#92400e" : "#334155",
-                      }}
-                    >
-                      {r.day}일차 보상
-                    </div>
-
-                    <div className="flex flex-wrap gap-1.5">
-                      {r.items.map((item) => (
-                        <span
-                          key={item}
-                          className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                            item,
-                          )}`}
-                          style={{ fontSize: "11px", fontWeight: 600 }}
-                        >
-                          {item}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          )}
         </div>
 
-        {/* Right: other event cards */}
         <div className="space-y-4">
-          <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">🌐</span>
-              <div
-                className="text-slate-700"
-                style={{ fontSize: "15px", fontWeight: 800 }}
-              >
-                마인리스트 추천 보상
-              </div>
-            </div>
-            <p
-              className="text-slate-500 mb-3"
-              style={{ fontSize: "12px", lineHeight: 1.6 }}
-            >
-              마인리스트 추천 참여 시 받을 수 있는 전체지급 보상이에요.
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {minelistRewards.map((item) => (
-                <span
-                  key={item}
-                  className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                    item,
-                  )}`}
-                  style={{ fontSize: "11px", fontWeight: 600 }}
-                >
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg">⏱️</span>
-              <div
-                className="text-slate-700"
-                style={{ fontSize: "15px", fontWeight: 800 }}
-              >
-                접속시간 보상
-              </div>
-            </div>
-            <p
-              className="text-slate-500 mb-3"
-              style={{ fontSize: "12px", lineHeight: 1.6 }}
-            >
-              접속 시간에 따라 단계별로 받을 수 있는 보상이에요.
-            </p>
-            <div className="space-y-1.5 mb-2">
-              {playtimeRewards.map(({ time, items }) => (
-                <div key={time} className="flex items-start gap-2">
-                  <span
-                    className="flex-shrink-0 w-12 text-center rounded-lg px-1.5 py-0.5 bg-slate-100 text-slate-600"
-                    style={{ fontSize: "11px", fontWeight: 800 }}
-                  >
-                    {time}
-                  </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {items.map((item) => (
-                      <span
-                        key={item}
-                        className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                          item,
-                        )}`}
-                        style={{ fontSize: "11px", fontWeight: 600 }}
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-3 rounded-xl border-2 border-amber-300 bg-amber-50 p-3">
-              <div
-                className="text-amber-800 mb-2"
-                style={{ fontSize: "12px", fontWeight: 800 }}
-              >
-                🏆 완성보상{" "}
-                <span className="text-amber-600" style={{ fontWeight: 600 }}>
-                  [모든 보상 수령시]
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {playtimeCompleteRewards.map((item) => (
-                  <span
-                    key={item}
-                    className={`inline-flex items-center rounded-lg px-2 py-0.5 ${getItemStyle(
-                      item,
-                    )}`}
-                    style={{ fontSize: "11px", fontWeight: 600 }}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+          <MinelistRewardsCard />
+          <PlaytimeRewardsCard />
         </div>
       </div>
     </section>
@@ -846,6 +495,12 @@ function EventsSection() {
 
 // ─── Home ─────────────────────────────────────────────────────────────────────
 export function Home() {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
+  }, [hash]);
+
   return (
     <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       {/* Hero */}
@@ -892,7 +547,7 @@ export function Home() {
                 textShadow: "0 1px 4px rgba(0,0,0,0.6)",
               }}
             >
-              마인팜 꿀비의 숲 공식위키
+              마인팜 꿀비의 숲 공식 위키
             </p>
 
             <SearchBar />

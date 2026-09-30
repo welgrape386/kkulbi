@@ -24,34 +24,34 @@ const permissions = [
   { name: "블록 파괴", desc: "블록을 부술 수 있습니다." },
   { name: "블록 설치", desc: "블록을 설치할 수 있습니다." },
   { name: "상자", desc: "섬 내 상자를 사용할 수 있습니다." },
-  { name: "섬 비공개", desc: "섬을 비공개 상태로 전환 할 수 있습니다." },
-  { name: "아르바이트", desc: "아르바이트 관련 권한을 사용 할 수 있습니다." },
-  { name: "워프 삭제", desc: "섬 워프를 삭제 할 수 있습니다." },
-  { name: "구성원 권한", desc: "다른 구성원의 권한을 설정 합니다." },
+  { name: "섬 비공개", desc: "섬을 비공개 상태로 전환할 수 있습니다." },
+  { name: "아르바이트", desc: "아르바이트 관련 권한을 사용할 수 있습니다." },
+  { name: "워프 삭제", desc: "섬 워프를 삭제할 수 있습니다." },
+  { name: "구성원 권한", desc: "다른 구성원의 권한을 설정합니다." },
   { name: "아이템 버리기", desc: "Q 키로 아이템을 버릴 수 있습니다." },
-  { name: "강퇴 무시", desc: "섬 강퇴를 무시 할 수 있습니다." },
-  { name: "유저 강퇴", desc: "방문자 또는 유저를 강퇴 할 수 있습니다." },
+  { name: "강퇴 무시", desc: "섬 강퇴를 무시할 수 있습니다." },
+  { name: "유저 강퇴", desc: "방문자 또는 유저를 강퇴할 수 있습니다." },
   { name: "농작물 밟기", desc: "농작물을 밟아 부술 수 있습니다." },
   { name: "낚시", desc: "섬에서 낚시를 할 수 있습니다." },
-  { name: "말 상호작용", desc: "섬에서 말과 상호작용 할 수 있습니다." },
-  { name: "상호 작용", desc: "섬 내에 블록과 상호 작용 할 수 있습니다." },
-  { name: "유저 초대", desc: "섬에 유저를 초대 할 수 있습니다." },
-  { name: "아이템 액자", desc: "아이템 액자와 상호 작용 할 수 있습니다." },
+  { name: "말 상호작용", desc: "섬에서 말과 상호작용할 수 있습니다." },
+  { name: "상호 작용", desc: "섬 내에 블록과 상호작용할 수 있습니다." },
+  { name: "유저 초대", desc: "섬에 유저를 초대할 수 있습니다." },
+  { name: "아이템 액자", desc: "아이템 액자와 상호작용할 수 있습니다." },
   { name: "카트 부수기", desc: "카트를 부술 수 있습니다." },
   { name: "카트 탑승", desc: "카트를 탈 수 있습니다." },
   { name: "카트 열기", desc: "카트를 열 수 있습니다." },
-  { name: "카트 설치", desc: "카트를 설치 할 수 있습니다." },
-  { name: "섬 공개", desc: "섬을 공개 상태로 전환 할 수 있습니다." },
-  { name: "아이템 획득", desc: "섬에서 아이템을 획득 할 수 있습니다." },
-  { name: "섬 업그레이드", desc: "섬을 업그레이드 할 수 있습니다." },
-  { name: "바이옴", desc: "섬 바이옴을 변경 할 수 있습니다." },
-  { name: "셋홈", desc: "셋홈 명령어를 사용 할 수 있습니다." },
-  { name: "권한 설정", desc: "구성원 권한을 수정 할 수 있습니다." },
-  { name: "역할 설정", desc: "구성원 역할을 수정 할 수 있습니다." },
-  { name: "섬 설정", desc: "섬을 설정 할 수 있습니다." },
-  { name: "워프 설정", desc: "섬에 새로운 워프를 설정 할 수 있습니다." },
-  { name: "아르바이트 해고", desc: "아르바이트를 해고 할 수 있습니다." },
-  { name: "표지판", desc: "표지판과 상호작용 할 수 있습니다." },
+  { name: "카트 설치", desc: "카트를 설치할 수 있습니다." },
+  { name: "섬 공개", desc: "섬을 공개 상태로 전환할 수 있습니다." },
+  { name: "아이템 획득", desc: "섬에서 아이템을 획득할 수 있습니다." },
+  { name: "섬 업그레이드", desc: "섬을 업그레이드할 수 있습니다." },
+  { name: "바이옴", desc: "섬 바이옴을 변경할 수 있습니다." },
+  { name: "셋홈", desc: "셋홈 명령어를 사용할 수 있습니다." },
+  { name: "권한 설정", desc: "구성원 권한을 수정할 수 있습니다." },
+  { name: "역할 설정", desc: "구성원 역할을 수정할 수 있습니다." },
+  { name: "섬 설정", desc: "섬을 설정할 수 있습니다." },
+  { name: "워프 설정", desc: "섬에 새로운 워프를 설정할 수 있습니다." },
+  { name: "아르바이트 해고", desc: "아르바이트를 해고할 수 있습니다." },
+  { name: "표지판", desc: "표지판과 상호작용할 수 있습니다." },
   { name: "가치 블록 파괴", desc: "섬 내 가치 블록을 부술 수 있습니다." },
 ];
 
@@ -62,12 +62,12 @@ const islandSettings = [
   { name: "야밤", desc: "섬의 시간을 야밤으로 바꿉니다.", type: "time" },
   { name: "비", desc: "섬의 날씨를 비로 바꿉니다.", type: "weather" },
   { name: "맑음", desc: "섬의 날씨를 맑음으로 바꿉니다.", type: "weather" },
-  { name: "크리퍼", desc: "섬 안에서 크리퍼들이 블록을 폭발 시킵니다.", type: "toggle" },
-  { name: "작물 성장", desc: "섬 안에서 작물의 성장을 허용 합니다.", type: "toggle" },
-  { name: "달걀 낳기", desc: "섬 안에서 닭이 알을 낳는것을 허용 합니다.", type: "toggle" },
+  { name: "크리퍼", desc: "섬 안에서 크리퍼들이 블록을 폭발시킵니다.", type: "toggle" },
+  { name: "작물 성장", desc: "섬 안에서 작물의 성장을 허용합니다.", type: "toggle" },
+  { name: "달걀 낳기", desc: "섬 안에서 닭이 알을 낳는 것을 허용합니다.", type: "toggle" },
   { name: "PVP", desc: "플레이어가 섬 안에서 PVP를 할 수 있도록 합니다.", type: "toggle" },
   { name: "나무 성장", desc: "섬 안에서 나무가 자랄 수 있도록 합니다.", type: "toggle" },
-  { name: "물의 흐름", desc: "섬 내부에 물이 흐르는걸 허용 합니다.", type: "toggle" },
+  { name: "물의 흐름", desc: "섬 내부에 물이 흐르는 걸 허용합니다.", type: "toggle" },
 ];
 
 const upgrades = [
@@ -158,7 +158,7 @@ function Collapsible({ title, children, defaultOpen = false }: { title: ReactNod
         className="w-full flex items-center justify-between px-5 py-3 bg-amber-50 hover:bg-amber-100 transition-colors"
       >
         <span style={{ fontSize: "14px", fontWeight: 700, color: "#92400e" }}>{title}</span>
-        {open ? <ChevronUp className="w-4 h-4 text-amber-600" /> : <ChevronDown className="w-4 h-4 text-amber-600" />}
+        {open ? <ChevronUp className="w-4 h-4 text-amber-500" /> : <ChevronDown className="w-4 h-4 text-amber-500" />}
       </button>
       {open && <div className="p-4">{children}</div>}
     </div>
@@ -171,7 +171,7 @@ export function IslandPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-8">
         {/* Breadcrumb + Header */}
         <div>
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-800">홈</Link>
             <span>›</span>
             <Link to="/content" className="hover:text-amber-800">콘텐츠</Link>
@@ -190,7 +190,7 @@ export function IslandPage() {
             <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>🏝️ 섬</h1>
           </div>
           <p style={{ fontSize: "14px", color: "#78716c", fontWeight: 600 }}>
-            섬과 관련된 전반적인 안내를 해 드립니다. 원하는 항목을 클릭하면 해당 내용을 확인할 수 있습니다.
+            섬과 관련된 전반적인 안내를 해 드립니다. 접힌 항목은 클릭하면 펼쳐집니다.
           </p>
         </div>
 
@@ -253,7 +253,7 @@ export function IslandPage() {
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {islandSettings.map((s) => (
-                  <div key={s.name} className="flex items-start gap-2 p-2.5 rounded-xl bg-sky-50 border border-sky-100">
+                  <div key={s.name} className="flex items-start gap-2 p-2.5 rounded-xl bg-amber-50 border border-amber-100">
                     <span
                       className="inline-block rounded-lg px-2 py-0.5 flex-shrink-0 mt-0.5"
                       style={{
@@ -321,9 +321,9 @@ export function IslandPage() {
               </div>
               <div className="space-y-2">
                 {[
-                  { name: "반액 입금", desc: "소지하고 있는 금액의 절반을 섬 은행에 입금 합니다." },
-                  { name: "입금", desc: "소지하고 있는 금액의 원하는 만큼을 섬 은행에 입금 합니다." },
-                  { name: "전액 입금", desc: "소지하고 있는 금액의 전부를 섬 은행에 입금 합니다." },
+                  { name: "반액 입금", desc: "소지하고 있는 금액의 절반을 섬 은행에 입금합니다." },
+                  { name: "입금", desc: "소지하고 있는 금액의 원하는 만큼을 섬 은행에 입금합니다." },
+                  { name: "전액 입금", desc: "소지하고 있는 금액의 전부를 섬 은행에 입금합니다." },
                 ].map((m) => (
                   <div key={m.name} className="p-3 rounded-xl border-2 border-green-100 bg-green-50">
                     <div style={{ fontSize: "13px", fontWeight: 800, color: "#166534" }}>{m.name}</div>
@@ -339,9 +339,9 @@ export function IslandPage() {
               </div>
               <div className="space-y-2">
                 {[
-                  { name: "반액 출금", desc: "섬 은행의 잔액에서 절반을 출금 합니다." },
-                  { name: "출금", desc: "섬 은행의 잔액에서 원하는 만큼을 출금 합니다." },
-                  { name: "전액 출금", desc: "섬 은행의 잔액에서 전부를 출금 합니다." },
+                  { name: "반액 출금", desc: "섬 은행의 잔액에서 절반을 출금합니다." },
+                  { name: "출금", desc: "섬 은행의 잔액에서 원하는 만큼을 출금합니다." },
+                  { name: "전액 출금", desc: "섬 은행의 잔액에서 전부를 출금합니다." },
                 ].map((m) => (
                   <div key={m.name} className="p-3 rounded-xl border-2 border-red-100 bg-red-50">
                     <div style={{ fontSize: "13px", fontWeight: 800, color: "#991b1b" }}>{m.name}</div>
@@ -364,10 +364,10 @@ export function IslandPage() {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { cmd: "/섬 워프", desc: "자신의 섬의 워프 목록을 확인 할 수 있습니다." },
-                { cmd: "/섬 워프목록", desc: "서버에 있는 전체 섬 워프 목록을 확인 할 수 있습니다." },
-                { cmd: "/섬 워프생성 (워프이름)", desc: "워프를 생성 할 수 있습니다." },
-                { cmd: "/섬 워프제거 (워프이름)", desc: "워프를 제거 할 수 있습니다." },
+                { cmd: "/섬 워프", desc: "자신의 섬의 워프 목록을 확인할 수 있습니다." },
+                { cmd: "/섬 워프목록", desc: "서버에 있는 전체 섬 워프 목록을 확인할 수 있습니다." },
+                { cmd: "/섬 워프생성 (워프이름)", desc: "워프를 생성할 수 있습니다." },
+                { cmd: "/섬 워프제거 (워프이름)", desc: "워프를 제거할 수 있습니다." },
               ].map((item) => (
                 <div key={item.cmd} className="p-4 rounded-xl border-2 border-purple-100 bg-purple-50 flex items-start gap-3">
                   <code className="rounded-lg px-2 py-1 flex-shrink-0" style={{ background: "#7c3aed20", color: "#7c3aed", fontSize: "12px", fontWeight: 800 }}>

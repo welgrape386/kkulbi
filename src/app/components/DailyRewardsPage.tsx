@@ -1,61 +1,13 @@
 import { Link } from "react-router";
 import { ArrowLeft } from "lucide-react";
-
-function getItemStyle(item: string): string {
-  if (item.includes("[화폐]")) return "bg-amber-100 text-amber-800 border border-amber-200";
-  if (item.includes("강화서")) return "bg-violet-100 text-violet-800 border border-violet-200";
-  if (item.includes("주문서")) return "bg-blue-100 text-blue-800 border border-blue-200";
-  if (item.includes("포션")) return "bg-red-100 text-red-800 border border-red-200";
-  if (item.includes("소라고동")) return "bg-cyan-100 text-cyan-800 border border-cyan-200";
-  if (item.includes("꿀") || item.includes("토종") || item.includes("밀랍"))
-    return "bg-yellow-100 text-yellow-800 border border-yellow-200";
-  if (item.includes("뼈가루") || item.includes("뼈"))
-    return "bg-stone-100 text-stone-700 border border-stone-200";
-  if (item.includes("도토리") || item.includes("지렁이") || item.includes("산삼"))
-    return "bg-green-100 text-green-800 border border-green-200";
-  return "bg-slate-100 text-slate-700 border border-slate-200";
-}
-
-const dailyRewards: { day: number; items: string[] }[] = [
-  { day: 1, items: ["보상 미정 (업데이트예정)"] },
-  { day: 2, items: ["보상 미정 (업데이트예정)"] },
-  { day: 3, items: ["보상 미정 (업데이트예정)"] },
-  { day: 4, items: ["보상 미정 (업데이트예정)"] },
-  { day: 5, items: ["보상 미정 (업데이트예정)"] },
-  { day: 6, items: ["보상 미정 (업데이트예정)"] },
-  { day: 7, items: ["보상 미정 (업데이트예정)"] },
-  { day: 8, items: ["보상 미정 (업데이트예정)"] },
-  { day: 9, items: ["보상 미정 (업데이트예정)"] },
-  { day: 10, items: ["보상 미정 (업데이트예정)"] },
-  { day: 11, items: ["보상 미정 (업데이트예정)"] },
-  { day: 12, items: ["보상 미정 (업데이트예정)"] },
-  { day: 13, items: ["보상 미정 (업데이트예정)"] },
-  { day: 14, items: ["보상 미정 (업데이트예정)"] },
-  { day: 15, items: ["보상 미정 (업데이트예정)"] },
-  { day: 16, items: ["보상 미정 (업데이트예정)"] },
-  { day: 17, items: ["보상 미정 (업데이트예정)"] },
-  { day: 18, items: ["보상 미정 (업데이트예정)"] },
-  { day: 19, items: ["보상 미정 (업데이트예정)"] },
-  { day: 20, items: ["보상 미정 (업데이트예정)"] },
-  { day: 21, items: ["보상 미정 (업데이트예정)"] },
-  { day: 22, items: ["보상 미정 (업데이트예정)"] },
-  { day: 23, items: ["보상 미정 (업데이트예정)"] },
-  { day: 24, items: ["보상 미정 (업데이트예정)"] },
-  { day: 25, items: ["보상 미정 (업데이트예정)"] },
-  { day: 26, items: ["보상 미정 (업데이트예정)"] },
-  { day: 27, items: ["보상 미정 (업데이트예정)"] },
-  { day: 28, items: ["보상 미정 (업데이트예정)"] },
-  { day: 29, items: ["보상 미정 (업데이트예정)"] },
-  { day: 30, items: ["보상 미정 (업데이트예정)"] },
-  { day: 31, items: ["보상 미정 (업데이트예정)"] },
-];
+import { dailyRewards, getItemStyle } from "./EventRewards";
 
 const legend = [
-  { label: "화폐", style: "bg-amber-100 text-amber-800 border border-amber-200" },
+  { label: "화폐·주괴", style: "bg-amber-100 text-amber-800 border border-amber-200" },
   { label: "강화서", style: "bg-violet-100 text-violet-800 border border-violet-200" },
-  { label: "주문서", style: "bg-blue-100 text-blue-800 border border-blue-200" },
+  { label: "주문서·자동심기", style: "bg-blue-100 text-blue-800 border border-blue-200" },
   { label: "포션", style: "bg-red-100 text-red-800 border border-red-200" },
-  { label: "소라고동", style: "bg-cyan-100 text-cyan-800 border border-cyan-200" },
+  { label: "소라고동·진주", style: "bg-cyan-100 text-cyan-800 border border-cyan-200" },
   { label: "꿀·밀랍", style: "bg-yellow-100 text-yellow-800 border border-yellow-200" },
   { label: "뼈·뼈가루", style: "bg-stone-100 text-stone-700 border border-stone-200" },
   { label: "자연 재료", style: "bg-green-100 text-green-800 border border-green-200" },
@@ -70,22 +22,22 @@ export function DailyRewardsPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
         {/* Breadcrumb & Header */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 text-amber-600 mb-3" style={{ fontSize: "13px" }}>
+          <div className="flex items-center gap-2 text-amber-700 mb-3" style={{ fontSize: "13px" }}>
             <Link to="/" className="hover:text-amber-700">홈</Link>
             <span>›</span>
-            <span className="text-slate-600">🎁 일일보상 전체 (업데이트예정)</span>
+            <span className="text-slate-600">🎁 일일보상</span>
           </div>
-          <div className="flex items-center gap-3 mb-1">
+          <div className="flex flex-wrap items-center gap-3 mb-1">
             <Link
               to="/"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border-2 border-amber-200 text-amber-700 hover:bg-amber-50 transition-colors"
               style={{ fontSize: "13px", fontWeight: 600 }}
             >
               <ArrowLeft className="w-4 h-4" />
               홈으로
             </Link>
-            <h1 className="text-slate-800" style={{ fontSize: "24px", fontWeight: 900 }}>
-              🎁 일일보상 전체 (1~31일) (업데이트예정)
+            <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
+              🎁 일일보상 (1~31일)
             </h1>
           </div>
           <p className="text-slate-500" style={{ fontSize: "13px", fontWeight: 500 }}>
@@ -94,9 +46,9 @@ export function DailyRewardsPage() {
         </div>
 
         {/* 미확정 안내 */}
-        <div className="bg-red-50 border border-red-200 rounded-2xl p-4 mb-6 flex items-center gap-3">
+        <div className="bg-amber-50 border border-amber-300 rounded-2xl p-4 mb-6 flex items-center gap-3">
           <span className="text-xl flex-shrink-0">⚠️</span>
-          <p className="text-red-800" style={{ fontSize: "13px", lineHeight: 1.7 }}>
+          <p className="text-amber-900" style={{ fontSize: "13px", lineHeight: 1.7 }}>
             <strong>일일보상 내용은 아직 확정되지 않아 업데이트 예정입니다.</strong>
           </p>
         </div>
@@ -153,7 +105,7 @@ export function DailyRewardsPage() {
                   className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
                   style={{
                     background: r.day === today ? "linear-gradient(135deg, #f5c842, #f59e0b)" : r.day < today ? "#e2e8f0" : "#f1f5f9",
-                    color: r.day === today ? "#1a1200" : r.day < today ? "#94a3b8" : "#64748b",
+                    color: r.day === today ? "#1a1200" : r.day < today ? "#64748b" : "#475569",
                     fontSize: "14px",
                     fontWeight: 900,
                     boxShadow: r.day === today ? "0 2px 10px rgba(245,200,66,0.5)" : "none",

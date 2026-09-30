@@ -87,7 +87,7 @@ export function ChuseokSection({
             {badge}
           </span>
         )}
-        <span className="ml-auto text-slate-400 group-open:rotate-180 transition-transform" style={{ fontSize: "14px" }}>
+        <span className="ml-auto text-amber-500 group-open:rotate-180 transition-transform" style={{ fontSize: "14px" }}>
           ▾
         </span>
       </summary>
@@ -178,7 +178,7 @@ export function ChuseokEventContent() {
   const COLOR = CHUSEOK_COLOR;
 
   return (
-    <div className="bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
+    <div id="chuseok-event" className="scroll-mt-20 bg-white border-2 border-orange-200 rounded-2xl overflow-hidden shadow-sm">
       {/* 헤더 */}
       <div
         className="px-5 py-4 border-b border-orange-200 flex items-center gap-2"

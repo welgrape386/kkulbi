@@ -207,7 +207,7 @@ export function LoggingTraitPage() {
         {/* Breadcrumb */}
         <div>
           <div
-            className="flex items-center gap-2 text-amber-600 mb-3"
+            className="flex items-center gap-2 text-amber-700 mb-3"
             style={{ fontSize: "13px" }}
           >
             <Link to="/" className="hover:text-amber-800">
@@ -328,7 +328,7 @@ export function LoggingTraitPage() {
               </span>
             </div>
             <span
-              style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 600 }}
+              style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}
             >
               {showAll ? "전체 표시 중" : `${INITIAL_SHOW}개 표시 중`}
             </span>

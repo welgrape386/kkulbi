@@ -39,7 +39,7 @@ function ProbTable({ rows }: { rows: { name: string; prob: string }[] }) {
             </td>
             <td
               className="px-3 py-2 border-t border-slate-100 text-right"
-              style={{ fontSize: "13px", fontWeight: 600, color: "#7c3aed" }}
+              style={{ fontSize: "13px", fontWeight: 600, color: "#b45309" }}
             >
               {r.prob}%
             </td>
@@ -82,7 +82,7 @@ function ScrollTable({
                   className={`px-3 py-2 border-t border-slate-100 ${j === row.length - 1 ? "text-right" : ""}`}
                   style={{
                     fontSize: "13px",
-                    color: j === row.length - 1 ? "#7c3aed" : "#1e293b",
+                    color: j === row.length - 1 ? "#b45309" : "#1e293b",
                     fontWeight: j === row.length - 1 ? 600 : 400,
                   }}
                 >
@@ -106,27 +106,27 @@ function MethodContent() {
         href="https://kkulbi.codix.kr/donate"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-between p-5 rounded-2xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all group"
-        style={{ background: "linear-gradient(135deg, #f5f3ff, #ede9fe)" }}
+        className="flex items-center justify-between p-5 rounded-2xl border-2 border-amber-300 hover:border-amber-500 hover:shadow-lg transition-all group"
+        style={{ background: "linear-gradient(135deg, #fffbeb, #fde68a)" }}
       >
         <div className="flex items-center gap-3">
           <span className="text-3xl">🌐</span>
           <div>
             <div
-              style={{ fontSize: "15px", fontWeight: 800, color: "#5b21b6" }}
+              style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}
             >
               후원 사이트 바로가기
             </div>
-            <div className="text-violet-400" style={{ fontSize: "12px" }}>
+            <div className="text-amber-700" style={{ fontSize: "12px" }}>
               kkulbi.codix.kr/donate
             </div>
           </div>
         </div>
         <div
-          className="flex items-center gap-1 rounded-xl px-3 py-2 group-hover:bg-violet-600 transition-colors"
+          className="flex items-center gap-1 rounded-xl px-3 py-2 group-hover:shadow-md transition-shadow"
           style={{
-            background: "#7c3aed",
-            color: "white",
+            background: "linear-gradient(135deg, #f5c842, #f59e0b)",
+            color: "#1a1200",
             fontSize: "13px",
             fontWeight: 700,
           }}
@@ -163,7 +163,7 @@ function MethodContent() {
                     href="https://kkulbi.codix.kr/donate"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-violet-600 underline hover:text-violet-800"
+                    className="text-amber-700 underline hover:text-amber-900"
                   >
                     kkulbi.codix.kr/donate
                   </a>
@@ -284,16 +284,16 @@ function MethodContent() {
           </div>
 
           {/* 문화상품권 */}
-          <div className="rounded-2xl border-2 border-blue-200 overflow-hidden">
+          <div className="rounded-2xl border-2 border-orange-200 overflow-hidden">
             <div
               className="px-4 py-3 flex items-center gap-2"
               style={{
-                background: "linear-gradient(135deg, #eff6ff, #dbeafe)",
+                background: "linear-gradient(135deg, #fff7ed, #ffedd5)",
               }}
             >
               <span className="text-xl">🎫</span>
               <span
-                style={{ fontSize: "15px", fontWeight: 800, color: "#1d4ed8" }}
+                style={{ fontSize: "15px", fontWeight: 800, color: "#c2410c" }}
               >
                 컬처랜드 문화상품권
               </span>
@@ -307,8 +307,8 @@ function MethodContent() {
                   <div
                     className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
                     style={{
-                      background: "#dbeafe",
-                      color: "#1d4ed8",
+                      background: "#ffedd5",
+                      color: "#c2410c",
                       fontSize: "11px",
                       fontWeight: 900,
                     }}
@@ -707,7 +707,7 @@ const packageLootboxes: ProbSection[] = [
       { name: "명장 복구석 2개", prob: "4.76" },
       { name: "유기농 야채바구니 3개", prob: "4.76" },
       { name: "용암에 깃들린 곡괭이 (+3)", prob: "4.76" },
-      { name: "미스틱 프로텍트 베리어", prob: "4.76" },
+      { name: "미스틱 프로텍트 배리어", prob: "4.76" },
     ],
   },
   {
@@ -742,8 +742,8 @@ function LootboxCard({ section }: { section: ProbSection }) {
             <span
               className="rounded-full px-2.5 py-0.5"
               style={{
-                background: "#ede9fe",
-                color: "#5b21b6",
+                background: "#fef3c7",
+                color: "#92400e",
                 fontSize: "11px",
                 fontWeight: 700,
               }}
@@ -771,6 +771,22 @@ function LootboxCard({ section }: { section: ProbSection }) {
 function ProbabilityContent() {
   return (
     <div className="space-y-8">
+      <Link
+        to="/#chuseok-event"
+        className="flex items-center gap-3 px-5 py-3.5 rounded-2xl bg-white border-2 border-orange-200 transition-all hover:shadow-md"
+      >
+        <span className="text-xl">🎑</span>
+        <span className="flex-1">
+          <span className="block text-orange-700" style={{ fontSize: "14px", fontWeight: 800 }}>
+            추석 랜덤 뽑기권 확률표
+          </span>
+          <span className="block text-slate-500" style={{ fontSize: "12px" }}>
+            추석 이벤트 기간 한정 뽑기권의 아이템과 확률 보기
+          </span>
+        </span>
+        <span className="text-orange-700" style={{ fontWeight: 800 }}>›</span>
+      </Link>
+
       {/* 두루마리 확률 */}
       <div>
         <div className="flex items-center gap-2 mb-4">
@@ -790,15 +806,15 @@ function ProbabilityContent() {
               <span
                 style={{ fontSize: "14px", fontWeight: 800, color: "#334155" }}
               >
-                40%/50%/60%/70%/80% 두루마리
+                40%/50%/60%/70% 두루마리
               </span>
             </div>
             <p
               className="text-slate-500 mt-1"
               style={{ fontSize: "12px", lineHeight: 1.6 }}
             >
-              각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의
-              성공확률은 각 두루마리마다 50%/60%/70%/80%로 동일합니다.
+              각 두루마리에서 나오는 아이템의 확률은 동일하며, 주문서의 성공
+              확률은 두루마리 등급에 따라 40%/50%/60%/70%입니다.
             </p>
           </div>
           <div className="p-4">
@@ -823,7 +839,7 @@ function ProbabilityContent() {
         </div>
 
         <p
-          className="text-slate-400 mt-3"
+          className="text-slate-500 mt-3"
           style={{ fontSize: "11px", lineHeight: 1.6 }}
         >
           ※ 소수점 3번째 자리는 제외했기 때문에 99.9%도 나올 수 있습니다
@@ -859,10 +875,10 @@ export function SupportPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
         <div className="mb-6">
           <div
-            className="flex items-center gap-2 text-violet-600 mb-2"
+            className="flex items-center gap-2 text-amber-700 mb-2"
             style={{ fontSize: "13px" }}
           >
-            <Link to="/" className="hover:text-violet-700">
+            <Link to="/" className="hover:text-amber-800">
               홈
             </Link>
             <span>›</span>
@@ -872,10 +888,7 @@ export function SupportPage() {
               {current.emoji} {current.label}
             </span>
           </div>
-          <h1
-            className="text-slate-800"
-            style={{ fontSize: "24px", fontWeight: 900 }}
-          >
+          <h1 style={{ fontSize: "26px", fontWeight: 900, color: "#78350f" }}>
             💎 후원 안내
           </h1>
         </div>
@@ -883,18 +896,20 @@ export function SupportPage() {
         {/* Tabs */}
         <div
           className="flex flex-wrap gap-1.5 mb-8 p-3 rounded-2xl"
-          style={{ background: "white", border: "2px solid #ddd6fe" }}
+          style={{ background: "white", border: "2px solid #fde68a" }}
         >
           {tabs.map((tab) => (
             <button
               key={tab.key}
               onClick={() => setParams({ tab: tab.key })}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all"
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-xl transition-all ${
+                current.key === tab.key
+                  ? "bg-amber-500 text-white shadow-sm"
+                  : "text-slate-600 hover:bg-amber-50 hover:text-amber-700"
+              }`}
               style={{
-                background: activeTab === tab.key ? "#7c3aed" : "transparent",
-                color: activeTab === tab.key ? "white" : "#6b7280",
                 fontSize: "13px",
-                fontWeight: activeTab === tab.key ? 700 : 500,
+                fontWeight: current.key === tab.key ? 700 : 500,
               }}
             >
               <span>{tab.emoji}</span>
@@ -904,9 +919,9 @@ export function SupportPage() {
         </div>
 
         <div>
-          {activeTab === "method" && <MethodContent />}
-          {activeTab === "ranks" && <RanksContent />}
-          {activeTab === "probability" && <ProbabilityContent />}
+          {current.key === "method" && <MethodContent />}
+          {current.key === "ranks" && <RanksContent />}
+          {current.key === "probability" && <ProbabilityContent />}
         </div>
       </div>
     </div>

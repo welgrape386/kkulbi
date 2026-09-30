@@ -3,6 +3,15 @@ import { Link, useLocation } from "react-router";
 import { Menu, X } from "lucide-react";
 import logoImg from "../../imports/logo.png";
 
+const navItems = [
+  { to: "/", label: "🏠 홈" },
+  { to: "/content", label: "🎮 콘텐츠" },
+  { to: "/basics", label: "📚 기초설명" },
+  { to: "/content?tab=shop", label: "💰 상점가" },
+  { to: "/support", label: "💎 후원" },
+  { to: "/law", label: "⚖️ 운영원칙" },
+];
+
 export function AppHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -18,8 +27,20 @@ export function AppHeader() {
     setMobileOpen(false);
   }, [location.pathname, location.search]);
 
+  const onShopTab =
+    location.pathname === "/content" &&
+    new URLSearchParams(location.search).get("tab") === "shop";
+
   const isActive = (href: string) => {
-    if (href === "/") return location.pathname === "/";
+    if (href === "/content?tab=shop") return onShopTab;
+    if (href === "/content") return location.pathname.startsWith("/content") && !onShopTab;
+    // 일일보상·추석 착용샷은 홈 이벤트 안내에서 들어가는 하위 페이지입니다.
+    if (href === "/")
+      return (
+        location.pathname === "/" ||
+        location.pathname.startsWith("/daily-rewards") ||
+        location.pathname.startsWith("/chuseok-event")
+      );
     return location.pathname.startsWith(href);
   };
 
@@ -64,8 +85,8 @@ export function AppHeader() {
                 꿀비의 숲
               </span>
               <span
-                className="text-slate-400"
-                style={{ fontSize: "10px", fontWeight: 400 }}
+                className="text-slate-500"
+                style={{ fontSize: "10px", fontWeight: 500 }}
               >
                 공식 위키
               </span>
@@ -74,58 +95,24 @@ export function AppHeader() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link
-              to="/"
-              className={navLinkClass("/")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              🏠 홈
-            </Link>
-            <Link
-              to="/content"
-              className={navLinkClass("/content")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              🎮 콘텐츠
-            </Link>
-            <Link
-              to="/basics"
-              className={navLinkClass("/basics")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              📚 기초설명
-            </Link>
-            <Link
-              to="/prices"
-              className={navLinkClass("/prices")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              💰 상점가
-            </Link>
-            <Link
-              to="/support"
-              className={navLinkClass("/support")}
-              style={{ fontSize: "13px", fontWeight: 600 }}
-            >
-              💎 후원
-            </Link>
-            <Link
-              to="/law"
-              className={`${navLinkClass("/law")} border ${
-                isActive("/law")
-                  ? "border-amber-500"
-                  : "border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
-              }`}
-              style={{ fontSize: "13px", fontWeight: 700 }}
-            >
-              ⚖️ 운영원칙
-            </Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={navLinkClass(item.to)}
+                style={{ fontSize: "13px", fontWeight: 600 }}
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           {/* Mobile Toggle */}
           <button
             className="md:hidden p-2 rounded-xl text-slate-600 hover:bg-amber-50 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "메뉴 닫기" : "메뉴 열기"}
+            aria-expanded={mobileOpen}
           >
             {mobileOpen ? (
               <X className="w-5 h-5" />
@@ -140,48 +127,20 @@ export function AppHeader() {
       {mobileOpen && (
         <div className="md:hidden bg-white border-t border-amber-100 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 py-3 space-y-1">
-            <Link
-              to="/"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-50 text-amber-800"
-              style={{ fontSize: "14px", fontWeight: 600 }}
-            >
-              🏠 홈
-            </Link>
-            <Link
-              to="/content"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl text-slate-700 hover:bg-amber-50 transition-colors"
-              style={{ fontSize: "14px", fontWeight: 600 }}
-            >
-              🎮 콘텐츠
-            </Link>
-            <Link
-              to="/basics"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl text-slate-700 hover:bg-green-50 transition-colors"
-              style={{ fontSize: "14px", fontWeight: 600 }}
-            >
-              📚 기초설명
-            </Link>
-            <Link
-              to="/prices"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl text-slate-700 hover:bg-amber-50 transition-colors"
-              style={{ fontSize: "14px", fontWeight: 600 }}
-            >
-              💰 상점가
-            </Link>
-            <Link
-              to="/support"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl text-slate-700 hover:bg-violet-50 transition-colors"
-              style={{ fontSize: "14px", fontWeight: 600 }}
-            >
-              💎 후원
-            </Link>
-            <Link
-              to="/law"
-              className="flex items-center gap-2 px-4 py-3 rounded-xl bg-amber-100 text-amber-800"
-              style={{ fontSize: "14px", fontWeight: 700 }}
-            >
-              ⚖️ 운영원칙 (법전)
-            </Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className={`flex items-center gap-2 px-4 py-3 rounded-xl transition-colors ${
+                  isActive(item.to)
+                    ? "bg-amber-500 text-white"
+                    : "text-slate-700 hover:bg-amber-50 hover:text-amber-700"
+                }`}
+                style={{ fontSize: "14px", fontWeight: 600 }}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
       )}

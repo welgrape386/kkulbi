@@ -367,8 +367,8 @@ export function MiningTraitPage() {
   const tips = [
     {
       icon: "⛏️",
-      title: "광물 생성기 만드는 법",
-      desc: "광물 창고 사용법 및 조작법 확인",
+      title: "광물 창고 사용법",
+      desc: "광물 창고 보관량 및 마우스 조작법 확인",
       clickable: true,
       modal: "generator" as ModalType,
     },
@@ -396,7 +396,7 @@ export function MiningTraitPage() {
         {/* Breadcrumb */}
         <div>
           <div
-            className="flex items-center gap-2 text-amber-600 mb-3"
+            className="flex items-center gap-2 text-amber-700 mb-3"
             style={{ fontSize: "13px" }}
           >
             <Link to="/" className="hover:text-amber-800">
@@ -563,7 +563,7 @@ export function MiningTraitPage() {
               </span>
             </div>
             <span
-              style={{ fontSize: "12px", color: "#94a3b8", fontWeight: 600 }}
+              style={{ fontSize: "12px", color: "#64748b", fontWeight: 600 }}
             >
               {showAll ? "전체 표시 중" : `${INITIAL_SHOW}개 표시 중`}
             </span>

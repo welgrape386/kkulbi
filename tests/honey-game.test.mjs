@@ -160,18 +160,84 @@ test("patrols use different directions, phases and angular speeds", () => {
   assert.ok(w.bees.some((b, i) => b.angle > angles[i]));
   assert.ok(w.bees.some((b, i) => b.angle < angles[i]));
 });
-test("harvesting alerts distant guards and lingering near the hive gets punished", () => {
+test("harvesting alerts a nearby guard and lingering near the hive gets punished", () => {
   const w = createWorld();
-  w.bees = [w.bees[0]];
+  const b = w.bees[0];
+  w.bees = [b];
+  b.radius = 30; // 벌집 가까이 도는 경비벌
+  b.x = b.home.x + 30;
+  b.y = b.home.y;
   w.player = { x: w.hives[0].x, y: w.hives[0].y + 12 };
   advance(w, ["e"], 1);
-  assert.equal(w.bees[0].mode, "suspect");
+  assert.equal(b.mode, "suspect");
   advance(w, ["e"], 0.5);
   assert.equal(w.honey, 2);
   advance(w, [], 1);
-  assert.equal(w.bees[0].mode, "chase");
+  assert.equal(b.mode, "chase");
   assert.ok(w.hp < 3);
 });
+
+test("harvesting does not alert a guard patrolling far from the hive", () => {
+  const w = createWorld();
+  const b = w.bees[0];
+  w.bees = [b];
+  b.radius = 75;
+  b.x = b.home.x + 75;
+  b.y = b.home.y;
+  w.player = { x: w.hives[0].x, y: w.hives[0].y + 12 };
+  advance(w, ["e"], 1.5);
+  assert.equal(w.honey, 2);
+  assert.equal(b.mode, "patrol");
+  assert.equal(w.hp, 3);
+});
+
+test("a spotted player who ducks into a bush loses the bee and is not stung", () => {
+  const w = createWorld();
+  const b = w.bees[0];
+  w.bees = [b];
+  w.player = { x: 105, y: 169 };
+  b.mode = "chase";
+  b.timer = 0; // 방금 발각됨
+  b.x = w.player.x;
+  b.y = w.player.y;
+  advance(w, [], 0.05);
+  assert.equal(b.mode, "return");
+  advance(w, [], 1);
+  assert.equal(w.hp, 3);
+});
+
+test("a suspicious bee does not escalate on a player hiding in a bush", () => {
+  const w = createWorld();
+  const b = w.bees[0];
+  w.bees = [b];
+  w.player = { x: 105, y: 169 };
+  b.mode = "suspect";
+  b.timer = 0.75;
+  b.x = w.player.x + 3;
+  b.y = w.player.y;
+  advance(w, [], 0.2);
+  assert.equal(b.mode, "return");
+  assert.equal(w.hp, 3);
+});
+
+test("moving players are spotted from farther away than players standing still", () => {
+  const setup = () => {
+    const w = createWorld();
+    const b = w.bees[0];
+    w.bees = [b];
+    w.player = { x: 200, y: 150 };
+    b.x = 200;
+    b.y = 124; // 26px 위
+    return { w, b };
+  };
+  const still = setup();
+  update(still.w, new Set(), 1 / 60);
+  assert.equal(still.b.mode, "patrol");
+  const moving = setup();
+  update(moving.w, new Set(["d"]), 1 / 60);
+  assert.equal(moving.b.mode, "suspect");
+});
+
 test("a chasing bee closes the gap on a player running in a straight line", () => {
   const w = createWorld(),
     b = w.bees[0];
@@ -184,4 +250,23 @@ test("a chasing bee closes the gap on a player running in a straight line", () =
   const before = Math.hypot(w.player.x - b.x, w.player.y - b.y);
   advance(w, ["d"], 0.7);
   assert.ok(Math.hypot(w.player.x - b.x, w.player.y - b.y) < before);
+});
+
+test("joystick moves in the dragged direction, scales speed and ignores the deadzone", () => {
+  const run = (stick, keys = []) => {
+    const w = createWorld();
+    w.bees = [];
+    w.player = { x: 200, y: 150 };
+    for (let i = 0; i < 30; i++) update(w, new Set(keys), 1 / 60, stick);
+    return { dx: w.player.x - 200, dy: w.player.y - 150 };
+  };
+  const full = run({ x: 0.7071, y: -0.7071 }); // 오른쪽 위 대각선, 끝까지 당김
+  assert.ok(full.dx > 0 && full.dy < 0);
+  assert.ok(Math.abs(Math.hypot(full.dx, full.dy) - 30) < 0.5); // 60px/s × 0.5s
+  const half = run({ x: 0.5, y: 0 });
+  assert.ok(Math.abs(half.dx - 15) < 0.5); // 절반만 당기면 절반 속도
+  const tiny = run({ x: 0.1, y: 0 });
+  assert.equal(tiny.dx, 0); // 데드존
+  const keyboard = run({ x: 0, y: 0 }, ["d"]); // 스틱을 놓으면 키보드 그대로
+  assert.ok(Math.abs(keyboard.dx - 30) < 0.5);
 });

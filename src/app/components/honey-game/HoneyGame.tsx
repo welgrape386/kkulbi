@@ -17,12 +17,18 @@ import {
   update,
 } from "./engine";
 import { draw } from "./render";
+import { Joystick } from "./Joystick";
 import "./honey-game.css";
 export default function HoneyGame({ onClose }: { onClose: () => void }) {
   const canvas = useRef<HTMLCanvasElement>(null);
   const world = useRef(createWorld());
   const deadline = useRef(0);
   const keys = useRef(new Set<string>());
+  const stick = useRef({ x: 0, y: 0 }); // 모바일 조이스틱 방향
+  // 터치 기기 여부 (안내 문구용. 조이스틱 표시 자체는 CSS가 결정)
+  const [touch] = useState(
+    () => typeof window !== "undefined" && window.matchMedia?.("(pointer: coarse)").matches,
+  );
   const [hud, setHud] = useState(() => ({ ...world.current }));
   const [phase, setPhase] = useState<"ready" | "playing" | "done">("ready");
   const [nickname, setNickname] = useState(() => readSavedNickname() ?? "");
@@ -44,7 +50,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
           0,
           (deadline.current - Date.now()) / 1000,
         );
-        update(world.current, keys.current, dt);
+        update(world.current, keys.current, dt, stick.current);
       }
       draw(ctx!, world.current, now);
       if (now - lastHud > 80) {
@@ -55,6 +61,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
         setHud({ ...world.current });
         setPhase("done");
         keys.current.clear();
+        stick.current = { x: 0, y: 0 };
       }
       frame = requestAnimationFrame(loop);
     }
@@ -62,7 +69,10 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
     return () => cancelAnimationFrame(frame);
   }, [phase]);
   useEffect(() => {
-    const clear = () => keys.current.clear();
+    const clear = () => {
+      keys.current.clear();
+      stick.current = { x: 0, y: 0 };
+    };
     const down = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).matches("input,button,textarea")) return;
       const k = e.key.toLowerCase();
@@ -100,6 +110,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
     world.current = createWorld();
     deadline.current = Date.now() + 120_000;
     keys.current.clear();
+    stick.current = { x: 0, y: 0 };
     setHud({ ...world.current });
     setResult("");
     setSubmitted(false);
@@ -126,14 +137,20 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
   }
   const near = distance(hud.player, SHOP) < 25;
   const prompt = near
-    ? "E · 꿀 전부 판매"
+    ? touch
+      ? "판매 버튼 · 꿀 전부 판매"
+      : "E · 꿀 전부 판매"
     : hud.honey === CAPACITY
       ? "가방이 꽉 찼어요. 상점으로!"
       : hud.hives.some((h) => h.cooldown === 0 && distance(hud.player, h) < 21)
-        ? "E를 꾹 눌러 벌집 채집"
+        ? touch
+          ? "채집 버튼을 꾹 눌러 벌집 채집"
+          : "E를 꾹 눌러 벌집 채집"
         : hidden(hud.player)
           ? "수풀에 숨었어요"
-          : "WASD / 방향키 · 이동";
+          : touch
+            ? "왼쪽 아래 조이스틱으로 이동"
+            : "WASD / 방향키 · 이동";
   return (
     <section className="honey-game" aria-label="꿀도둑 게임">
       <header>
@@ -182,7 +199,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
                     : "판매 수입 " + hud.money + " 꿀머니"}
                 </p>
                 <p>
-                  한 판 2분 · 채집은 E를 1.4초 꾹<br />
+                  한 판 2분 · 채집은 {touch ? "채집 버튼" : "E"}을 1.4초 꾹<br />
                   수풀에 숨기 · 쓰러지면 들고 있던 꿀만 잃어요.
                 </p>
                 {phase === "done" && (
@@ -233,6 +250,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
             ].map(([key, label]) => (
               <button
                 key={key}
+                className={key === "e" ? "honey-action" : "honey-arrow"}
                 disabled={phase !== "playing"}
                 aria-label={label}
                 onPointerDown={(e) => {
@@ -248,6 +266,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
               </button>
             ))}
           </div>
+          <Joystick stick={stick} disabled={phase !== "playing"} />
         </div>
         <aside>
           <LeaderboardPanel entries={entries} myNickname={nickname} />

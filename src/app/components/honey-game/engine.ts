@@ -47,6 +47,13 @@ export const TREES = [
 ];
 export const distance = (a: Point, b: Point) =>
   Math.hypot(a.x - b.x, a.y - b.y);
+// 벌 시야: 움직이면 더 멀리서 들킵니다. 수풀 안에서는 보이지 않습니다.
+export const SIGHT_MOVING = 30,
+  SIGHT_STILL = 22,
+  // 채집 소리: 0.9초 넘게 채집하면 가까이(50px) 있던 순찰벌만 의심. 추격 여부는 위치에 따라 갈립니다.
+  HARVEST_ALERT_AFTER = 0.9,
+  HARVEST_ALERT_RADIUS = 50,
+  CHASE_IF_WITHIN = 22;
 export const hidden = (p: Point) =>
   BUSHES.some((b) => Math.abs(p.x - b.x) < 16 && Math.abs(p.y - b.y) < 10);
 export function createWorld(): World {
@@ -96,17 +103,29 @@ function walk(p: Point, target: Point, speed: number, dt: number) {
     p.y += ((target.y - p.y) / d) * Math.min(d, speed * dt);
   }
 }
-export function update(w: World, keys: Set<string>, dt: number) {
+// 모바일 조이스틱 입력: 방향 벡터(길이 0~1). 데드존 밖이면 키보드 대신 사용하고, 길이만큼 속도를 냅니다.
+const STICK_DEADZONE = 0.15;
+export function update(
+  w: World,
+  keys: Set<string>,
+  dt: number,
+  stick?: Point,
+) {
   if (w.remaining <= 0) return;
   w.remaining = Math.max(0, w.remaining - dt);
   w.invincible = Math.max(0, w.invincible - dt);
   w.hives.forEach((h) => (h.cooldown = Math.max(0, h.cooldown - dt)));
-  const dx =
-    Number(keys.has("d") || keys.has("arrowright")) -
-    Number(keys.has("a") || keys.has("arrowleft"));
-  const dy =
-    Number(keys.has("s") || keys.has("arrowdown")) -
-    Number(keys.has("w") || keys.has("arrowup"));
+  const stickLength = stick ? Math.hypot(stick.x, stick.y) : 0;
+  const useStick = stickLength > STICK_DEADZONE;
+  const dx = useStick
+    ? stick!.x
+    : Number(keys.has("d") || keys.has("arrowright")) -
+      Number(keys.has("a") || keys.has("arrowleft"));
+  const dy = useStick
+    ? stick!.y
+    : Number(keys.has("s") || keys.has("arrowdown")) -
+      Number(keys.has("w") || keys.has("arrowup"));
+  const throttle = useStick ? Math.min(1, stickLength) : 1;
   const interaction = keys.has("e");
   const nearShop = distance(w.player, SHOP) < 25;
   const target = w.hives.findIndex(
@@ -114,8 +133,10 @@ export function update(w: World, keys: Set<string>, dt: number) {
   );
   const harvesting =
     interaction && target >= 0 && !nearShop && w.honey < CAPACITY;
+  const moving = !harvesting && (dx !== 0 || dy !== 0);
   if (!harvesting && (dx || dy)) {
-    const speed = ((w.honey >= 10 ? 48 : 60) * dt) / Math.hypot(dx, dy);
+    const speed =
+      ((w.honey >= 10 ? 48 : 60) * throttle * dt) / Math.hypot(dx, dy);
     const next = {
       x: Math.max(8, Math.min(WIDTH - 8, w.player.x + dx * speed)),
       y: Math.max(17, Math.min(HEIGHT - 8, w.player.y + dy * speed)),
@@ -136,7 +157,11 @@ export function update(w: World, keys: Set<string>, dt: number) {
     w.progress += dt;
     const h = w.hives[target];
     w.bees.forEach((b) => {
-      if (w.progress > 0.6 && distance(b, h) < 60 && b.mode === "patrol") {
+      if (
+        w.progress > HARVEST_ALERT_AFTER &&
+        distance(b, h) < HARVEST_ALERT_RADIUS &&
+        b.mode === "patrol"
+      ) {
         b.mode = "suspect";
         b.timer = 0;
         b.lastKnown = { ...w.player };
@@ -153,11 +178,12 @@ export function update(w: World, keys: Set<string>, dt: number) {
     w.progress = 0;
     w.target = -1;
   }
+  const inBush = hidden(w.player);
+  const safe = distance(w.player, SHOP) < 32;
   for (const b of w.bees) {
     b.timer += dt;
     const d = distance(b, w.player);
-    const safe = distance(w.player, SHOP) < 32;
-    const seen = !safe && d < (hidden(w.player) ? 6 : 24);
+    const seen = !safe && !inBush && d < (moving ? SIGHT_MOVING : SIGHT_STILL);
     if (b.mode === "patrol") {
       b.angle += dt * b.orbitSpeed * b.direction;
       const radius = b.radius + Math.sin(b.angle * 2 + b.phase) * 7;
@@ -185,24 +211,17 @@ export function update(w: World, keys: Set<string>, dt: number) {
       if (seen) b.lastKnown = { ...w.player };
       walk(b, b.lastKnown, 28, dt);
       if (b.timer > 0.8) {
-        b.mode =
-          !safe &&
-          (seen || d < 32 || (harvesting && distance(b, w.hives[target]) < 60))
-            ? "chase"
-            : "return";
+        b.mode = !safe && !inBush && (seen || d < CHASE_IF_WITHIN) ? "chase" : "return";
         b.timer = 0;
       }
     } else if (b.mode === "chase") {
       walk(b, w.player, b.speed, dt);
-      if (
-        safe ||
-        distance(b, b.home) > 105 ||
-        (hidden(w.player) && b.timer > 1.2)
-      ) {
+      // 발각된 상태라도 수풀에 들어가면 즉시 추적 무효 (쏘이지 않음)
+      if (safe || inBush || distance(b, b.home) > 105) {
+        if (inBush) w.message = "수풀에 숨었어요! 벌이 추적을 놓쳤어요.";
         b.mode = "return";
         b.timer = 0;
-      }
-      if (!safe && d < 8 && w.invincible === 0) {
+      } else if (d < 8 && w.invincible === 0) {
         w.hp--;
         w.invincible = 1.3;
         w.progress = 0;

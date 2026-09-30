@@ -7,8 +7,10 @@ export function BeeEasterEgg() {
   const trigger = useRef<HTMLButtonElement>(null);
   return (
     <>
+      <style>{BLINK_CSS}</style>
       <button
         ref={trigger}
+        className="kb-bee-blink"
         type="button"
         aria-label="꿀도둑 게임 열기"
         title="꿀도둑 게임 열기"
@@ -27,7 +29,7 @@ export function BeeEasterEgg() {
           src={beeImg}
           alt=""
           draggable={false}
-          style={{ height: "1.15em", width: "auto" }}
+          style={{ height: "1.35em", width: "auto" }}
         />
       </button>
       {open && (
@@ -113,3 +115,16 @@ function Overlay({ onClose }: { onClose: () => void }) {
     document.body,
   );
 }
+
+// 눈길을 끄는 깜빡임 + 금빛 glow. 1.2초 주기라 초당 3회 이하 깜빡임 기준 안쪽입니다.
+const BLINK_CSS = `
+@keyframes kb-bee-blink {
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 6px rgba(245, 180, 0, 0.9)); }
+  50% { opacity: 0.35; transform: scale(0.92); filter: drop-shadow(0 0 0 rgba(245, 180, 0, 0)); }
+}
+.kb-bee-blink { animation: kb-bee-blink 1.2s ease-in-out infinite; }
+.kb-bee-blink:hover, .kb-bee-blink:focus-visible { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .kb-bee-blink { animation: none; filter: drop-shadow(0 0 6px rgba(245, 180, 0, 0.9)); }
+}
+`;

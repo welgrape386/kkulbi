@@ -416,12 +416,12 @@ function QuickLinksSection() {
   return (
     <section>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-2xl">🚀</span>
+        <BeeEasterEgg />
         <h2
           className="text-slate-800"
           style={{ fontSize: "20px", fontWeight: 800 }}
         >
-          바로가기 <BeeEasterEgg />
+          바로가기
         </h2>
       </div>
 

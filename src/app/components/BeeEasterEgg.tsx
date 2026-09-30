@@ -4,28 +4,23 @@ import beeImg from "../../imports/kkulbi1.webp";
 const HoneyGame = lazy(() => import("./honey-game/HoneyGame"));
 export function BeeEasterEgg() {
   const [open, setOpen] = useState(false);
-  const [taps, setTaps] = useState(0);
   const trigger = useRef<HTMLButtonElement>(null);
   return (
     <>
       <button
         ref={trigger}
         type="button"
-        aria-label="작은 꿀벌"
-        onClick={() => {
-          if (taps >= 2) {
-            setOpen(true);
-            setTaps(0);
-          } else setTaps((t) => t + 1);
-        }}
+        aria-label="꿀도둑 게임 열기"
+        title="꿀도둑 게임 열기"
+        onClick={() => setOpen(true)}
         style={{
           background: "none",
           border: 0,
           padding: 0,
           display: "inline-block",
-          transform: `translate(${taps * 5}px,${taps % 2 ? -4 : 0}px)`,
           verticalAlign: "middle",
           cursor: "pointer",
+          lineHeight: 0,
         }}
       >
         <img

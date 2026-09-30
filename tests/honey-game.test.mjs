@@ -149,3 +149,39 @@ test("patrols start away from their hive and return to their outer orbit", () =>
   advance(w, [], 3);
   assert.ok(Math.hypot(b.x - b.home.x, b.y - b.home.y) > 30);
 });
+
+test("patrols use different directions, phases and angular speeds", () => {
+  const w = createWorld(),
+    angles = w.bees.map((b) => b.angle);
+  assert.equal(new Set(w.bees.map((b) => b.direction)).size, 2);
+  assert.ok(new Set(w.bees.map((b) => b.orbitSpeed)).size > 2);
+  assert.ok(new Set(angles).size > 3);
+  advance(w, [], 0.5);
+  assert.ok(w.bees.some((b, i) => b.angle > angles[i]));
+  assert.ok(w.bees.some((b, i) => b.angle < angles[i]));
+});
+test("harvesting alerts distant guards and lingering near the hive gets punished", () => {
+  const w = createWorld();
+  w.bees = [w.bees[0]];
+  w.player = { x: w.hives[0].x, y: w.hives[0].y + 12 };
+  advance(w, ["e"], 1);
+  assert.equal(w.bees[0].mode, "suspect");
+  advance(w, ["e"], 0.5);
+  assert.equal(w.honey, 2);
+  advance(w, [], 1);
+  assert.equal(w.bees[0].mode, "chase");
+  assert.ok(w.hp < 3);
+});
+test("a chasing bee closes the gap on a player running in a straight line", () => {
+  const w = createWorld(),
+    b = w.bees[0];
+  w.bees = [b];
+  w.player = { x: 170, y: 150 };
+  b.x = 150;
+  b.y = 150;
+  b.home = { x: 170, y: 150 };
+  b.mode = "chase";
+  const before = Math.hypot(w.player.x - b.x, w.player.y - b.y);
+  advance(w, ["d"], 0.7);
+  assert.ok(Math.hypot(w.player.x - b.x, w.player.y - b.y) < before);
+});

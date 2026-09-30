@@ -11,6 +11,10 @@ export type Bee = Point & {
   angle: number;
   radius: number;
   speed: number;
+  direction: number;
+  orbitSpeed: number;
+  phase: number;
+  lastKnown: Point;
 };
 export type World = {
   player: Point;
@@ -64,16 +68,24 @@ export function createWorld(): World {
     message: "벌의 움직임을 보고 벌집에 다가가세요.",
     hives,
     bees: hives.flatMap((h, i) =>
-      Array.from({ length: i === 4 ? 2 : 1 }, (_, j) => ({
-        x: h.x + Math.cos(i === 4 ? Math.PI + j : j * Math.PI) * 52,
-        y: h.y + Math.sin(i === 4 ? Math.PI + j : j * Math.PI) * 42,
-        home: { x: h.x, y: h.y },
-        mode: "patrol" as const,
-        timer: 0,
-        angle: i === 4 ? Math.PI + j : j * Math.PI,
-        radius: i === 4 ? 46 : 52,
-        speed: i === 4 ? 62 : 54,
-      })),
+      Array.from({ length: i === 4 ? 2 : 1 }, (_, j) => {
+        const phase = i === 4 ? Math.PI + j * 1.5 : i * 0.9;
+        const radius = i === 4 ? 46 : 48 + (i % 3) * 4;
+        return {
+          x: h.x + Math.cos(phase) * radius,
+          y: h.y + Math.sin(phase) * radius * 0.8,
+          home: { x: h.x, y: h.y },
+          mode: "patrol" as const,
+          timer: 0,
+          angle: phase,
+          radius,
+          speed: i === 4 ? 74 : 66 + (i % 3) * 2,
+          direction: (i + j) % 2 === 0 ? 1 : -1,
+          orbitSpeed: 0.38 + (i % 3) * 0.11 + j * 0.07,
+          phase,
+          lastKnown: { x: h.x, y: h.y },
+        };
+      }),
     ),
   };
 }
@@ -124,9 +136,10 @@ export function update(w: World, keys: Set<string>, dt: number) {
     w.progress += dt;
     const h = w.hives[target];
     w.bees.forEach((b) => {
-      if (w.progress > 0.75 && distance(b, h) < 24 && b.mode === "patrol") {
+      if (w.progress > 0.6 && distance(b, h) < 60 && b.mode === "patrol") {
         b.mode = "suspect";
         b.timer = 0;
+        b.lastKnown = { ...w.player };
       }
     });
     if (w.progress >= 1.4) {
@@ -144,35 +157,37 @@ export function update(w: World, keys: Set<string>, dt: number) {
     b.timer += dt;
     const d = distance(b, w.player);
     const safe = distance(w.player, SHOP) < 32;
-    const seen = !safe && d < (hidden(w.player) ? 6 : 18);
+    const seen = !safe && d < (hidden(w.player) ? 6 : 24);
     if (b.mode === "patrol") {
-      b.angle += dt * 0.45;
+      b.angle += dt * b.orbitSpeed * b.direction;
+      const radius = b.radius + Math.sin(b.angle * 2 + b.phase) * 7;
       walk(
         b,
         {
           x: Math.max(
             12,
-            Math.min(WIDTH - 12, b.home.x + Math.cos(b.angle) * b.radius),
+            Math.min(WIDTH - 12, b.home.x + Math.cos(b.angle) * radius),
           ),
           y: Math.max(
             18,
-            Math.min(
-              HEIGHT - 12,
-              b.home.y + Math.sin(b.angle) * b.radius * 0.8,
-            ),
+            Math.min(HEIGHT - 12, b.home.y + Math.sin(b.angle) * radius * 0.8),
           ),
         },
-        24,
+        24 + b.orbitSpeed * 12,
         dt,
       );
       if (seen) {
+        b.lastKnown = { ...w.player };
         b.mode = "suspect";
         b.timer = 0;
       }
     } else if (b.mode === "suspect") {
-      if (b.timer > 1.1) {
+      if (seen) b.lastKnown = { ...w.player };
+      walk(b, b.lastKnown, 28, dt);
+      if (b.timer > 0.8) {
         b.mode =
-          seen || (harvesting && distance(b, w.player) < 24)
+          !safe &&
+          (seen || d < 32 || (harvesting && distance(b, w.hives[target]) < 60))
             ? "chase"
             : "return";
         b.timer = 0;

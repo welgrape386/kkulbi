@@ -25,7 +25,10 @@ export type SubmitResult =
   | { ok: true; nickname: string; best: number; updated: boolean }
   | { ok: false; error: string };
 
-export async function submitScore(nickname: string, score: number): Promise<SubmitResult> {
+export async function submitScore(
+  nickname: string,
+  score: number,
+): Promise<SubmitResult> {
   try {
     const res = await fetch("/api/leaderboard", {
       method: "POST",
@@ -33,7 +36,8 @@ export async function submitScore(nickname: string, score: number): Promise<Subm
       body: JSON.stringify({ nickname, score }),
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) return { ok: false, error: data.error ?? "랭킹 등록에 실패했어요." };
+    if (!res.ok)
+      return { ok: false, error: data.error ?? "랭킹 등록에 실패했어요." };
     return { ok: true, ...data };
   } catch {
     return { ok: false, error: "랭킹 서버에 연결할 수 없어요." };
@@ -85,8 +89,11 @@ export function LeaderboardPanel({
           borderBottom: "2px solid #d4a017",
         }}
       >
-        🏆 실시간 랭킹
-        <span className="text-amber-700" style={{ fontSize: "11px", fontWeight: 700 }}>
+        🏆 최고 수입 랭킹
+        <span
+          className="text-amber-700"
+          style={{ fontSize: "11px", fontWeight: 700 }}
+        >
           TOP 10
         </span>
       </div>
@@ -94,7 +101,11 @@ export function LeaderboardPanel({
       <div className="flex-1 min-h-0 overflow-y-auto p-2">
         {entries === null && <Notice>불러오는 중…</Notice>}
         {entries === "error" && <Notice>랭킹을 불러올 수 없습니다.</Notice>}
-        {Array.isArray(entries) && entries.length === 0 && <Notice>아직 등록된 기록이 없어요. 첫 번째 주인공이 되어 보세요!</Notice>}
+        {Array.isArray(entries) && entries.length === 0 && (
+          <Notice>
+            아직 등록된 기록이 없어요. 첫 번째 주인공이 되어 보세요!
+          </Notice>
+        )}
         {Array.isArray(entries) && entries.length > 0 && (
           <ol className="space-y-1">
             {entries.map((e, i) => {
@@ -103,19 +114,30 @@ export function LeaderboardPanel({
                 <li
                   key={e.nickname}
                   className={`flex items-center gap-2 rounded-xl px-2.5 py-1.5 border ${
-                    mine ? "bg-amber-200 border-amber-500" : "bg-white border-amber-200"
+                    mine
+                      ? "bg-amber-200 border-amber-500"
+                      : "bg-white border-amber-200"
                   }`}
                   style={{ fontSize: "12px" }}
                 >
-                  <span className="w-6 text-center flex-shrink-0 text-amber-800" style={{ fontWeight: 900 }}>
+                  <span
+                    className="w-6 text-center flex-shrink-0 text-amber-800"
+                    style={{ fontWeight: 900 }}
+                  >
                     {MEDALS[i] ?? i + 1}
                   </span>
-                  <span className="flex-1 min-w-0 truncate text-slate-700" style={{ fontWeight: mine ? 900 : 600 }}>
+                  <span
+                    className="flex-1 min-w-0 truncate text-slate-700"
+                    style={{ fontWeight: mine ? 900 : 600 }}
+                  >
                     {e.nickname}
                     {mine && <span className="text-amber-700"> (나)</span>}
                   </span>
-                  <span className="flex-shrink-0 text-amber-800" style={{ fontWeight: 800 }}>
-                    {e.score}점
+                  <span
+                    className="flex-shrink-0 text-amber-800"
+                    style={{ fontWeight: 800 }}
+                  >
+                    {e.score.toLocaleString()} 꿀머니
                   </span>
                 </li>
               );
@@ -129,7 +151,10 @@ export function LeaderboardPanel({
 
 function Notice({ children }: { children: ReactNode }) {
   return (
-    <p className="text-center text-slate-500 px-2 py-6" style={{ fontSize: "12px", lineHeight: 1.6 }}>
+    <p
+      className="text-center text-slate-500 px-2 py-6"
+      style={{ fontSize: "12px", lineHeight: 1.6 }}
+    >
       {children}
     </p>
   );

@@ -1,0 +1,164 @@
+.honey-game {
+  width: min(1080px, 96vw);
+  max-height: 94dvh;
+  overflow: auto;
+  background: #f5efd9;
+  color: #374736;
+  border: 4px solid #566d46;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 20px 80px #18271966;
+  font-family: inherit;
+}
+.honey-game header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.honey-game h2 {
+  font-size: 26px;
+  font-weight: 900;
+  margin: 0;
+}
+.honey-game small {
+  font-size: 12px;
+  color: #71815d;
+}
+.honey-game button {
+  background: #456442;
+  color: #fff8de;
+  padding: 8px 14px;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.honey-game button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.honey-game button:focus-visible,
+.honey-game input:focus-visible,
+.honey-game canvas:focus-visible {
+  outline: 3px solid #dca343;
+  outline-offset: 2px;
+}
+.honey-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  gap: 16px;
+}
+.honey-hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: #e9dfbc;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 5px 5px 0 0;
+}
+.honey-hud span:first-child {
+  color: #b15444;
+}
+.honey-stage {
+  position: relative;
+}
+.honey-stage canvas {
+  display: block;
+  width: 100%;
+  image-rendering: pixelated;
+  background: #83ac67;
+}
+.honey-curtain {
+  position: absolute;
+  inset: 0;
+  background: #24382dde;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  color: #fff4d4;
+  text-align: center;
+  padding: 10px;
+  overflow: auto;
+}
+.honey-curtain h3 {
+  font-size: 24px;
+  font-weight: 900;
+}
+.honey-curtain p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+.honey-curtain label {
+  font-size: 12px;
+}
+.honey-curtain input {
+  display: block;
+  color: #263a2b;
+  background: #fff7e0;
+  padding: 6px;
+  margin-top: 4px;
+  border-radius: 4px;
+  width: 180px;
+}
+.honey-prompt {
+  text-align: center;
+  font-weight: 800;
+  font-size: 13px;
+  margin: 10px 0 4px;
+}
+.honey-message {
+  text-align: center;
+  font-size: 12px;
+  min-height: 36px;
+  color: #637355;
+}
+.honey-controls {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  touch-action: none;
+  user-select: none;
+}
+.honey-layout aside {
+  background: #fff9e8;
+  border: 1px solid #dfd2ab;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 180px;
+}
+@media (max-width: 720px) {
+  .honey-layout {
+    grid-template-columns: 1fr;
+  }
+  .honey-game {
+    padding: 10px;
+  }
+  .honey-layout aside {
+    max-height: 200px;
+  }
+  .honey-hud {
+    font-size: 11px;
+    padding: 8px 5px;
+  }
+  .honey-curtain {
+    justify-content: flex-start;
+    gap: 5px;
+  }
+  .honey-curtain h3 {
+    font-size: 18px;
+  }
+  .honey-curtain p {
+    font-size: 11px;
+  }
+  .honey-curtain button {
+    padding: 5px 10px;
+  }
+  .honey-controls button {
+    padding: 10px 14px;
+  }
+}

@@ -1,4 +1,4 @@
-// 꿀벌 잡기 랭킹 API (Vercel Function)
+// 꿀도둑 최고 수입 랭킹 API (Vercel Function)
 //   GET  /api/leaderboard            → 상위 10명
 //   POST /api/leaderboard {nickname, score} → 닉네임별 최고 점수만 저장(UPSERT)
 // 로컬 `npm run dev`에서는 vite.config.ts의 개발용 미들웨어가 이 파일을 그대로 실행합니다.
@@ -21,7 +21,10 @@ export function sanitizeNickname(input: unknown): string | null {
 }
 
 export function parseScore(input: unknown): number | null {
-  return typeof input === "number" && Number.isInteger(input) && input >= 0 && input <= SCORE_MAX
+  return typeof input === "number" &&
+    Number.isInteger(input) &&
+    input >= 0 &&
+    input <= SCORE_MAX
     ? input
     : null;
 }
@@ -36,7 +39,7 @@ function getSql() {
 let tableReady: Promise<unknown> | null = null;
 function ensureTable(sql: ReturnType<typeof neon>) {
   tableReady ??= sql`
-    CREATE TABLE IF NOT EXISTS leaderboard (
+    CREATE TABLE IF NOT EXISTS honey_leaderboard_v1 (
       id SERIAL PRIMARY KEY,
       nickname VARCHAR(12) NOT NULL UNIQUE,
       score INTEGER NOT NULL CHECK (score BETWEEN 0 AND 9999),
@@ -52,7 +55,10 @@ function ensureTable(sql: ReturnType<typeof neon>) {
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" },
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "no-store",
+    },
   });
 
 export async function GET() {
@@ -60,7 +66,7 @@ export async function GET() {
     const sql = getSql();
     await ensureTable(sql);
     const entries = await sql`
-      SELECT nickname, score FROM leaderboard
+      SELECT nickname, score FROM honey_leaderboard_v1
       ORDER BY score DESC, created_at ASC
       LIMIT 10
     `;
@@ -81,22 +87,27 @@ export async function POST(request: Request) {
 
   const nickname = sanitizeNickname(body.nickname);
   const score = parseScore(body.score);
-  if (!nickname) return json({ error: "닉네임은 한글·영문·숫자 1~12자로 입력해 주세요." }, 400);
-  if (score === null) return json({ error: `점수는 0~${SCORE_MAX} 사이 정수여야 합니다.` }, 400);
+  if (!nickname)
+    return json(
+      { error: "닉네임은 한글·영문·숫자 1~12자로 입력해 주세요." },
+      400,
+    );
+  if (score === null)
+    return json({ error: `점수는 0~${SCORE_MAX} 사이 정수여야 합니다.` }, 400);
 
   try {
     const sql = getSql();
     await ensureTable(sql);
     // 기존 기록보다 높을 때만 갱신. 갱신/추가되면 한 행이 반환됩니다.
     const changed = await sql`
-      INSERT INTO leaderboard (nickname, score) VALUES (${nickname}, ${score})
+      INSERT INTO honey_leaderboard_v1 (nickname, score) VALUES (${nickname}, ${score})
       ON CONFLICT (nickname) DO UPDATE
         SET score = EXCLUDED.score, created_at = now()
-        WHERE leaderboard.score < EXCLUDED.score
+        WHERE honey_leaderboard_v1.score < EXCLUDED.score
       RETURNING score
     `;
     const [{ score: best }] = (await sql`
-      SELECT score FROM leaderboard WHERE nickname = ${nickname}
+      SELECT score FROM honey_leaderboard_v1 WHERE nickname = ${nickname}
     `) as { score: number }[];
     return json({ nickname, best, updated: changed.length > 0 });
   } catch (err) {

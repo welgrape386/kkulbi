@@ -1,107 +1,120 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import beeImg from "../../imports/kkulbi1.webp";
-import { BeeClickerGame, COMB_GAP, HEX_H, HEX_W, combTileBackground } from "./BeeClickerGame";
-
-// "바로가기" 제목 옆 꿀벌 아이콘. 한 번 누르면 벌집 전환 후 꿀 채집 게임이 열립니다.
-const TRANSITION_MS = 1000;
-
+const HoneyGame = lazy(() => import("./honey-game/HoneyGame"));
 export function BeeEasterEgg() {
   const [open, setOpen] = useState(false);
-
+  const [taps, setTaps] = useState(0);
+  const trigger = useRef<HTMLButtonElement>(null);
   return (
     <>
-      <img
-        src={beeImg}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-        onClick={() => setOpen(true)}
-        className="inline-block select-none"
-        style={{
-          height: "1.15em",
-          width: "auto",
-          verticalAlign: "-0.2em",
-          WebkitTapHighlightColor: "transparent",
-          touchAction: "manipulation",
+      <button
+        ref={trigger}
+        type="button"
+        aria-label="작은 꿀벌"
+        onClick={() => {
+          if (taps >= 2) {
+            setOpen(true);
+            setTaps(0);
+          } else setTaps((t) => t + 1);
         }}
-      />
-      {open && <EggOverlay onClose={() => setOpen(false)} />}
+        style={{
+          background: "none",
+          border: 0,
+          padding: 0,
+          display: "inline-block",
+          transform: `translate(${taps * 5}px,${taps % 2 ? -4 : 0}px)`,
+          verticalAlign: "middle",
+          cursor: "pointer",
+        }}
+      >
+        <img
+          src={beeImg}
+          alt=""
+          draggable={false}
+          style={{ height: "1.15em", width: "auto" }}
+        />
+      </button>
+      {open && (
+        <Overlay
+          onClose={() => {
+            setOpen(false);
+            trigger.current?.focus();
+          }}
+        />
+      )}
     </>
   );
 }
-
-function EggOverlay({ onClose }: { onClose: () => void }) {
-  const [showGame, setShowGame] = useState(false);
-  const tiles = useMemo(buildTransitionTiles, []);
-
+function Overlay({ onClose }: { onClose: () => void }) {
+  const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const prev = document.body.style.overflow;
+    const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const t = setTimeout(() => setShowGame(true), TRANSITION_MS);
-    return () => {
-      clearTimeout(t);
-      document.body.style.overflow = prev;
+    root.current?.focus();
+    const keyboard = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab") {
+        const items = root.current?.querySelectorAll<HTMLElement>(
+          "button:not(:disabled),input,canvas[tabindex]",
+        );
+        if (!items?.length) {
+          e.preventDefault();
+          return;
+        }
+        const first = items[0],
+          last = items[items.length - 1];
+        if (
+          e.shiftKey &&
+          (document.activeElement === first ||
+            document.activeElement === root.current)
+        ) {
+          e.preventDefault();
+          last.focus();
+        } else if (
+          !e.shiftKey &&
+          (document.activeElement === last ||
+            document.activeElement === root.current)
+        ) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
-  }, []);
-
+    window.addEventListener("keydown", keyboard);
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", keyboard);
+    };
+  }, [onClose]);
   return createPortal(
-    <div className="kb-backdrop fixed inset-0 overflow-hidden" style={{ zIndex: 100 }}>
-      <style>{EGG_CSS}</style>
-      {tiles.map((t, i) => (
-        <div
-          key={i}
-          className="kb-hex absolute"
-          style={{
-            left: t.x,
-            top: t.y,
-            width: HEX_W,
-            height: HEX_H,
-            background: combTileBackground(t.tone),
-            animationDelay: `${t.delay}ms`,
-          }}
-        />
-      ))}
-      {showGame && <BeeClickerGame onClose={onClose} />}
+    <div
+      ref={root}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label="꿀비의 숨겨진 숲"
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 100,
+        background: "#172b29ed",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 8,
+      }}
+    >
+      <Suspense
+        fallback={
+          <button onClick={onClose} style={{ color: "white" }}>
+            숲으로 가는 중… (닫기)
+          </button>
+        }
+      >
+        <HoneyGame onClose={onClose} />
+      </Suspense>
     </div>,
     document.body,
   );
 }
-
-// 게임판과 같은 크기·색의 벌집 타일이 화면 4곳에서 퍼져 나가며 화면을 덮습니다.
-function buildTransitionTiles() {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  const origins = Array.from({ length: 4 }, () => [Math.random() * w, Math.random() * h]);
-  const maxDist = Math.hypot(w, h) / 2;
-  const tiles: { x: number; y: number; tone: number; delay: number }[] = [];
-
-  for (let row = -1; row * HEX_H * 0.75 < h + HEX_H; row++) {
-    for (let col = -1; col * HEX_W < w + HEX_W; col++) {
-      const x = col * HEX_W + (row % 2 ? HEX_W / 2 : 0);
-      const y = row * HEX_H * 0.75;
-      const d = Math.min(...origins.map(([ox, oy]) => Math.hypot(ox - x, oy - y)));
-      tiles.push({
-        x,
-        y,
-        tone: row * 7 + col * 3 + 50,
-        delay: Math.min(1, d / maxDist) * 620 + Math.random() * 90,
-      });
-    }
-  }
-  return tiles;
-}
-
-const EGG_CSS = `
-@keyframes kb-backdrop-in { from { background: transparent; } to { background: ${COMB_GAP.outer}; } }
-.kb-backdrop { animation: kb-backdrop-in 800ms ease-in forwards; }
-@keyframes kb-hex-in { 0% { transform: scale(0) rotate(-30deg); opacity: 0; } 70% { transform: scale(1.05); opacity: 1; } 100% { transform: scale(0.97); opacity: 1; } }
-.kb-hex {
-  clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-  transform: scale(0);
-  animation: kb-hex-in 240ms cubic-bezier(.2,.8,.3,1.2) forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .kb-hex, .kb-backdrop { animation-duration: 1ms; animation-delay: 0ms !important; }
-}
-`;

@@ -9,6 +9,8 @@ export type Bee = Point & {
   mode: "patrol" | "suspect" | "chase" | "return";
   timer: number;
   angle: number;
+  radius: number;
+  speed: number;
 };
 export type World = {
   player: Point;
@@ -63,12 +65,14 @@ export function createWorld(): World {
     hives,
     bees: hives.flatMap((h, i) =>
       Array.from({ length: i === 4 ? 2 : 1 }, (_, j) => ({
-        x: h.x + 22,
-        y: h.y + 12 * j,
+        x: h.x + Math.cos(i === 4 ? Math.PI + j : j * Math.PI) * 52,
+        y: h.y + Math.sin(i === 4 ? Math.PI + j : j * Math.PI) * 42,
         home: { x: h.x, y: h.y },
         mode: "patrol" as const,
         timer: 0,
-        angle: i + j * 3,
+        angle: i === 4 ? Math.PI + j : j * Math.PI,
+        radius: i === 4 ? 46 : 52,
+        speed: i === 4 ? 62 : 54,
       })),
     ),
   };
@@ -120,7 +124,7 @@ export function update(w: World, keys: Set<string>, dt: number) {
     w.progress += dt;
     const h = w.hives[target];
     w.bees.forEach((b) => {
-      if (distance(b, h) < 38 && b.mode === "patrol") {
+      if (w.progress > 0.75 && distance(b, h) < 24 && b.mode === "patrol") {
         b.mode = "suspect";
         b.timer = 0;
       }
@@ -140,16 +144,25 @@ export function update(w: World, keys: Set<string>, dt: number) {
     b.timer += dt;
     const d = distance(b, w.player);
     const safe = distance(w.player, SHOP) < 32;
-    const seen = !safe && d < (hidden(w.player) ? 8 : 30);
+    const seen = !safe && d < (hidden(w.player) ? 6 : 18);
     if (b.mode === "patrol") {
-      b.angle += dt * 0.9;
+      b.angle += dt * 0.45;
       walk(
         b,
         {
-          x: b.home.x + Math.cos(b.angle) * 25,
-          y: b.home.y + Math.sin(b.angle) * 18,
+          x: Math.max(
+            12,
+            Math.min(WIDTH - 12, b.home.x + Math.cos(b.angle) * b.radius),
+          ),
+          y: Math.max(
+            18,
+            Math.min(
+              HEIGHT - 12,
+              b.home.y + Math.sin(b.angle) * b.radius * 0.8,
+            ),
+          ),
         },
-        28,
+        24,
         dt,
       );
       if (seen) {
@@ -157,15 +170,15 @@ export function update(w: World, keys: Set<string>, dt: number) {
         b.timer = 0;
       }
     } else if (b.mode === "suspect") {
-      if (b.timer > 0.55) {
+      if (b.timer > 1.1) {
         b.mode =
-          seen || (harvesting && distance(b, w.player) < 45)
+          seen || (harvesting && distance(b, w.player) < 24)
             ? "chase"
             : "return";
         b.timer = 0;
       }
     } else if (b.mode === "chase") {
-      walk(b, w.player, 72, dt);
+      walk(b, w.player, b.speed, dt);
       if (
         safe ||
         distance(b, b.home) > 105 ||
@@ -199,8 +212,18 @@ export function update(w: World, keys: Set<string>, dt: number) {
         }
       }
     } else {
-      walk(b, b.home, 42, dt);
-      if (distance(b, b.home) < 3) {
+      const orbit = {
+        x: Math.max(
+          12,
+          Math.min(WIDTH - 12, b.home.x + Math.cos(b.angle) * b.radius),
+        ),
+        y: Math.max(
+          18,
+          Math.min(HEIGHT - 12, b.home.y + Math.sin(b.angle) * b.radius * 0.8),
+        ),
+      };
+      walk(b, orbit, 38, dt);
+      if (distance(b, orbit) < 3) {
         b.mode = "patrol";
         b.timer = 0;
       }

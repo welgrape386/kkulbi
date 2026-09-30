@@ -76,7 +76,7 @@ test("bee suspicion becomes pursuit and contact has an invulnerability window", 
   const b = w.bees[0];
   w.bees = [b];
   w.player = { x: b.x, y: b.y };
-  advance(w, [], 0.8);
+  advance(w, [], 1.35);
   assert.equal(b.mode, "chase");
   assert.equal(w.hp, 2);
   advance(w, [], 0.2);
@@ -126,4 +126,26 @@ test("time expires without selling unsold honey and prevents further updates", (
   advance(w, ["d", "e"], 1);
   assert.deepEqual(w.player, p);
   assert.equal(w.honey, 5);
+});
+
+// Regression: a nearby hive must actually be harvestable before bees force contact.
+test("entrance hives allow a full harvest with the real bee patrols active", () => {
+  for (let i = 0; i < 2; i++) {
+    const w = createWorld();
+    w.player = { x: w.hives[i].x, y: w.hives[i].y + 12 };
+    advance(w, ["e"], 1.5);
+    assert.equal(w.honey, 2);
+    assert.equal(w.hp, 3);
+  }
+});
+test("patrols start away from their hive and return to their outer orbit", () => {
+  const w = createWorld();
+  for (const b of w.bees)
+    assert.ok(Math.hypot(b.x - b.home.x, b.y - b.home.y) > 35);
+  const b = w.bees[0];
+  b.mode = "return";
+  b.x = b.home.x;
+  b.y = b.home.y;
+  advance(w, [], 3);
+  assert.ok(Math.hypot(b.x - b.home.x, b.y - b.home.y) > 30);
 });

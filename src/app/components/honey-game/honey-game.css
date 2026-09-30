@@ -131,35 +131,108 @@
   overflow: hidden;
   min-height: 180px;
 }
-@media (max-width: 720px) {
-  .honey-layout {
-    grid-template-columns: 1fr;
-  }
+/* ── 휴대폰: 게임이 화면을 꽉 채우고, 확대/축소 없이 맵이 화면에 맞춰집니다 ─────────── */
+.honey-game {
+  touch-action: manipulation; /* 버튼 연타 시 더블탭 확대 방지 */
+}
+@media (max-width: 720px), (max-height: 500px) {
   .honey-game {
-    padding: 10px;
+    position: fixed;
+    inset: 0;
+    width: auto;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+    padding: calc(8px + env(safe-area-inset-top)) calc(10px + env(safe-area-inset-right))
+      calc(8px + env(safe-area-inset-bottom)) calc(10px + env(safe-area-inset-left));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* 헤더·HUD·안내문 등 맵을 뺀 세로 공간 */
+    --chrome: 190px;
   }
-  .honey-layout aside {
-    max-height: 200px;
+  .honey-game[data-phase="playing"] {
+    overflow: hidden;
   }
-  .honey-hud {
-    font-size: 11px;
-    padding: 8px 5px;
+  .honey-game header {
+    margin-bottom: 6px;
   }
-  .honey-curtain {
-    justify-content: flex-start;
-    gap: 5px;
-  }
-  .honey-curtain h3 {
+  .honey-game h2 {
     font-size: 18px;
   }
-  .honey-curtain p {
+  .honey-game small {
+    display: none;
+  }
+  .honey-layout {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .honey-hud {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  /* 맵: 가로·세로 중 좁은 쪽에 맞춰 비율(384:240) 유지 */
+  .honey-stage canvas {
+    width: min(100%, calc((100dvh - var(--chrome)) * 1.6));
+    height: auto;
+    margin: 0 auto;
+  }
+  .honey-prompt {
+    margin: 6px 0 2px;
+    font-size: 12px;
+  }
+  .honey-message {
+    min-height: 0;
     font-size: 11px;
   }
-  .honey-curtain button {
-    padding: 5px 10px;
+  /* 게임 중엔 랭킹을 숨겨 맵을 최대한 크게 */
+  .honey-game[data-phase="playing"] .honey-layout aside {
+    display: none;
+  }
+  .honey-layout aside {
+    max-height: 260px;
+  }
+  /* 시작/종료 화면은 작은 맵 위에 겹치지 않고 일반 화면으로 (스크롤 가능) */
+  .honey-game:not([data-phase="playing"]) .honey-stage canvas {
+    display: none;
+  }
+  .honey-curtain {
+    position: static;
+    border-radius: 0 0 5px 5px;
+    padding: 18px 12px;
+  }
+  .honey-curtain h3 {
+    font-size: 20px;
+  }
+  .honey-curtain p {
+    font-size: 12px;
   }
   .honey-controls button {
     padding: 10px 14px;
+  }
+  /* iOS는 16px 미만 입력칸에 포커스하면 화면을 확대하고 되돌리지 않음 → 16px */
+  .honey-curtain input {
+    font-size: 16px;
+    width: min(240px, 100%);
+  }
+}
+/* 가로로 눕힌 휴대폰: 세로가 짧으니 주변 요소를 더 줄이고 맵에 공간을 몰아줌 */
+@media (max-height: 500px) {
+  .honey-game {
+    --chrome: 150px;
+  }
+  /* 제목만 숨기고 닫기 버튼은 유지 */
+  .honey-game header {
+    justify-content: flex-end;
+    margin-bottom: 4px;
+  }
+  .honey-game header h2 {
+    display: none;
+  }
+  .honey-game header button {
+    padding: 4px 10px;
+  }
+  .honey-game[data-phase="playing"] .honey-message {
+    display: none;
   }
 }
 
@@ -202,6 +275,9 @@
   }
   /* 방향 버튼은 조이스틱이 대신하고, 채집/판매는 오른손 엄지 위치에 크게 */
   .honey-controls .honey-arrow {
+    display: none;
+  }
+  .honey-game:not([data-phase="playing"]) .honey-controls .honey-action {
     display: none;
   }
   .honey-controls .honey-action {

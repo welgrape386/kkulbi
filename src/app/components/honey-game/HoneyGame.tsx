@@ -152,7 +152,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
             ? "왼쪽 아래 조이스틱으로 이동"
             : "WASD / 방향키 · 이동";
   return (
-    <section className="honey-game" aria-label="꿀도둑 게임">
+    <section className="honey-game" data-phase={phase} aria-label="꿀도둑 게임">
       <header>
         <div>
           <small>꿀비의 숲 · 숨겨진 이야기</small>
@@ -266,7 +266,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
               </button>
             ))}
           </div>
-          <Joystick stick={stick} disabled={phase !== "playing"} />
+          {phase === "playing" && <Joystick stick={stick} disabled={false} />}
         </div>
         <aside>
           <LeaderboardPanel entries={entries} myNickname={nickname} />

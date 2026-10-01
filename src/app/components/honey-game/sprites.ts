@@ -95,3 +95,33 @@ export function sprite(
     }
   });
 }
+// 도둑: 후드 + 눈가리개 마스크 + 줄무늬 옷
+export const THIEF = [
+  "....OOOOO....",
+  "...OHHHHHO...",
+  "..OHHHHHHHO..",
+  "..OHSSSSSHO..",
+  "..OMMWMWMMO..",
+  "..OHSSSSSHO..",
+  "...OSSSSSO...",
+  "..OOTTTTTOO..",
+  ".OSOTKTKTOSO.",
+  ".OSOTTTTTOSO.",
+  "..OOTKTKTOO..",
+  "...OPPPPPO...",
+  "...OPPOPPO...",
+  "...OPPOPPO...",
+  "..OFFO.OFFO..",
+  "..OOOO.OOOO..",
+];
+export const THIEF_COLORS: Record<string, string> = {
+  O: "#1f2230",
+  H: "#3f3b5c",
+  S: "#e9c39a",
+  M: "#111318",
+  W: "#f4f1e6",
+  T: "#4b5a78",
+  K: "#d9dbe8",
+  P: "#2f3446",
+  F: "#191b24",
+};

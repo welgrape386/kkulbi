@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type PointerEvent as CanvasPointerEvent } from "react";
 import {
   LeaderboardPanel,
   readSavedNickname,
@@ -14,10 +14,23 @@ import {
   distance,
   hidden,
   SHOP,
+  THIEF_CATCH,
+  catchThief,
+  clickedThief,
   update,
 } from "./engine";
 import { draw } from "./render";
 import { Joystick } from "./Joystick";
+import { snapshot, soundEvents } from "./events";
+import {
+  isMuted,
+  playSfx,
+  setMuted,
+  setTense,
+  startMusic,
+  stopMusic,
+  unlock,
+} from "./audio";
 import "./honey-game.css";
 export default function HoneyGame({ onClose }: { onClose: () => void }) {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -35,6 +48,7 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
   const [result, setResult] = useState("");
   const [sending, setSending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [muted, setMutedState] = useState(isMuted);
   const { entries, refresh } = useLeaderboard(null);
   useEffect(() => {
     const ctx = canvas.current?.getContext("2d");
@@ -50,7 +64,11 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
           0,
           (deadline.current - Date.now()) / 1000,
         );
+        const before = snapshot(world.current);
         update(world.current, keys.current, dt, stick.current);
+        const after = snapshot(world.current);
+        soundEvents(before, after).forEach(playSfx);
+        setTense(after.chasing > 0);
       }
       draw(ctx!, world.current, now);
       if (now - lastHud > 80) {
@@ -60,6 +78,8 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
       if (phase === "playing" && world.current.remaining === 0) {
         setHud({ ...world.current });
         setPhase("done");
+        stopMusic();
+        playSfx("end");
         keys.current.clear();
         stick.current = { x: 0, y: 0 };
       }
@@ -104,9 +124,14 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
       window.removeEventListener("blur", clear);
       document.removeEventListener("visibilitychange", clear);
       clear();
+      stopMusic(); // 게임 창을 닫으면 음악도 정지
     };
   }, []);
   function start() {
+    unlock(); // 사용자 클릭 시점에 오디오 허용
+    setTense(false);
+    playSfx("start");
+    startMusic();
     world.current = createWorld();
     deadline.current = Date.now() + 120_000;
     keys.current.clear();
@@ -116,6 +141,20 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
     setSubmitted(false);
     setPhase("playing");
     canvas.current?.focus();
+  }
+  // 캔버스 클릭/탭 위치를 맵 좌표(384×240)로 변환
+  function toMap(e: CanvasPointerEvent<HTMLCanvasElement>) {
+    const r = e.currentTarget.getBoundingClientRect();
+    return {
+      x: ((e.clientX - r.left) / r.width) * WIDTH,
+      y: ((e.clientY - r.top) / r.height) * HEIGHT,
+    };
+  }
+  function clickCanvas(e: CanvasPointerEvent<HTMLCanvasElement>) {
+    if (phase !== "playing" || !clickedThief(world.current, toMap(e))) return;
+    if (catchThief(world.current)) playSfx("catch");
+    else world.current.message = "도둑에게 더 가까이 가야 잡을 수 있어요!";
+    setHud({ ...world.current });
   }
   async function register() {
     if (sending || submitted) return;
@@ -136,7 +175,16 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
     }
   }
   const near = distance(hud.player, SHOP) < 25;
-  const prompt = near
+  const thief = hud.thief;
+  const prompt = thief && distance(hud.player, thief) < THIEF_CATCH
+    ? touch
+      ? "지금! 도둑을 탭하거나 채집 버튼으로 잡기"
+      : "지금! E 또는 도둑 클릭으로 잡기"
+    : thief
+      ? thief.mode === "escape"
+        ? "도둑이 꿀머니를 들고 달아나요! 앞질러 막으세요"
+        : "도둑 출현! 쫓아가서 잡으면 +100 꿀머니"
+      : near
     ? touch
       ? "판매 버튼 · 꿀 전부 판매"
       : "E · 꿀 전부 판매"
@@ -158,9 +206,22 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
           <small>꿀비의 숲 · 숨겨진 이야기</small>
           <h2>꿀도둑</h2>
         </div>
-        <button onClick={onClose} aria-label="게임 닫기">
-          닫기 ×
-        </button>
+        <div style={{ display: "flex", gap: 6 }}>
+          <button
+            onClick={() => {
+              setMuted(!muted);
+              setMutedState(!muted);
+            }}
+            aria-label={muted ? "소리 켜기" : "소리 끄기"}
+            aria-pressed={muted}
+            title={muted ? "소리 켜기" : "소리 끄기"}
+          >
+            {muted ? "🔇" : "🔊"}
+          </button>
+          <button onClick={onClose} aria-label="게임 닫기">
+            닫기 ×
+          </button>
+        </div>
       </header>
       <div className="honey-layout">
         <div>
@@ -184,6 +245,15 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
               width={WIDTH}
               height={HEIGHT}
               tabIndex={0}
+              onPointerDown={clickCanvas}
+              onPointerMove={(e) => {
+                // 잡을 수 있는 거리의 도둑 위에서는 손가락 커서
+                const w = world.current;
+                e.currentTarget.style.cursor =
+                  w.thief && clickedThief(w, toMap(e)) && distance(w.player, w.thief) < THIEF_CATCH
+                    ? "pointer"
+                    : "";
+              }}
               aria-label="숲 맵. WASD 또는 방향키 이동, E 채집과 판매."
             />
             {phase !== "playing" && (
@@ -201,6 +271,8 @@ export default function HoneyGame({ onClose }: { onClose: () => void }) {
                 <p>
                   한 판 2분 · 채집은 {touch ? "채집 버튼" : "E"}을 1.4초 꾹<br />
                   수풀에 숨기 · 쓰러지면 들고 있던 꿀만 잃어요.
+                  <br />
+                  상점을 노리는 도둑을 잡으면 +100 꿀머니!
                 </p>
                 {phase === "done" && (
                   <>

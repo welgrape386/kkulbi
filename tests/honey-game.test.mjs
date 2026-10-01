@@ -14,7 +14,17 @@ await build({
   platform: "node",
   bundle: true,
 });
-const { createWorld, update, CAPACITY, SHOP, hidden } = await import(
+const {
+  createWorld,
+  update,
+  CAPACITY,
+  SHOP,
+  hidden,
+  THIEF_CATCH,
+  THIEF_MAX,
+  catchThief,
+  clickedThief,
+} = await import(
   pathToFileURL(join(directory, "engine.mjs"))
 );
 const advance = (w, keys, seconds) => {
@@ -269,4 +279,194 @@ test("joystick moves in the dragged direction, scales speed and ignores the dead
   assert.equal(tiny.dx, 0); // 데드존
   const keyboard = run({ x: 0, y: 0 }, ["d"]); // 스틱을 놓으면 키보드 그대로
   assert.ok(Math.abs(keyboard.dx - 30) < 0.5);
+});
+
+test("sound events: harvest, sell, sting, faint, alert and escape", async () => {
+  const dir = await mkdtemp(join(tmpdir(), "honey-events-"));
+  await build({
+    entryPoints: ["src/app/components/honey-game/events.ts"],
+    outfile: join(dir, "events.mjs"),
+    format: "esm",
+    platform: "node",
+    bundle: true,
+  });
+  const { soundEvents } = await import(pathToFileURL(join(dir, "events.mjs")));
+  await rm(dir, { recursive: true, force: true });
+  const s = (o) => ({ honey: 0, money: 0, hp: 3, chasing: 0, thief: false, caught: 0, stolen: 0, ...o });
+  assert.deepEqual(soundEvents(s(), s({ honey: 2 })), ["harvest"]);
+  assert.deepEqual(soundEvents(s({ honey: 4 }), s({ money: 80 })), ["sell"]);
+  assert.deepEqual(soundEvents(s({ chasing: 1 }), s({ hp: 2, chasing: 1 })), ["sting"]);
+  // 쓰러짐: 체력 1 → 3으로 초기화, 추격 해제 — "escape"는 울리지 않아야 함
+  assert.deepEqual(soundEvents(s({ hp: 1, honey: 5, chasing: 1 }), s({ hp: 3 })), ["faint"]);
+  assert.deepEqual(soundEvents(s(), s({ chasing: 1 })), ["alert"]);
+  assert.deepEqual(soundEvents(s({ chasing: 2 }), s()), ["escape"]);
+  assert.deepEqual(soundEvents(s(), s()), []);
+  assert.deepEqual(soundEvents(s(), s({ thief: true })), ["thief"]);
+  // 검거 보상으로 수입이 늘어도 판매음이 아니라 검거음
+  assert.deepEqual(soundEvents(s({ thief: true, money: 100 }), s({ money: 200, caught: 1 })), ["catch"]);
+  assert.deepEqual(soundEvents(s({ thief: true, money: 100 }), s({ thief: true, stolen: 1 })), ["stolen"]);
+});
+
+// ─── 도둑 ──────────────────────────────────────────────────────────────────
+const thiefWorld = (thief, player) => {
+  const w = createWorld();
+  w.bees = [];
+  w.money = 300;
+  w.thief = { mode: "sneak", loot: 0, standoff: -1, exit: { x: 374, y: 150 }, ...thief };
+  w.player = player;
+  return w;
+};
+
+test("thief only appears once there is banked income to steal", () => {
+  const w = createWorld();
+  w.bees = [];
+  w.player = { x: 200, y: 30 };
+  w.thiefTimer = 0.5;
+  advance(w, [], 1);
+  assert.equal(w.thief, null);
+  w.money = 50;
+  advance(w, [], 0.05);
+  assert.ok(w.thief);
+});
+
+test("an unnoticed thief reaches the shop, steals and escapes", () => {
+  const w = thiefWorld({ x: 120, y: 207 }, { x: 300, y: 40 });
+  advance(w, [], 2.5); // 80px / 40px/s
+  assert.equal(w.money, 200);
+  assert.equal(w.thief?.mode, "escape");
+  assert.equal(w.thief?.loot, 100);
+  assert.equal(w.stolen, 1);
+});
+
+test("a normal-speed player runs down a fleeing thief and catches it with E", () => {
+  const w = thiefWorld({ x: 150, y: 150 }, { x: 115, y: 150 });
+  advance(w, [], 0.05);
+  assert.equal(w.thief.mode, "flee");
+  let caughtAt = -1;
+  for (let i = 0; i < 60 * 8 && w.thief; i++) {
+    update(w, new Set(["d"]), 1 / 60); // 쫓아가기
+    if (w.thief && Math.hypot(w.thief.x - w.player.x, w.thief.y - w.player.y) < THIEF_CATCH - 1) {
+      update(w, new Set(["e"]), 1 / 60);
+      caughtAt = i / 60;
+    }
+  }
+  assert.equal(w.thief, null);
+  assert.equal(w.caught, 1);
+  assert.equal(w.money, 400);
+  assert.ok(caughtAt > 1.5 && caughtAt < 5, `caught after ${caughtAt}s`); // 35px 차이를 초당 8px로 좁힘
+});
+
+test("a player carrying 10+ honey is too slow to catch a fleeing thief", () => {
+  const w = thiefWorld({ x: 150, y: 150 }, { x: 115, y: 150 });
+  w.honey = 10;
+  const gap = () => Math.hypot(w.thief.x - w.player.x, w.thief.y - w.player.y);
+  advance(w, [], 0.05);
+  const before = gap();
+  advance(w, ["d"], 2);
+  assert.ok(w.thief && gap() > before); // 48 < 52 → 거리가 벌어짐
+});
+
+test("a player hiding in a bush is not noticed and can ambush the thief", () => {
+  // 수풀(105,169) 가장자리에 숨어, 상점으로 가는 도둑의 길목을 지킴
+  const w = thiefWorld({ x: 160, y: 160 }, { x: 105, y: 176 });
+  assert.ok(hidden(w.player));
+  advance(w, [], 0.3);
+  assert.equal(w.thief.mode, "sneak");
+  // 도둑이 수풀 앞을 지나갈 때 E
+  for (let i = 0; i < 120 && w.thief; i++) update(w, new Set(["e"]), 1 / 60);
+  assert.equal(w.caught, 1);
+  assert.equal(w.money, 400);
+});
+
+test("catching an escaping thief returns the stolen money plus the reward", () => {
+  const w = thiefWorld({ x: 60, y: 200, mode: "escape", loot: 100 }, { x: 64, y: 200 });
+  w.money = 200;
+  advance(w, ["e"], 0.02);
+  assert.equal(w.money, 400);
+  assert.equal(w.thief, null);
+});
+
+test("a fleeing thief cannot leave the map and gets cornered", () => {
+  const w = thiefWorld({ x: 370, y: 225, mode: "flee" }, { x: 340, y: 200 });
+  for (let i = 0; i < 60 * 4 && w.thief; i++) {
+    const th = w.thief, close = Math.hypot(th.x - w.player.x, th.y - w.player.y) < 12;
+    update(w, new Set(close ? ["e"] : ["d", "s"]), 1 / 60);
+    if (w.thief) assert.ok(w.thief.x <= 376 && w.thief.y <= 232);
+  }
+  assert.equal(w.caught, 1);
+});
+
+test("a thief that shakes off the player goes back to sneaking toward the shop", () => {
+  const w = thiefWorld({ x: 200, y: 120, mode: "flee" }, { x: 200, y: 200 });
+  advance(w, [], 0.1);
+  assert.equal(w.thief.mode, "sneak");
+});
+
+const withRandom = (value, fn) => {
+  const original = Math.random;
+  Math.random = () => value;
+  try {
+    fn();
+  } finally {
+    Math.random = original;
+  }
+};
+const resolveThief = (w) => {
+  w.thief = null;
+  w.thiefTimer = 0;
+};
+
+test("at most two thieves per game, the second one only by chance", () => {
+  const w = createWorld();
+  w.bees = [];
+  w.money = 500;
+  w.player = { x: 200, y: 30 };
+  w.thiefTimer = 0;
+  withRandom(0.99, () => {
+    update(w, new Set(), 1 / 60); // 첫 도둑은 확률과 상관없이 등장
+    assert.equal(w.thiefCount, 1);
+    resolveThief(w);
+    update(w, new Set(), 1 / 60); // 두 번째: 확률(50%) 실패 → 재시도 대기
+    assert.equal(w.thief, null);
+    assert.ok(w.thiefTimer > 0);
+  });
+  withRandom(0.1, () => {
+    w.thiefTimer = 0;
+    update(w, new Set(), 1 / 60); // 확률 성공 → 두 번째 등장
+    assert.equal(w.thiefCount, 2);
+    for (let i = 0; i < 5; i++) {
+      resolveThief(w);
+      update(w, new Set(), 1 / 60);
+    }
+  });
+  assert.equal(w.thiefCount, THIEF_MAX);
+  assert.equal(w.thief, null);
+});
+
+test("clicking the thief catches it only when the player is close enough", () => {
+  const w = thiefWorld({ x: 200, y: 150 }, { x: 150, y: 150 });
+  assert.ok(clickedThief(w, { x: 200, y: 142 }));
+  assert.ok(!clickedThief(w, { x: 240, y: 142 }));
+  assert.equal(catchThief(w), false); // 너무 멂
+  w.player = { x: 190, y: 150 };
+  assert.equal(catchThief(w), true);
+  assert.equal(w.money, 400);
+  assert.equal(w.thief, null);
+});
+
+test("a thief that has been in a standoff for 15 seconds gives up and leaves", () => {
+  const w = thiefWorld({ x: 200, y: 120 }, { x: 200, y: 150 });
+  w.player = { x: 200, y: 150 };
+  advance(w, [], 0.1);
+  assert.equal(w.thief.mode, "flee");
+  // 플레이어는 가만히, 도둑은 대치 중: 15초 전엔 아직 남아 있음
+  w.thief.standoff = 14.5;
+  advance(w, [], 0.3);
+  assert.notEqual(w.thief?.mode, "escape");
+  advance(w, [], 0.3);
+  assert.equal(w.thief.mode, "escape");
+  assert.equal(w.thief.loot, 0);
+  advance(w, [], 10);
+  assert.equal(w.thief, null);
+  assert.equal(w.money, 300); // 훔쳐 가지는 않음
 });

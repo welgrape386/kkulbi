@@ -2,6 +2,7 @@ import {
   BUSHES,
   HEIGHT,
   SHOP,
+  THIEF_CATCH,
   TREES,
   WIDTH,
   hidden,
@@ -14,6 +15,8 @@ import {
   HIVE_COLORS,
   PLAYER,
   PLAYER_COLORS,
+  THIEF,
+  THIEF_COLORS,
   sprite,
 } from "./sprites";
 const hash = (x: number, y: number, seed = 0) => {
@@ -208,7 +211,40 @@ export function draw(ctx: CanvasRenderingContext2D, w: World, time: number) {
       ctx.globalAlpha = 1;
     },
   });
+  const t = w.thief;
+  if (t) {
+    objects.push({
+      y: t.y,
+      paint: () => {
+        shadow(t.x, t.y, 14);
+        const bob = t.mode === "sneak" ? 0 : Math.floor(time / 90) % 2; // 도망칠 땐 종종걸음
+        sprite(ctx, THIEF, THIEF_COLORS, t.x - 6, t.y - 16 - bob, t.x > p.x);
+        if (t.loot > 0) {
+          // 훔친 돈자루
+          rect(t.x + 5, t.y - 10 - bob, 6, 6, "#9b7044");
+          rect(t.x + 6, t.y - 9 - bob, 4, 4, "#d9b66a");
+          rect(t.x + 7, t.y - 12 - bob, 2, 2, "#6b4a2b");
+        }
+      },
+    });
+  }
   objects.sort((a, b) => a.y - b.y).forEach((o) => o.paint());
+  if (t) {
+    // 도망 중 표시 + 잡을 수 있는 거리면 빨간 원
+    if (t.mode !== "sneak") {
+      rect(t.x - 4, t.y - 29, 9, 10, "#fff2c4");
+      ctx.font = "bold 9px monospace";
+      ctx.fillStyle = "#b04b3f";
+      ctx.fillText("!", Math.round(t.x - 2), Math.round(t.y - 21));
+    }
+    if (Math.hypot(t.x - p.x, t.y - p.y) < THIEF_CATCH) {
+      ctx.strokeStyle = "#e0483a";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(Math.round(t.x), Math.round(t.y - 7), 11 + (Math.floor(time / 120) % 2), 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
   w.hives.forEach((h) => {
     rect(h.x - 10, h.y - 19, 11, 2, "#705036");
     rect(h.x, h.y - 18, 1, 12, "#6c5e39");

@@ -232,7 +232,7 @@ export function FishingTraitPage() {
           </div>
           <div className="p-5">
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
-              🪸 <strong>우아한 바다진주</strong>를 사용하여 낚싯대를 업그레이드해 보세요!
+              🪸 <strong>바다의 진주</strong>를 사용하여 낚싯대를 업그레이드해 보세요!
             </p>
             <div className="overflow-x-auto rounded-2xl border-2 border-sky-200 overflow-hidden">
               <table className="w-full">

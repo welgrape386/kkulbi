@@ -289,7 +289,7 @@ export function FishingTraitPage() {
           </div>
           <div className="p-5">
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
-              🌊 커스텀 물고기의 종류를 알려드릴게요.
+              🌊 커스텀 물고기의 종류를 알려드릴게요. (각 물고기 이미지 추가 예정)
             </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
               {customFish.map((fish) => (

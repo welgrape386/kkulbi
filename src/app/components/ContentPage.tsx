@@ -42,6 +42,15 @@ const tabs = [
     border: "#bae6fd",
   },
   {
+    key: "cash-shop",
+    label: "캐시상점",
+    emoji: "🛍️",
+    desc: "캐시로 구매하는 유틸·도구·펫·칭호",
+    color: "#db2777",
+    bg: "#fdf2f8",
+    border: "#f9a8d4",
+  },
+  {
     key: "island",
     label: "섬",
     emoji: "🏝️",
@@ -2706,6 +2715,7 @@ function GachaContent() {
 const contentComponents: Record<string, ReactNode> = {
   rank: <RankContent />,
   shop: <ShopContent />,
+  "cash-shop": <CashShopContent />,
   beekeeping: <BeekeepingContent />,
   enchant: <EnchantContent />,
   gacha: <GachaContent />,
@@ -2740,6 +2750,12 @@ const contentRows = [
         label: "상점",
         emoji: "🏪",
         desc: "상점 아이템 및 가격 안내",
+      },
+      {
+        key: "cash-shop",
+        label: "캐시상점",
+        emoji: "🛍️",
+        desc: "캐시로 구매하는 유틸·도구·펫·칭호",
       },
       {
         key: "rank",
@@ -3068,6 +3084,67 @@ function ShopContent() {
   );
 }
 
+// 캐시상점: 아이템 데이터는 추후 추가 예정
+const cashShopSections = [
+  { key: "util", emoji: "🧰", label: "유틸상점", desc: "편의 기능 아이템", color: "#0284c7", bg: "#f0f9ff", border: "#bae6fd" },
+  { key: "tool", emoji: "⛏️", label: "도구상점", desc: "도구 및 도구 스킨", color: "#92400e", bg: "#fffbeb", border: "#fcd34d" },
+  { key: "pet", emoji: "🐾", label: "펫 상점", desc: "펫 아이템", color: "#16a34a", bg: "#f0fdf4", border: "#86efac" },
+  { key: "title", emoji: "🏷️", label: "칭호상점", desc: "칭호 아이템", color: "#7c3aed", bg: "#faf5ff", border: "#ddd6fe" },
+];
+
+function CashShopContent() {
+  const [params, setParams] = useSearchParams();
+  const selected =
+    cashShopSections.find((section) => section.key === params.get("s")) ??
+    cashShopSections[0];
+
+  const select = (key: string) => {
+    const next = new URLSearchParams(params);
+    next.set("tab", "cash-shop");
+    next.set("s", key);
+    setParams(next);
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="bg-pink-50 border border-pink-200 rounded-2xl p-4">
+        <p className="text-pink-800" style={{ fontSize: "13px", lineHeight: 1.7 }}>
+          🛍️ 캐시상점은 <strong>캐시</strong>로 구매하는 상점이에요. 일반 상점가와는 별도로 운영됩니다.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {cashShopSections.map((section) => {
+          const isActive = selected.key === section.key;
+
+          return (
+            <button
+              key={section.key}
+              onClick={() => select(section.key)}
+              className="rounded-2xl p-4 border-2 text-left transition-all duration-200 hover:shadow-md"
+              style={{
+                background: section.bg,
+                borderColor: isActive ? section.color : section.border,
+                boxShadow: isActive ? `0 0 0 2px ${section.color}20` : "none",
+              }}
+            >
+              <div className="text-2xl mb-2">{section.emoji}</div>
+              <div style={{ fontSize: "13px", fontWeight: 800, color: section.color }}>
+                {section.label}
+              </div>
+              <p className="text-slate-500 mt-1" style={{ fontSize: "11px", lineHeight: 1.5 }}>
+                {section.desc}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+
+      <ComingSoon name={`캐시상점 › ${selected.label}`} />
+    </div>
+  );
+}
+
 function ContentGrid() {
   const navigate = useNavigate();
 
@@ -3134,6 +3211,7 @@ function ContentGrid() {
 
                       // 🟡 쿼리 방식 (ContentPage 내부 처리)
                       shop: "/content?tab=shop",
+                      "cash-shop": "/content?tab=cash-shop",
                       rank: "/content?tab=rank",
                       enchant: "/content?tab=enchant",
                       collection: "/content?tab=collection",

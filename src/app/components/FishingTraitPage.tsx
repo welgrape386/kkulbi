@@ -27,20 +27,14 @@ const allSkills = [
 ];
 
 const rodUpgrades = [
-  { name: "일반 낚싯대", material: "우아한 바다진주 5개", cost: "300,000원", chance: "70%" },
-  { name: "자연 낚싯대", material: "우아한 바다진주 10개", cost: "700,000원", chance: "50%" },
-  { name: "은색 낚싯대", material: "우아한 바다진주 15개", cost: "1,000,000원", chance: "40%" },
-  { name: "뼈다귀 낚싯대", material: "우아한 바다진주 20개", cost: "3,000,000원", chance: "30%" },
-  { name: "황금색 낚싯대", material: "우아한 바다진주 30개", cost: "5,000,000원", chance: "15%" },
-  { name: "마스터 낚싯대", material: "우아한 바다진주 40개", cost: "10,000,000원", chance: "7%" },
-  { name: "이리듐 낚싯대", material: "우아한 바다진주 50개", cost: "30,000,000원", chance: "3%" },
+  { name: "일반 낚싯대", material: "상점에서 구매 가능", cost: "300,000원", chance: "70%" },
+  { name: "자연 낚싯대", material: "우아한 바다진주 5개", cost: "700,000원", chance: "50%" },
+  { name: "은색 낚싯대", material: "우아한 바다진주 10개", cost: "1,000,000원", chance: "40%" },
+  { name: "뼈다귀 낚싯대", material: "우아한 바다진주 15개", cost: "3,000,000원", chance: "30%" },
+  { name: "황금색 낚싯대", material: "우아한 바다진주 20개", cost: "5,000,000원", chance: "15%" },
+  { name: "마스터 낚싯대", material: "우아한 바다진주 30개", cost: "10,000,000원", chance: "7%" },
+  { name: "이리듐 낚싯대", material: "우아한 바다진주 40개", cost: "30,000,000원", chance: "3%" },
   { name: "우주별 낚싯대", material: "정보 없음", cost: "추후 공개", chance: "추후 공개" },
-];
-
-const pearls = [
-  { name: "해조의 구슬", emoji: "🌿", effect: "우아한 바다 진주 확률 증가", color: "#16a34a" },
-  { name: "해류의 구슬", emoji: "🌊", effect: "물고기 등급 업 확률 증가", color: "#0284c7" },
-  { name: "해심의 구슬", emoji: "💎", effect: "보물 물고기 확률 증가", color: "#7c3aed" },
 ];
 
 const customFish = [
@@ -246,7 +240,7 @@ export function FishingTraitPage() {
                   <tr style={{ background: "#e0f2fe" }}>
                     <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>낚싯대 이름</th>
                     <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>필요 재료</th>
-                    <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>필요 재화</th>
+                    <th className="px-4 py-3 text-left" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>상점가</th>
                     <th className="px-4 py-3 text-right" style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>성공 확률</th>
                   </tr>
                 </thead>
@@ -265,45 +259,6 @@ export function FishingTraitPage() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </div>
-        </div>
-
-        {/* 수수께끼 구슬 */}
-        <div className="rounded-2xl border-2 border-purple-200 bg-white">
-          <div className="px-5 py-4 border-b-2 border-purple-100 flex items-center gap-2">
-            <span className="text-lg">🔮</span>
-            <span style={{ fontSize: "15px", fontWeight: 800, color: "#7c3aed" }}>수수께끼 구슬 강화</span>
-          </div>
-          <div className="p-5 space-y-4">
-            <p style={{ fontSize: "13px", color: "#374151", lineHeight: 1.7, fontWeight: 600 }}>
-              수수께끼 구슬로 낚싯대를 강화할 수 있어요! 빈칸에 낚싯대를 올리고 <strong>강화하기</strong>를 누르면 됩니다!
-            </p>
-            <p style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6 }}>
-              수수께끼 구슬에서는 <strong>해조, 해류, 해심</strong> 총 3가지 종류의 구슬 중 하나의 구슬이 나옵니다.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {pearls.map((p) => (
-                <div key={p.name} className="p-4 rounded-xl border-2 text-center" style={{ borderColor: p.color + "40", background: p.color + "10" }}>
-                  <div className="text-3xl mb-2">{p.emoji}</div>
-                  <div style={{ fontSize: "13px", fontWeight: 800, color: p.color }}>{p.name}</div>
-                  <p className="mt-1" style={{ fontSize: "11px", color: "#64748b", lineHeight: 1.5 }}>{p.effect}</p>
-                </div>
-              ))}
-            </div>
-            <div className="p-4 rounded-xl bg-purple-50 border-2 border-purple-200 space-y-2">
-              <div className="flex items-start gap-2">
-                <span className="text-base flex-shrink-0">📈</span>
-                <p style={{ fontSize: "13px", color: "#5b21b6", lineHeight: 1.6, fontWeight: 600 }}>
-                  강화는 종류별로 총 <strong>7강</strong>까지 있으며, 강화 단계가 높아질수록 강화 확률이 낮아집니다.
-                </p>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-base flex-shrink-0">⚠️</span>
-                <p style={{ fontSize: "13px", color: "#5b21b6", lineHeight: 1.6, fontWeight: 600 }}>
-                  강화 실패 시, 구슬의 효과가 <strong>1단계 하락</strong>됩니다. 단, <strong>1강 이하로는 떨어지지 않습니다.</strong>
-                </p>
-              </div>
             </div>
           </div>
         </div>

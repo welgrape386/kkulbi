@@ -27,13 +27,16 @@ export function AppHeader() {
     setMobileOpen(false);
   }, [location.pathname, location.search]);
 
-  const onShopTab =
+  // 상점가·캐시상점은 콘텐츠 페이지의 탭이지만 메뉴에서는 따로 표시합니다.
+  const shopTab =
     location.pathname === "/content" &&
-    new URLSearchParams(location.search).get("tab") === "shop";
+    ["shop", "cash-shop"].includes(new URLSearchParams(location.search).get("tab") ?? "")
+      ? `/content?tab=${new URLSearchParams(location.search).get("tab")}`
+      : null;
 
   const isActive = (href: string) => {
-    if (href === "/content?tab=shop") return onShopTab;
-    if (href === "/content") return location.pathname.startsWith("/content") && !onShopTab;
+    if (href.startsWith("/content?tab=")) return href === shopTab;
+    if (href === "/content") return location.pathname.startsWith("/content") && !shopTab;
     // 일일보상·추석 착용샷은 홈 이벤트 안내에서 들어가는 하위 페이지입니다.
     if (href === "/")
       return (

@@ -74,7 +74,7 @@ const searchData: SearchItem[] = [
     id: "fishing",
     title: "어부 특성 & 낚시",
     content:
-      "낚시 물고기 보물 월척 해적 진주 낚싯대 수수께끼 구슬 보물물고기 고래상어 만타가오리",
+      "낚시 물고기 보물 월척 해적 진주 낚싯대 보물물고기 고래상어 만타가오리",
     category: "콘텐츠",
     emoji: "🎣",
     route: "/content/traits/fishing",

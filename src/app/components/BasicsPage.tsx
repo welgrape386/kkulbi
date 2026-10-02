@@ -1,7 +1,7 @@
 import { useSearchParams, Link } from "react-router";
 import type { ReactNode } from "react";
 
-const tabs = [
+export const tabs = [
   { key: "connect", label: "서버 접속 방법", emoji: "🖥️" },
   { key: "ui", label: "기본 UI 사용", emoji: "📱" },
   { key: "commands", label: "명령어 안내", emoji: "💬" },
@@ -132,83 +132,84 @@ function ConnectContent() {
   );
 }
 
+export const commands = [
+  { cmd: "/밥", desc: "체력 회복 (랭크 1 이상)", cat: "기본", req: "1등급" },
+  { cmd: "/엔더상자", desc: "개인 엔더상자 열기", cat: "보관", req: "2등급" },
+  {
+    cmd: "/창고 [번호]",
+    desc: "개인 창고 열기 (1~10번)",
+    cat: "보관",
+    req: "2등급+",
+  },
+  {
+    cmd: "/조합대",
+    desc: "인벤토리에서 3x3 조합대 사용",
+    cat: "편의",
+    req: "5등급",
+  },
+  { cmd: "/수산시장", desc: "수산시장 GUI 열기", cat: "판매", req: "8등급" },
+  {
+    cmd: "/자동줍기",
+    desc: "아이템 자동 줍기 ON/OFF",
+    cat: "편의",
+    req: "6등급",
+  },
+  {
+    cmd: "/캐시 보내기",
+    desc: "다른 유저에게 캐시 전송",
+    cat: "거래",
+    req: "6등급",
+  },
+  {
+    cmd: "/자동조합",
+    desc: "자동 조합 기능 사용",
+    cat: "편의",
+    req: "9등급",
+  },
+  { cmd: "/상점열기", desc: "개인 상점 열기", cat: "거래", req: "9등급" },
+  { cmd: "/제단", desc: "제단 기능 사용", cat: "고급", req: "11등급" },
+  { cmd: "/광물창고", desc: "광물 전용 창고 열기", cat: "채광", req: "기본" },
+  {
+    cmd: "/광물변환",
+    desc: "광물 대신 크리스탈 확률 증가 ON/OFF",
+    cat: "채광",
+    req: "기본",
+  },
+  {
+    cmd: "/랭크상점",
+    desc: "랭크 조건 및 권한 확인",
+    cat: "정보",
+    req: "기본",
+  },
+  { cmd: "/신호기", desc: "신호기 추첨 참여", cat: "이벤트", req: "기본" },
+  { cmd: "/발광", desc: "캐릭터 발광 효과", cat: "꾸미기", req: "최고등급" },
+  {
+    cmd: "/암시장확인",
+    desc: "암시장 위치/시세 확인",
+    cat: "고급",
+    req: "12등급",
+  },
+  {
+    cmd: "/제단열기",
+    desc: "다른 유저의 제단 열기",
+    cat: "고급",
+    req: "12등급",
+  },
+  {
+    cmd: "/확성기 [메시지]",
+    desc: "전체 확성기 메시지 발송",
+    cat: "채팅",
+    req: "캐시",
+  },
+  {
+    cmd: "/액자",
+    desc: "아이템 액자 기능 사용",
+    cat: "꾸미기",
+    req: "8등급",
+  },
+];
+
 function CommandsContent() {
-  const commands = [
-    { cmd: "/밥", desc: "체력 회복 (랭크 1 이상)", cat: "기본", req: "1등급" },
-    { cmd: "/엔더상자", desc: "개인 엔더상자 열기", cat: "보관", req: "2등급" },
-    {
-      cmd: "/창고 [번호]",
-      desc: "개인 창고 열기 (1~10번)",
-      cat: "보관",
-      req: "2등급+",
-    },
-    {
-      cmd: "/조합대",
-      desc: "인벤토리에서 3x3 조합대 사용",
-      cat: "편의",
-      req: "5등급",
-    },
-    { cmd: "/수산시장", desc: "수산시장 GUI 열기", cat: "판매", req: "8등급" },
-    {
-      cmd: "/자동줍기",
-      desc: "아이템 자동 줍기 ON/OFF",
-      cat: "편의",
-      req: "6등급",
-    },
-    {
-      cmd: "/캐시 보내기",
-      desc: "다른 유저에게 캐시 전송",
-      cat: "거래",
-      req: "6등급",
-    },
-    {
-      cmd: "/자동조합",
-      desc: "자동 조합 기능 사용",
-      cat: "편의",
-      req: "9등급",
-    },
-    { cmd: "/상점열기", desc: "개인 상점 열기", cat: "거래", req: "9등급" },
-    { cmd: "/제단", desc: "제단 기능 사용", cat: "고급", req: "11등급" },
-    { cmd: "/광물창고", desc: "광물 전용 창고 열기", cat: "채광", req: "기본" },
-    {
-      cmd: "/광물변환",
-      desc: "광물 대신 크리스탈 확률 증가 ON/OFF",
-      cat: "채광",
-      req: "기본",
-    },
-    {
-      cmd: "/랭크상점",
-      desc: "랭크 조건 및 권한 확인",
-      cat: "정보",
-      req: "기본",
-    },
-    { cmd: "/신호기", desc: "신호기 추첨 참여", cat: "이벤트", req: "기본" },
-    { cmd: "/발광", desc: "캐릭터 발광 효과", cat: "꾸미기", req: "최고등급" },
-    {
-      cmd: "/암시장확인",
-      desc: "암시장 위치/시세 확인",
-      cat: "고급",
-      req: "12등급",
-    },
-    {
-      cmd: "/제단열기",
-      desc: "다른 유저의 제단 열기",
-      cat: "고급",
-      req: "12등급",
-    },
-    {
-      cmd: "/확성기 [메시지]",
-      desc: "전체 확성기 메시지 발송",
-      cat: "채팅",
-      req: "캐시",
-    },
-    {
-      cmd: "/액자",
-      desc: "아이템 액자 기능 사용",
-      cat: "꾸미기",
-      req: "8등급",
-    },
-  ];
 
   const rankOrder = [
     "기본",

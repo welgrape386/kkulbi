@@ -20,7 +20,7 @@ import tf14 from "../../imports/분홍 돌고래.png";
 const BG = "#fff8dc";
 const COLOR = "#0284c7";
 
-const allSkills = [
+export const allSkills = [
   { lv: 1, name: "물고기 신의 축복 Ⅰ", type: "패시브", desc: "낚시 시 경험치 20% 추가 획득", cost: "1,000,000원" },
   { lv: 10, name: "월척 Ⅰ", type: "패시브", desc: "낚시 시 0.4% 확률로 보물 물고기 획득", cost: "3,000,000원" },
   { lv: 20, name: "해적 Ⅰ", type: "패시브", desc: "낚시 시 진주 획득 확률 0.5% 증가", cost: "5,000,000원" },
@@ -41,7 +41,7 @@ const allSkills = [
   { lv: 210, name: "해적 Ⅳ", type: "패시브", desc: "낚시 시 진주 획득 확률이 5% 증가", cost: "330,000,000원" },
 ];
 
-const rodUpgrades = [
+export const rodUpgrades = [
   { name: "일반 낚싯대", material: "상점에서 구매 가능", cost: "50,000원", chance: "-" },
   { name: "자연 낚싯대", material: "바다의 진주 5개", cost: "300,000원", chance: "70%" },
   { name: "은색 낚싯대", material: "바다의 진주 10개", cost: "700,000원", chance: "50%" },
@@ -52,7 +52,7 @@ const rodUpgrades = [
   { name: "우주별 낚싯대", material: "바다의 진주 50개", cost: "30,000,000원", chance: "3%" },
 ];
 
-const customFish = [
+export const customFish = [
   { name: "농어", emoji: "🐟" }, { name: "개복치", emoji: "🐡" }, { name: "갯장어", emoji: "🐍" },
   { name: "숭어", emoji: "🐟" }, { name: "적색통돔", emoji: "🐠" }, { name: "철갑상어", emoji: "🦈" },
   { name: "공허의 연어", emoji: "🐟" }, { name: "금붕어", emoji: "🐠" }, { name: "우드스킵", emoji: "🐟" },
@@ -61,7 +61,7 @@ const customFish = [
   { name: "문어", emoji: "🐙" }, { name: "방사능 물고기", emoji: "☢️" }, { name: "레인보우 피쉬", emoji: "🌈" },
 ];
 
-const treasureFish = [
+export const treasureFish = [
   { name: "검정가자미", price: "500,000원", img: tf0 }, { name: "뚱이", price: "750,000원", img: tf1 },
   { name: "은갈치", price: "1,000,000원", img: tf2 }, { name: "보름달물해파리", price: "1,500,000원", img: tf3 },
   { name: "푸른바다거북", price: "2,000,000원", img: tf4 }, { name: "우무문어", price: "3,000,000원", img: tf5 },
@@ -204,7 +204,7 @@ export function FishingTraitPage() {
         </div>
 
         {/* 스킬 목록 */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="skills" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡</span>
@@ -240,7 +240,7 @@ export function FishingTraitPage() {
         </div>
 
         {/* 낚싯대 강화 */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="rod-upgrade" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center gap-2">
             <span className="text-lg">🐟</span>
             <span style={{ fontSize: "15px", fontWeight: 800, color: "#92400e" }}>낚싯대 강화</span>
@@ -279,7 +279,7 @@ export function FishingTraitPage() {
         </div>
 
         {/* 커스텀 물고기 */}
-        <div className="rounded-2xl border-2 border-teal-200 bg-white">
+        <div id="custom-fish" className="scroll-mt-20 rounded-2xl border-2 border-teal-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-teal-100 flex items-center gap-2">
             <span className="text-lg">🐟</span>
             <span style={{ fontSize: "15px", fontWeight: 800, color: "#0f766e" }}>커스텀 물고기</span>
@@ -303,7 +303,7 @@ export function FishingTraitPage() {
         </div>
 
         {/* 보물 물고기 */}
-        <div className="rounded-2xl border-2 border-amber-300 bg-white">
+        <div id="treasure-fish" className="scroll-mt-20 rounded-2xl border-2 border-amber-300 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-200 flex items-center gap-2">
             <span className="text-lg">💎</span>
             <span style={{ fontSize: "15px", fontWeight: 800, color: "#b45309" }}>보물 물고기</span>

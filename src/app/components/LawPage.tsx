@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { ChevronDown } from "lucide-react";
 
-type Article = {
+export type Article = {
   no: string;
   title: string;
   emoji: string;
   content: { sub: string; text: string }[];
 };
 
-const articles: Article[] = [
+export const articles: Article[] = [
   {
     no: "제 1조",
     title: "목적",
@@ -369,7 +369,7 @@ function ArticleCard({ article }: { article: Article }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
+    <div id={article.no.replace(/\s+/g, "")} className="scroll-mt-20 bg-white border-2 border-amber-200 rounded-2xl overflow-hidden shadow-sm">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center gap-3 px-5 py-4 hover:bg-amber-50/40 transition-colors text-left"

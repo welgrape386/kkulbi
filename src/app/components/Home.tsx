@@ -1,211 +1,15 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate, useLocation, Link } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { Search, X, ChevronRight } from "lucide-react";
 import spawnImg from "../../imports/스폰.png";
 import { ChuseokEventContent } from "./ChuseokEventContent";
 import { BeeEasterEgg } from "./BeeEasterEgg";
+import { search, type SearchItem } from "../searchIndex";
 import {
   SHOW_DAILY_REWARDS,
   MinelistRewardsCard,
   PlaytimeRewardsCard,
 } from "./EventRewards";
-
-// ─── Search Data ──────────────────────────────────────────────────────────────
-type SearchItem = {
-  id: string;
-  title: string;
-  content: string;
-  category: string;
-  emoji: string;
-  route: string;
-};
-
-const searchData: SearchItem[] = [
-  {
-    id: "rank",
-    title: "랭크 시스템",
-    content:
-      "등급 조건 재화 플레이타임 마인리스트 추천 권한 /밥 /창고 /자동줍기 /제단",
-    category: "콘텐츠",
-    emoji: "⭐",
-    route: "/content?tab=rank",
-  },
-  {
-    id: "traits",
-    title: "특성 안내",
-    content: "채광 수확 벌목 어부 요리 직업 특성 스킬 레벨 경험치 광물 낚시",
-    category: "콘텐츠",
-    emoji: "🔮",
-    route: "/content/traits",
-  },
-  {
-    id: "island",
-    title: "섬",
-    content: "섬 권한 설정 업그레이드 은행 워프 프리뷰 /섬 /is",
-    category: "콘텐츠",
-    emoji: "🏝️",
-    route: "/content/island",
-  },
-  {
-    id: "chuseok",
-    title: "추석 이벤트",
-    content: "추석 랜덤 뽑기권 확률표 도구스킨 코스튬 펫 착용샷",
-    category: "이벤트",
-    emoji: "🎑",
-    route: "/#chuseok-event",
-  },
-  {
-    id: "beekeeping",
-    title: "양봉 방법",
-    content: "꿀 꿀벌 벌집 양봉 양봉장 꿀밀랍 천연토종꿀",
-    category: "콘텐츠",
-    emoji: "🐝",
-    route: "/content?tab=beekeeping",
-  },
-  {
-    id: "events-daily",
-    title: "이벤트 안내",
-    content: "낚시 대회 전체지급 신의 축복 마인리스트 추천 접속시간 보상",
-    category: "콘텐츠",
-    emoji: "🎉",
-    route: "/content?tab=events",
-  },
-  {
-    id: "fishing",
-    title: "어부 특성 & 낚시",
-    content:
-      "낚시 물고기 보물 월척 해적 진주 낚싯대 보물물고기 고래상어 만타가오리",
-    category: "콘텐츠",
-    emoji: "🎣",
-    route: "/content/traits/fishing",
-  },
-  {
-    id: "mining",
-    title: "채광 특성",
-    content: "채광 광물 광물창고 잠광 잠수 크리스탈 다이아 에메랄드 광물변환",
-    category: "콘텐츠",
-    emoji: "⛏️",
-    route: "/content/traits/mining",
-  },
-  {
-    id: "cooking",
-    title: "요리 특성",
-    content: "요리 레시피 도마 프라이팬 냄비 튀김기 왕실납품 커스텀작물",
-    category: "콘텐츠",
-    emoji: "🍳",
-    route: "/content/traits/cooking",
-  },
-  {
-    id: "harvest",
-    title: "수확 특성",
-    content:
-      "수확 작물 농사 커스텀 허수아비 물뿌리개 스프링클러 비료 지렁이 산삼",
-    category: "콘텐츠",
-    emoji: "🌽",
-    route: "/content/traits/harvest",
-  },
-  {
-    id: "commands",
-    title: "명령어 안내",
-    content:
-      "/밥 /엔더상자 /창고 /조합대 /수산시장 /자동줍기 /캐시보내기 /자동조합 /상점열기 /제단 /광물창고 /광물변환 /랭크상점 /신호기 /발광",
-    category: "기초설명",
-    emoji: "💬",
-    route: "/basics?tab=commands",
-  },
-  {
-    id: "connect",
-    title: "서버 접속 방법",
-    content: "마인크래프트 서버 접속 IP 주소 Java Edition 버전",
-    category: "기초설명",
-    emoji: "🖥️",
-    route: "/basics?tab=connect",
-  },
-  {
-    id: "faq",
-    title: "자주 묻는 질문",
-    content: "FAQ 자주 물어보는 질문 광물변환 지렁이 산삼 허수아비 고정 키",
-    category: "기초설명",
-    emoji: "❓",
-    route: "/basics?tab=faq",
-  },
-  {
-    id: "rules",
-    title: "규칙 사항",
-    content: "규칙 비매너 플라이 섬원 강퇴 부계정 사기 욕설 매크로",
-    category: "기초설명",
-    emoji: "📋",
-    route: "/basics?tab=rules",
-  },
-  {
-    id: "prices",
-    title: "상점가",
-    content: "일반 상점 아이템 고정 가격표",
-    category: "상점가",
-    emoji: "💰",
-    route: "/content?tab=shop",
-  },
-  {
-    id: "support-method",
-    title: "후원 방법",
-    content: "후원 결제 캐시 구매 방법 절차",
-    category: "후원",
-    emoji: "💳",
-    route: "/support?tab=method",
-  },
-  {
-    id: "support-ranks",
-    title: "후원 등급 / 혜택",
-    content: "후원 등급 VIP 혜택 캐시 아이템",
-    category: "후원",
-    emoji: "🎖️",
-    route: "/support?tab=ranks",
-  },
-  {
-    id: "law",
-    title: "운영원칙 (법전)",
-    content: "법전 운영원칙 규정 제재 처벌 비매너 채팅 복구 GM 유저 권리",
-    category: "법전",
-    emoji: "⚖️",
-    route: "/law",
-  },
-  {
-    id: "parkour",
-    title: "파쿠르 (업데이트예정)",
-    content: "파쿠르 달리기 점프 스테이지 길막 잠수 방해 보상",
-    category: "콘텐츠",
-    emoji: "🏃",
-    route: "/content?tab=parkour",
-  },
-  {
-    id: "blockwars",
-    title: "블럭워즈 (PVP) (업데이트예정)",
-    content: "블럭워즈 PVP 전투 물 거미줄 싸움 도망 테두리",
-    category: "콘텐츠",
-    emoji: "⚔️",
-    route: "/content?tab=blockwars",
-  },
-  {
-    id: "altar",
-    title: "제단",
-    content: "제단 /제단 /제단열기 고급 아이템 크래프팅",
-    category: "콘텐츠",
-    emoji: "🏛️",
-    route: "/content?tab=altar",
-  },
-  ...(SHOW_DAILY_REWARDS
-    ? [
-        {
-          id: "daily-reward",
-          title: "일일보상 전체",
-          content: "출석 체크 일일보상 보상 화폐 주괴 강화서 소라고동",
-          category: "이벤트",
-          emoji: "🎁",
-          route: "/daily-rewards",
-        },
-      ]
-    : []),
-];
 
 // ─── Search Bar ───────────────────────────────────────────────────────────────
 function SearchBar() {
@@ -215,16 +19,7 @@ function SearchBar() {
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const results = query.trim()
-    ? searchData.filter((item) => {
-        const q = query.toLowerCase();
-        return (
-          item.title.toLowerCase().includes(q) ||
-          item.content.toLowerCase().includes(q) ||
-          item.category.toLowerCase().includes(q)
-        );
-      })
-    : [];
+  const results = search(query);
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
@@ -242,6 +37,8 @@ function SearchBar() {
 
   const handleSelect = (item: SearchItem) => {
     navigate(item.route);
+    // #해시가 있으면 AppRoot 가 해당 섹션으로 스크롤합니다.
+    if (!item.route.includes("#")) window.scrollTo(0, 0);
     setQuery("");
     setFocused(false);
   };
@@ -308,9 +105,9 @@ function SearchBar() {
                 </span>
               </div>
 
-              {results.map((item) => (
+              {results.map((item, i) => (
                 <button
-                  key={item.id}
+                  key={i}
                   onClick={() => handleSelect(item)}
                   className="w-full text-left px-4 py-3.5 hover:bg-amber-50 transition-colors border-b border-slate-50 last:border-b-0"
                 >
@@ -328,7 +125,7 @@ function SearchBar() {
                           className="bg-slate-100 text-slate-500 rounded-full px-2 py-0.5"
                           style={{ fontSize: "10px", fontWeight: 700 }}
                         >
-                          {item.category}
+                          {item.where}
                         </span>
                       </div>
                       <p
@@ -496,12 +293,6 @@ function EventsSection() {
 
 // ─── Home ─────────────────────────────────────────────────────────────────────
 export function Home() {
-  const { hash } = useLocation();
-
-  useEffect(() => {
-    if (hash) document.getElementById(hash.slice(1))?.scrollIntoView({ behavior: "smooth" });
-  }, [hash]);
-
   return (
     <div style={{ background: "#fff8dc", minHeight: "100vh" }}>
       {/* Hero */}

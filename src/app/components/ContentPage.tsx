@@ -20,7 +20,7 @@ import cat6 from "../../imports/cat6.png";
 import cat7 from "../../imports/cat7.png";
 
 // ─── Tab definitions ───────────────────────────────────────────────────────────
-const tabs = [
+export const tabs = [
   {
     key: "rank",
     label: "랭크",
@@ -2075,7 +2075,7 @@ function EventsContent() {
   );
 }
 
-const shopSections = shopCategories.map((c) => ({
+export const shopSections = shopCategories.map((c) => ({
   key: c.key,
   label: c.label,
   emoji: c.emoji,
@@ -2885,7 +2885,7 @@ const contentRows = [
 type ShopSectionData = (typeof shopSections)[number];
 
 // 대소문자 무시 + 한글 자모 단위 부분 일치 (입력 중인 "도"도 "돌"에 매칭)
-const normalizeSearch = (text: string) => text.normalize("NFD").toLowerCase();
+const normalizeSearch = (text: string) => text.normalize("NFD").toLowerCase().replace(/\s+/g, "");
 
 function ShopItemsCard({
   section,
@@ -2975,7 +2975,8 @@ function ShopItemsCard({
 
 function ShopContent() {
   const [params, setParams] = useSearchParams();
-  const [query, setQuery] = useState("");
+  // 메인 검색에서 넘어오면 ?q= 로 아이템 검색어가 채워집니다.
+  const [query, setQuery] = useState(params.get("q") ?? "");
   const selectedKey = params.get("s") ?? shopSections[0].key;
 
   const selectedShop =
@@ -3092,7 +3093,7 @@ function ShopContent() {
 }
 
 // 캐시상점: 아이템 데이터는 추후 추가 예정
-const cashShopSections = [
+export const cashShopSections = [
   { key: "util", emoji: "🧰", label: "유틸상점", desc: "편의 기능 아이템", color: "#0284c7", bg: "#f0f9ff", border: "#bae6fd" },
   { key: "tool", emoji: "⛏️", label: "도구상점", desc: "도구 및 도구 스킨", color: "#92400e", bg: "#fffbeb", border: "#fcd34d" },
   { key: "pet", emoji: "🐾", label: "펫 상점", desc: "펫 아이템", color: "#16a34a", bg: "#f0fdf4", border: "#86efac" },
@@ -3102,7 +3103,7 @@ const cashShopSections = [
 const CASH_NOT_FOR_SALE = "구매불가";
 
 // [이름, 설명, 가격]
-const utilShopGroups: {
+export const utilShopGroups: {
   title: string;
   emoji: string;
   color: string;
@@ -3263,7 +3264,7 @@ function UtilShopCard() {
   );
 }
 
-const catPets = [
+export const catPets = [
   { name: "유러피안", img: cat1 },
   { name: "왕국", img: cat2 },
   { name: "메인쿤", img: cat3 },

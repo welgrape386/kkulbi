@@ -5,7 +5,7 @@ import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
 const BG = "#fff8dc";
 const COLOR = "#ea580c";
 
-const allSkills = [
+export const allSkills = [
   {
     lv: 1,
     name: "빠른 성장 Ⅰ",
@@ -43,7 +43,7 @@ const allSkills = [
   },
 ];
 
-const cookingTools = [
+export const cookingTools = [
   {
     name: "도마",
     icon: "🔪",
@@ -195,7 +195,7 @@ export function CookingTraitPage() {
         </div>
 
         {/* Cooking Tools */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="tools" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center gap-2">
             <span className="text-lg">🔧</span>
             <span
@@ -255,7 +255,7 @@ export function CookingTraitPage() {
         </div>
 
         {/* Skills */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="skills" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡</span>

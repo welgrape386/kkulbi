@@ -2,7 +2,7 @@ import { useSearchParams, Link } from "react-router";
 
 const BG = "#fff8dc";
 
-const tabs = [
+export const tabs = [
   { key: "method", label: "후원 방법", emoji: "💳" },
   { key: "ranks", label: "후원 등급 / 혜택", emoji: "🎖️" },
   { key: "probability", label: "아이템 확률", emoji: "🎲" },
@@ -379,7 +379,7 @@ function MethodContent() {
 }
 
 // ─── 후원 등급 ─────────────────────────────────────────────────────────────────
-const donationRanks = [
+export const donationRanks = [
   {
     name: "BRONZE",
     emoji: "🥉",
@@ -539,7 +539,7 @@ function RanksContent() {
 }
 
 // ─── 아이템 확률 ───────────────────────────────────────────────────────────────
-type ProbSection = {
+export type ProbSection = {
   title: string;
   subtitle?: string;
   note?: string;
@@ -554,7 +554,7 @@ const scrollTableRows = [
   ["50%", "44.44"],
 ];
 
-const cashLootboxes: ProbSection[] = [
+export const cashLootboxes: ProbSection[] = [
   {
     title: "자동심기 뽑기",
     subtitle: "의문의 파랑포션",
@@ -608,7 +608,7 @@ const cashLootboxes: ProbSection[] = [
   },
 ];
 
-const packageLootboxes: ProbSection[] = [
+export const packageLootboxes: ProbSection[] = [
   {
     title: "추석 복주머니",
     note: "해당 아이템은 추석 패키지로만 획득 가능합니다.",

@@ -7,7 +7,7 @@ const COLOR = "#16a34a";
 const LIGHT_BG = "#f0fdf4";
 const BORDER = "#86efac";
 
-const allSkills = [
+export const allSkills = [
   { lv: 1, name: "수확신의 축복 Ⅰ", type: "패시브", desc: "수확 시 경험치 4% 추가 획득 (사탕수수에는 작동하지 않음)", cost: "1,000,000원" },
   { lv: 10, name: "드랍더 농작물 Ⅰ", type: "패시브", desc: "수확 시 0.2% 확률로 농작물 추가 드롭 (사탕수수에는 작동하지 않음)", cost: "3,000,000원" },
   { lv: 20, name: "노련한 양봉꾼 Ⅰ", type: "액티브", desc: "벌집을 유리병으로 채집시 30% 확률로 스킬이 발동합니다. 스킬 발동시 꿀이 든 병을 1개 추가 지급합니다.", cost: "5,000,000원" },
@@ -30,21 +30,21 @@ const allSkills = [
 
 const INITIAL_SHOW = 5;
 
-const customCrops = ["토마토", "양배추", "고추", "옥수수", "배추", "마늘", "가지", "양파", "쌀", "고구마", "콩", "파", "파프리카", "무", "산삼"];
+export const customCrops = ["토마토", "양배추", "고추", "옥수수", "배추", "마늘", "가지", "양파", "쌀", "고구마", "콩", "파", "파프리카", "무", "산삼"];
 
-const sprinklers = [
+export const sprinklers = [
   { name: "기본 스프링클러", range: "3×3" },
   { name: "고급 스프링클러", range: "5×5" },
   { name: "최고급 스프링클러", range: "7×7" },
 ];
 
-const fertilizers = [
+export const fertilizers = [
   { name: "기본 비료", rates: "1등급 70% / 2등급 20% / 3등급 10%", color: "#86efac" },
   { name: "고급 비료", rates: "1등급 55% / 2등급 30% / 3등급 15%", color: "#4ade80" },
   { name: "디럭스 비료", rates: "1등급 40% / 2등급 40% / 3등급 20%", color: "#16a34a" },
 ];
 
-const wateringCans = [
+export const wateringCans = [
   { name: "구리 물뿌리개", range: "1×1", color: "#b45309" },
   { name: "철 물뿌리개", range: "1×2", color: "#6b7280" },
   { name: "금 물뿌리개", range: "2×2", color: "#d97706" },
@@ -206,7 +206,7 @@ export function HarvestTraitPage() {
               </div>
 
               {/* 물뿌리개 */}
-              <div>
+              <div id="watering-cans" className="scroll-mt-20">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xl">💧</span>
                   <span style={{ fontSize: "14px", fontWeight: 800, color: "#0369a1" }}>물뿌리개</span>
@@ -227,7 +227,7 @@ export function HarvestTraitPage() {
               </div>
 
               {/* 스프링클러 */}
-              <div>
+              <div id="sprinklers" className="scroll-mt-20">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xl">🌊</span>
                   <span style={{ fontSize: "14px", fontWeight: 800, color: "#0284c7" }}>스프링클러</span>
@@ -245,7 +245,7 @@ export function HarvestTraitPage() {
               </div>
 
               {/* 비료 */}
-              <div>
+              <div id="fertilizers" className="scroll-mt-20">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xl">🌱</span>
                   <span style={{ fontSize: "14px", fontWeight: 800, color: "#15803d" }}>비료</span>
@@ -264,7 +264,7 @@ export function HarvestTraitPage() {
               </div>
 
               {/* 커스텀 작물 목록 */}
-              <div>
+              <div id="custom-crops" className="scroll-mt-20">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-xl">🥕</span>
                   <span style={{ fontSize: "14px", fontWeight: 800, color: "#15803d" }}>커스텀 작물 종류</span>
@@ -282,7 +282,7 @@ export function HarvestTraitPage() {
         </div>
 
         {/* Skills */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="skills" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡</span>

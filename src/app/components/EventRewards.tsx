@@ -28,7 +28,7 @@ export const dailyRewards: { day: number; items: string[] }[] = Array.from(
   (_, i) => ({ day: i + 1, items: ["보상 미정 (업데이트예정)"] }),
 );
 
-const minelistRewards = [
+export const minelistRewards = [
   "클로버",
   "자동심기 기술 주문서 (+1000회)",
   "경험치 병 (64개)",
@@ -37,7 +37,7 @@ const minelistRewards = [
   "뼈 (5개)",
 ];
 
-const playtimeRewards = [
+export const playtimeRewards = [
   { time: "30분", items: ["자연은 주괴", "뼈다귀 3개"] },
   { time: "1시간", items: ["가공된 꿀조각", "경험치 병 64개"] },
   { time: "2시간", items: ["화려한 금 주괴", "뼈다귀 5개"] },
@@ -46,7 +46,7 @@ const playtimeRewards = [
   { time: "8시간", items: ["일반 복구석 2개", "화려한 금 주괴 2개", "뼈다귀 5개"] },
 ];
 
-const playtimeCompleteRewards = [
+export const playtimeCompleteRewards = [
   "천연 토종꿀",
   "바다의 진주",
   "화려한 금 주괴",
@@ -66,7 +66,7 @@ export function ItemBadge({ item, size = 11 }: { item: string; size?: number }) 
 
 export function MinelistRewardsCard() {
   return (
-    <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
+    <div id="minelist-rewards" className="scroll-mt-20 bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
       <div className="flex items-center gap-2 mb-2">
         <span className="text-lg">👍</span>
         <div className="text-slate-700" style={{ fontSize: "15px", fontWeight: 800 }}>
@@ -87,7 +87,7 @@ export function MinelistRewardsCard() {
 
 export function PlaytimeRewardsCard() {
   return (
-    <div className="bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
+    <div id="playtime-rewards" className="scroll-mt-20 bg-white border border-amber-100 rounded-2xl p-4 shadow-sm">
       <div className="flex items-center gap-2 mb-2">
         <span className="text-lg">⏱️</span>
         <div className="text-slate-700" style={{ fontSize: "15px", fontWeight: 800 }}>

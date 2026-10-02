@@ -7,7 +7,7 @@ const COLOR = "#6366f1";
 const LIGHT_BG = "#f5f3ff";
 const BORDER = "#c4b5fd";
 
-const allSkills = [
+export const allSkills = [
   {
     lv: 1,
     name: "채광신의 축복 Ⅰ",
@@ -541,7 +541,7 @@ export function MiningTraitPage() {
         </div>
 
         {/* Skills */}
-        <div className="rounded-2xl border-2 border-amber-200 bg-white">
+        <div id="skills" className="scroll-mt-20 rounded-2xl border-2 border-amber-200 bg-white">
           <div className="px-5 py-4 border-b-2 border-amber-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-lg">⚡</span>

@@ -18,7 +18,7 @@ const islandPreviews = [
   { name: "다정한 들섬", img: island5Img },
 ];
 
-const permissions = [
+export const permissions = [
   { name: "모든 권한", desc: "섬의 모든 권한을 이용할 수 있습니다." },
   { name: "유저 차단", desc: "유저를 섬에서 차단할 수 있습니다." },
   { name: "블록 파괴", desc: "블록을 부술 수 있습니다." },
@@ -55,7 +55,7 @@ const permissions = [
   { name: "가치 블록 파괴", desc: "섬 내 가치 블록을 부술 수 있습니다." },
 ];
 
-const islandSettings = [
+export const islandSettings = [
   { name: "아침", desc: "섬의 시간을 아침으로 바꿉니다.", type: "time" },
   { name: "점심", desc: "섬의 시간을 점심으로 바꿉니다.", type: "time" },
   { name: "밤", desc: "섬의 시간을 밤으로 바꿉니다.", type: "time" },
@@ -70,7 +70,7 @@ const islandSettings = [
   { name: "물의 흐름", desc: "섬 내부에 물이 흐르는 걸 허용합니다.", type: "toggle" },
 ];
 
-const upgrades = [
+export const upgrades = [
   {
     title: "호퍼 제한", icon: "🔧", color: "#6366f1", unit: "개",
     stages: [
@@ -129,9 +129,9 @@ const upgrades = [
   },
 ];
 
-function SectionCard({ children, className }: { children: ReactNode; className?: string }) {
+function SectionCard({ children, className, id }: { children: ReactNode; className?: string; id?: string }) {
   return (
-    <div className={`bg-white rounded-2xl border-2 border-amber-200 shadow-sm ${className ?? ""}`}>
+    <div id={id} className={`bg-white rounded-2xl border-2 border-amber-200 shadow-sm ${className ?? ""}`}>
       {children}
     </div>
   );
@@ -229,7 +229,7 @@ export function IslandPage() {
         </SectionCard>
 
         {/* 3. 섬 설정 */}
-        <SectionCard>
+        <SectionCard id="settings" className="scroll-mt-20">
           <SectionHeader emoji="⚙️" title="섬 설정" sub="권한 설정 및 섬 환경 설정" />
           <div className="p-6 space-y-4">
             <Collapsible
@@ -274,7 +274,7 @@ export function IslandPage() {
         </SectionCard>
 
         {/* 4. 섬 업그레이드 */}
-        <SectionCard>
+        <SectionCard id="upgrades" className="scroll-mt-20">
           <SectionHeader emoji="⬆️" title="섬 업그레이드" sub="/강화 메뉴에서 구매 가능" />
           <div className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {upgrades.map((upg) => (

@@ -3099,6 +3099,132 @@ const cashShopSections = [
   { key: "title", emoji: "🏷️", label: "칭호상점", desc: "칭호 아이템", color: "#7c3aed", bg: "#faf5ff", border: "#ddd6fe" },
 ];
 
+const CASH_NOT_FOR_SALE = "구매불가";
+
+// [이름, 설명, 가격]
+const utilShopGroups: { title: string; emoji: string; items: [string, string, string][] }[] = [
+  {
+    title: "플라이 아이템",
+    emoji: "🪽",
+    items: [
+      ["가공된 꿀조각", "섭취 시 +60초(1분)만큼 플라이 시간을 획득합니다", "100캐시"],
+      ["자연 꿀밀랍", "섭취 시 +300초(5분)만큼 플라이 시간을 획득합니다", "250캐시"],
+      ["천연 토종꿀", "섭취 시 +600초(10분)만큼 플라이 시간을 획득합니다", "500캐시"],
+      ["자유로운 왕꿀벌", "섭취 시 영구제만큼 플라이 시간을 획득합니다", "24,900캐시"],
+    ],
+  },
+  {
+    title: "확률형 포션",
+    emoji: "🧪",
+    items: [
+      ["의문의 파랑포션", "우클릭 시 일정 확률로 자동심기를 랜덤으로 뽑습니다", "2,500캐시"],
+      ["의문의 빨강포션", "우클릭 시 일정 확률로 자동조합을 랜덤으로 뽑습니다", "2,500캐시"],
+      ["의문의 벨소리", "우클릭 시 일정 확률로 고급광산을 랜덤으로 뽑습니다", "3,500캐시"],
+      ["의문의 솔방울", "우클릭 시 일정 확률로 묘목 심기를 랜덤으로 뽑습니다", CASH_NOT_FOR_SALE],
+    ],
+  },
+  {
+    title: "두루마리 강화서",
+    emoji: "📜",
+    items: [
+      ["하급 두루마리 강화서 [40% 뽑기]", "일정 확률로 다른 확률의 40% 주문서를 획득하게 됩니다", "800캐시"],
+      ["중급 두루마리 강화서 [50% 뽑기]", "일정 확률로 다른 확률의 50% 주문서를 획득하게 됩니다", "1,600캐시"],
+      ["상급 두루마리 강화서 [60% 뽑기]", "일정 확률로 다른 확률의 60% 주문서를 획득하게 됩니다", "2,200캐시"],
+      ["최상급 두루마리 강화서 [70% 뽑기]", "일정 확률로 다른 확률의 70% 주문서를 획득하게 됩니다", "2,900캐시"],
+    ],
+  },
+  {
+    title: "특성 · 강화",
+    emoji: "📖",
+    items: [
+      ["나만의 특성 재선택권", "우클릭 시 책을 소모하여 자신의 특성을 변경합니다", "3,000캐시"],
+      ["찬란한 봉인된 강화서", "우클릭 시 랜덤한 책 강화 아이템을 획득합니다", CASH_NOT_FOR_SALE],
+    ],
+  },
+  {
+    title: "수수께끼",
+    emoji: "🔮",
+    items: [
+      ["바다 수수께끼 구슬", "해조의 구슬, 해류의 구슬, 해심의 구슬 중 하나를 획득하게 됩니다", CASH_NOT_FOR_SALE],
+      ["요리 수수께끼 리본", "블루리본, 레드리본, 그린리본 중 하나를 획득하게 됩니다", CASH_NOT_FOR_SALE],
+    ],
+  },
+  {
+    title: "기타",
+    emoji: "📦",
+    items: [
+      ["신호기", "", "8,900캐시"],
+      ["양조기", "", "500캐시"],
+      ["엔더 상자", "", "1,000캐시"],
+      ["엘리베이터 블럭", "", "500캐시"],
+      ["반짝반짝 빛나는 거울", "", "1,000캐시"],
+      ["다이너마이트", "", "1,000캐시"],
+      ["스킨 제거 가위", "", "4,900캐시"],
+    ],
+  },
+];
+
+function UtilShopCard() {
+  const color = "#0284c7";
+  const thStyle = { fontSize: "12px", fontWeight: 700, color };
+  const count = utilShopGroups.reduce((n, g) => n + g.items.length, 0);
+
+  return (
+    <div className="bg-white border-2 border-sky-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="px-5 py-4 flex items-center gap-2">
+        <span className="text-xl">🧰</span>
+        <span style={{ fontSize: "16px", fontWeight: 800, color }}>유틸상점 캐시가</span>
+        <span className="rounded-full px-2 py-0.5 bg-amber-100 text-amber-800" style={{ fontSize: "11px", fontWeight: 700 }}>
+          {count}개
+        </span>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr style={{ background: "#f0f9ff", borderBottom: "2px solid #bae6fd" }}>
+              <th className="px-4 py-3 text-left" style={thStyle}>아이템 이름</th>
+              <th className="px-4 py-3 text-left" style={thStyle}>설명</th>
+              <th className="px-4 py-3 text-right whitespace-nowrap" style={thStyle}>가격</th>
+            </tr>
+          </thead>
+          {utilShopGroups.map((group) => (
+            <tbody key={group.title} className="divide-y divide-slate-50">
+              <tr style={{ background: "#f8fafc" }}>
+                <td colSpan={3} className="px-4 py-2" style={{ fontSize: "12px", fontWeight: 800, color: "#475569" }}>
+                  {group.emoji} {group.title}
+                </td>
+              </tr>
+              {group.items.map(([name, desc, price]) => (
+                <tr key={name} className="hover:bg-amber-50/30 transition-colors">
+                  <td className="px-4 py-3 text-slate-700" style={{ fontSize: "13px", fontWeight: 600 }}>
+                    {name}
+                  </td>
+                  <td className="px-4 py-3 text-slate-500" style={{ fontSize: "12px", lineHeight: 1.5 }}>
+                    {desc || "-"}
+                  </td>
+                  <td className="px-4 py-3 text-right whitespace-nowrap">
+                    {price === CASH_NOT_FOR_SALE ? (
+                      <span
+                        className="inline-block rounded-lg px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200"
+                        style={{ fontSize: "11px", fontWeight: 600 }}
+                      >
+                        {CASH_NOT_FOR_SALE}
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: "13px", fontWeight: 700, color: "#db2777" }}>{price}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+    </div>
+  );
+}
+
 const catPets = [
   { name: "유러피안", img: cat1 },
   { name: "왕국", img: cat2 },
@@ -3186,6 +3312,8 @@ function CashShopContent() {
 
       {selected.key === "pet" ? (
         <CatPetGallery />
+      ) : selected.key === "util" ? (
+        <UtilShopCard />
       ) : (
         <ComingSoon name={`캐시상점 › ${selected.label}`} />
       )}

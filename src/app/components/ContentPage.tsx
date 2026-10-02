@@ -3102,9 +3102,19 @@ const cashShopSections = [
 const CASH_NOT_FOR_SALE = "구매불가";
 
 // [이름, 설명, 가격]
-const utilShopGroups: { title: string; emoji: string; items: [string, string, string][] }[] = [
+const utilShopGroups: {
+  title: string;
+  emoji: string;
+  color: string;
+  bg: string;
+  border: string;
+  items: [string, string, string][];
+}[] = [
   {
     title: "플라이 아이템",
+    color: "#d97706",
+    bg: "#fffbeb",
+    border: "#fde68a",
     emoji: "🪽",
     items: [
       ["가공된 꿀조각", "섭취 시 +60초(1분)만큼 플라이 시간을 획득합니다", "100캐시"],
@@ -3115,6 +3125,9 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
   },
   {
     title: "확률형 포션",
+    color: "#7c3aed",
+    bg: "#faf5ff",
+    border: "#ddd6fe",
     emoji: "🧪",
     items: [
       ["의문의 파랑포션", "우클릭 시 일정 확률로 자동심기를 랜덤으로 뽑습니다", "2,500캐시"],
@@ -3125,6 +3138,9 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
   },
   {
     title: "두루마리 강화서",
+    color: "#0369a1",
+    bg: "#f0f9ff",
+    border: "#bae6fd",
     emoji: "📜",
     items: [
       ["하급 두루마리 강화서 [40% 뽑기]", "일정 확률로 다른 확률의 40% 주문서를 획득하게 됩니다", "800캐시"],
@@ -3135,6 +3151,9 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
   },
   {
     title: "특성 · 강화",
+    color: "#16a34a",
+    bg: "#f0fdf4",
+    border: "#bbf7d0",
     emoji: "📖",
     items: [
       ["나만의 특성 재선택권", "우클릭 시 책을 소모하여 자신의 특성을 변경합니다", "3,000캐시"],
@@ -3143,6 +3162,9 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
   },
   {
     title: "수수께끼",
+    color: "#db2777",
+    bg: "#fdf2f8",
+    border: "#fbcfe8",
     emoji: "🔮",
     items: [
       ["바다 수수께끼 구슬", "해조의 구슬, 해류의 구슬, 해심의 구슬 중 하나를 획득하게 됩니다", CASH_NOT_FOR_SALE],
@@ -3151,6 +3173,9 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
   },
   {
     title: "기타",
+    color: "#475569",
+    bg: "#f8fafc",
+    border: "#e2e8f0",
     emoji: "📦",
     items: [
       ["신호기", "", "8,900캐시"],
@@ -3165,61 +3190,74 @@ const utilShopGroups: { title: string; emoji: string; items: [string, string, st
 ];
 
 function UtilShopCard() {
-  const color = "#0284c7";
-  const thStyle = { fontSize: "12px", fontWeight: 700, color };
   const count = utilShopGroups.reduce((n, g) => n + g.items.length, 0);
 
   return (
     <div className="bg-white border-2 border-sky-200 rounded-2xl overflow-hidden shadow-sm">
       <div className="px-5 py-4 flex items-center gap-2">
         <span className="text-xl">🧰</span>
-        <span style={{ fontSize: "16px", fontWeight: 800, color }}>유틸상점 캐시가</span>
+        <span style={{ fontSize: "16px", fontWeight: 800, color: "#0284c7" }}>유틸상점 캐시가</span>
         <span className="rounded-full px-2 py-0.5 bg-amber-100 text-amber-800" style={{ fontSize: "11px", fontWeight: 700 }}>
           {count}개
         </span>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead>
-            <tr style={{ background: "#f0f9ff", borderBottom: "2px solid #bae6fd" }}>
-              <th className="px-4 py-3 text-left" style={thStyle}>아이템 이름</th>
-              <th className="px-4 py-3 text-left" style={thStyle}>설명</th>
-              <th className="px-4 py-3 text-right whitespace-nowrap" style={thStyle}>가격</th>
-            </tr>
-          </thead>
-          {utilShopGroups.map((group) => (
-            <tbody key={group.title} className="divide-y divide-slate-50">
-              <tr style={{ background: "#f8fafc" }}>
-                <td colSpan={3} className="px-4 py-2" style={{ fontSize: "12px", fontWeight: 800, color: "#475569" }}>
-                  {group.emoji} {group.title}
-                </td>
-              </tr>
-              {group.items.map(([name, desc, price]) => (
-                <tr key={name} className="hover:bg-amber-50/30 transition-colors">
-                  <td className="px-4 py-3 text-slate-700" style={{ fontSize: "13px", fontWeight: 600 }}>
-                    {name}
-                  </td>
-                  <td className="px-4 py-3 text-slate-500" style={{ fontSize: "12px", lineHeight: 1.5 }}>
-                    {desc || "-"}
-                  </td>
-                  <td className="px-4 py-3 text-right whitespace-nowrap">
-                    {price === CASH_NOT_FOR_SALE ? (
-                      <span
-                        className="inline-block rounded-lg px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200"
-                        style={{ fontSize: "11px", fontWeight: 600 }}
-                      >
-                        {CASH_NOT_FOR_SALE}
-                      </span>
-                    ) : (
-                      <span style={{ fontSize: "13px", fontWeight: 700, color: "#db2777" }}>{price}</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          ))}
-        </table>
+      <div className="px-4 pb-4 space-y-4">
+        {utilShopGroups.map((group) => (
+          <section
+            key={group.title}
+            className="rounded-xl border-2 overflow-hidden"
+            style={{ borderColor: group.border }}
+          >
+            <div
+              className="px-4 py-2.5 flex items-center gap-2"
+              style={{ background: group.bg, borderBottom: `2px solid ${group.border}`, borderLeft: `5px solid ${group.color}` }}
+            >
+              <span className="text-lg">{group.emoji}</span>
+              <span style={{ fontSize: "14px", fontWeight: 800, color: group.color }}>{group.title}</span>
+              <span
+                className="rounded-full px-2 py-0.5 bg-white"
+                style={{ fontSize: "11px", fontWeight: 700, color: group.color, border: `1px solid ${group.border}` }}
+              >
+                {group.items.length}개
+              </span>
+            </div>
+            <div className="overflow-x-auto">
+              {/* 그룹마다 표가 나뉘어도 열이 맞도록 너비 고정 */}
+              <table className="w-full table-fixed" style={{ minWidth: "520px" }}>
+                <colgroup>
+                  <col style={{ width: "34%" }} />
+                  <col />
+                  <col style={{ width: "112px" }} />
+                </colgroup>
+                <tbody className="divide-y divide-slate-100">
+                  {group.items.map(([name, desc, price]) => (
+                    <tr key={name} className="hover:bg-amber-50/30 transition-colors">
+                      <td className="px-4 py-3 text-slate-700" style={{ fontSize: "13px", fontWeight: 600 }}>
+                        {name}
+                      </td>
+                      <td className="px-4 py-3 text-slate-500" style={{ fontSize: "12px", lineHeight: 1.5 }}>
+                        {desc || "-"}
+                      </td>
+                      <td className="px-4 py-3 text-right whitespace-nowrap">
+                        {price === CASH_NOT_FOR_SALE ? (
+                          <span
+                            className="inline-block rounded-lg px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200"
+                            style={{ fontSize: "11px", fontWeight: 600 }}
+                          >
+                            {CASH_NOT_FOR_SALE}
+                          </span>
+                        ) : (
+                          <span style={{ fontSize: "13px", fontWeight: 700, color: "#db2777" }}>{price}</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ))}
       </div>
     </div>
   );

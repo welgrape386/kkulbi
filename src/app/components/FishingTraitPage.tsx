@@ -27,14 +27,14 @@ const allSkills = [
 ];
 
 const rodUpgrades = [
-  { name: "일반 낚싯대", material: "상점에서 구매 가능", cost: "300,000원", chance: "70%" },
-  { name: "자연 낚싯대", material: "우아한 바다진주 5개", cost: "700,000원", chance: "50%" },
-  { name: "은색 낚싯대", material: "우아한 바다진주 10개", cost: "1,000,000원", chance: "40%" },
-  { name: "뼈다귀 낚싯대", material: "우아한 바다진주 15개", cost: "3,000,000원", chance: "30%" },
-  { name: "황금색 낚싯대", material: "우아한 바다진주 20개", cost: "5,000,000원", chance: "15%" },
-  { name: "마스터 낚싯대", material: "우아한 바다진주 30개", cost: "10,000,000원", chance: "7%" },
-  { name: "이리듐 낚싯대", material: "우아한 바다진주 40개", cost: "30,000,000원", chance: "3%" },
-  { name: "우주별 낚싯대", material: "정보 없음", cost: "추후 공개", chance: "추후 공개" },
+  { name: "일반 낚싯대", material: "상점에서 구매 가능", cost: "50,000원", chance: "-" },
+  { name: "자연 낚싯대", material: "바다의 진주 5개", cost: "300,000원", chance: "70%" },
+  { name: "은색 낚싯대", material: "바다의 진주 10개", cost: "700,000원", chance: "50%" },
+  { name: "뼈다귀 낚싯대", material: "바다의 진주 15개", cost: "1,000,000원", chance: "40%" },
+  { name: "황금색 낚싯대", material: "바다의 진주 20개", cost: "3,000,000원", chance: "30%" },
+  { name: "마스터 낚싯대", material: "바다의 진주 30개", cost: "5,000,000원", chance: "15%" },
+  { name: "이리듐 낚싯대", material: "바다의 진주 40개", cost: "10,000,000원", chance: "7%" },
+  { name: "우주별 낚싯대", material: "바다의 진주 50개", cost: "30,000,000원", chance: "3%" },
 ];
 
 const customFish = [

@@ -11,6 +11,13 @@ import {
   MinelistRewardsCard,
   PlaytimeRewardsCard,
 } from "./EventRewards";
+import cat1 from "../../imports/cat1.png";
+import cat2 from "../../imports/cat2.png";
+import cat3 from "../../imports/cat3.png";
+import cat4 from "../../imports/cat4.png";
+import cat5 from "../../imports/cat5.png";
+import cat6 from "../../imports/cat6.png";
+import cat7 from "../../imports/cat7.png";
 
 // ─── Tab definitions ───────────────────────────────────────────────────────────
 const tabs = [
@@ -3092,6 +3099,43 @@ const cashShopSections = [
   { key: "title", emoji: "🏷️", label: "칭호상점", desc: "칭호 아이템", color: "#7c3aed", bg: "#faf5ff", border: "#ddd6fe" },
 ];
 
+const catPets = [
+  { name: "유러피안", img: cat1 },
+  { name: "왕국", img: cat2 },
+  { name: "메인쿤", img: cat3 },
+  { name: "봄베이", img: cat4 },
+  { name: "먼치킨", img: cat5 },
+  { name: "스코티시폴드", img: cat6 },
+  { name: "샴", img: cat7 },
+];
+
+function CatPetGallery() {
+  return (
+    <div className="bg-white border-2 border-green-200 rounded-2xl overflow-hidden shadow-sm">
+      <div className="px-5 py-4 flex items-center gap-2">
+        <span className="text-xl">🐱</span>
+        <span style={{ fontSize: "16px", fontWeight: 800, color: "#16a34a" }}>고양이 펫 미리보기</span>
+        <span className="rounded-full px-2 py-0.5 bg-green-100 text-green-800" style={{ fontSize: "11px", fontWeight: 700 }}>
+          {catPets.length}종
+        </span>
+      </div>
+      <p className="px-5 pb-4 text-slate-600" style={{ fontSize: "13px", lineHeight: 1.7 }}>
+        캐시상점에서 구매할 수 있는 고양이 펫이에요. 인게임에서 보이는 실제 모습입니다.
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 px-5 pb-5">
+        {catPets.map((cat) => (
+          <figure key={cat.name} className="rounded-xl border-2 border-green-100 overflow-hidden bg-green-50">
+            <img src={cat.img} alt={`${cat.name} 고양이 펫`} loading="lazy" className="w-full aspect-[854/497] object-cover" />
+            <figcaption className="px-3 py-2 text-center" style={{ fontSize: "13px", fontWeight: 800, color: "#166534" }}>
+              🐾 {cat.name}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function CashShopContent() {
   const [params, setParams] = useSearchParams();
   const selected =
@@ -3140,7 +3184,11 @@ function CashShopContent() {
         })}
       </div>
 
-      <ComingSoon name={`캐시상점 › ${selected.label}`} />
+      {selected.key === "pet" ? (
+        <CatPetGallery />
+      ) : (
+        <ComingSoon name={`캐시상점 › ${selected.label}`} />
+      )}
     </div>
   );
 }

@@ -1,6 +1,21 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowLeft, ChevronDown, ChevronUp } from "lucide-react";
+import tf0 from "../../imports/검정가자미.png";
+import tf1 from "../../imports/뚱이.png";
+import tf2 from "../../imports/은갈치.png";
+import tf3 from "../../imports/보름달물해파리.png";
+import tf4 from "../../imports/푸른바다거북.png";
+import tf5 from "../../imports/우무문어.png";
+import tf6 from "../../imports/비단 잉어.png";
+import tf7 from "../../imports/바다악어.png";
+import tf8 from "../../imports/블루랍스터.png";
+import tf9 from "../../imports/백상아리.png";
+import tf10 from "../../imports/블로브피쉬.png";
+import tf11 from "../../imports/만타 가오리.png";
+import tf12 from "../../imports/미갈루.png";
+import tf13 from "../../imports/고래상어.png";
+import tf14 from "../../imports/분홍 돌고래.png";
 
 const BG = "#fff8dc";
 const COLOR = "#0284c7";
@@ -47,14 +62,14 @@ const customFish = [
 ];
 
 const treasureFish = [
-  { name: "검정가자미", price: "500,000원", emoji: "🐟" }, { name: "뚱이", price: "750,000원", emoji: "🐡" },
-  { name: "은갈치", price: "1,000,000원", emoji: "🐟" }, { name: "보름달물해파리", price: "1,500,000원", emoji: "🪼" },
-  { name: "푸른바다거북", price: "2,000,000원", emoji: "🐢" }, { name: "우무문어", price: "3,000,000원", emoji: "🐙" },
-  { name: "비단잉어", price: "2,500,000원", emoji: "🐟" }, { name: "바다악어", price: "3,500,000원", emoji: "🐊" },
-  { name: "블루랍스타", price: "4,000,000원", emoji: "🦞" }, { name: "백상아리", price: "5,000,000원", emoji: "🦈" },
-  { name: "블로브피쉬", price: "4,500,000원", emoji: "🐡" }, { name: "만타가오리", price: "8,000,000원", emoji: "🐟" },
-  { name: "미갈루", price: "6,000,000원", emoji: "🐋" }, { name: "고래상어", price: "10,000,000원", emoji: "🦈" },
-  { name: "분홍돌고래", price: "7,000,000원", emoji: "🐬" },
+  { name: "검정가자미", price: "500,000원", img: tf0 }, { name: "뚱이", price: "750,000원", img: tf1 },
+  { name: "은갈치", price: "1,000,000원", img: tf2 }, { name: "보름달물해파리", price: "1,500,000원", img: tf3 },
+  { name: "푸른바다거북", price: "2,000,000원", img: tf4 }, { name: "우무문어", price: "3,000,000원", img: tf5 },
+  { name: "비단잉어", price: "2,500,000원", img: tf6 }, { name: "바다악어", price: "3,500,000원", img: tf7 },
+  { name: "블루랍스타", price: "4,000,000원", img: tf8 }, { name: "백상아리", price: "5,000,000원", img: tf9 },
+  { name: "블로브피쉬", price: "4,500,000원", img: tf10 }, { name: "만타가오리", price: "8,000,000원", img: tf11 },
+  { name: "미갈루", price: "6,000,000원", img: tf12 }, { name: "고래상어", price: "10,000,000원", img: tf13 },
+  { name: "분홍돌고래", price: "7,000,000원", img: tf14 },
 ];
 
 const INITIAL_SHOW = 5;
@@ -274,7 +289,7 @@ export function FishingTraitPage() {
           </div>
           <div className="p-5">
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
-              🌊 커스텀 물고기의 종류를 알려드릴게요. (각 물고기 이미지 추가 예정)
+              🌊 커스텀 물고기의 종류를 알려드릴게요.
             </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
               {customFish.map((fish) => (
@@ -298,12 +313,12 @@ export function FishingTraitPage() {
           </div>
           <div className="p-5">
             <p className="mb-4" style={{ fontSize: "13px", color: "#374151", lineHeight: 1.6, fontWeight: 600 }}>
-              ✨ 보물 물고기는 낚시 시 확률로 획득할 수 있는 희귀 물고기예요. (각 물고기 이미지 추가 예정)
+              ✨ 보물 물고기는 낚시 시 확률로 획득할 수 있는 희귀 물고기예요.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
               {treasureFish.map((fish) => (
                 <div key={fish.name} className="flex flex-col items-center gap-2 p-3 rounded-xl border-2 border-amber-200 bg-amber-50 text-center hover:shadow-md transition-shadow">
-                  <div className="w-14 h-14 rounded-xl bg-amber-100 flex items-center justify-center text-3xl border border-amber-200">{fish.emoji}</div>
+                  <img src={fish.img} alt={fish.name} loading="lazy" className="w-14 h-14 rounded-xl bg-amber-100 border border-amber-200 object-contain p-1" style={{ imageRendering: "pixelated" }} />
                   <span style={{ fontSize: "12px", fontWeight: 800, color: "#92400e" }}>{fish.name}</span>
                   <span className="rounded-full px-2 py-0.5" style={{ background: "#fde68a", color: "#78350f", fontSize: "11px", fontWeight: 800 }}>
                     💰 {fish.price}

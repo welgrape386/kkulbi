@@ -11,7 +11,7 @@
 
 import { tabs as contentTabs, shopSections, cashShopSections, utilShopGroups, catPets } from "./components/ContentPage";
 import { allSkills as fishingSkills, rodUpgrades, customFish, treasureFish } from "./components/FishingTraitPage";
-import { allSkills as harvestSkills, customCrops, sprinklers, fertilizers, wateringCans } from "./components/HarvestTraitPage";
+import { allSkills as harvestSkills, customCrops, sprinklers, fertilizers, wateringCans, harvestTools, harvestToolTiers } from "./components/HarvestTraitPage";
 import { allSkills as cookingSkills, cookingTools } from "./components/CookingTraitPage";
 import { allSkills as miningSkills } from "./components/MiningTraitPage";
 import { allSkills as loggingSkills } from "./components/LoggingTraitPage";
@@ -104,6 +104,7 @@ export const searchIndex: SearchItem[] = [
   ...sprinklers.map((s) => ({ title: s.name, content: `범위 ${s.range}`, where: "콘텐츠 › 특성 › 수확 › 스프링클러", emoji: "💦", route: `${HARVEST}#sprinklers` })),
   ...fertilizers.map((f) => ({ title: f.name, content: f.rates, where: "콘텐츠 › 특성 › 수확 › 비료", emoji: "🧪", route: `${HARVEST}#fertilizers` })),
   ...wateringCans.map((w) => ({ title: w.name, content: `범위 ${w.range}`, where: "콘텐츠 › 특성 › 수확 › 물뿌리개", emoji: "🚿", route: `${HARVEST}#watering-cans` })),
+  ...harvestTools.map((t) => ({ title: t.name, content: `${t.desc} ${harvestToolTiers.map((r) => `${r.name} ${r.range}`).join(" · ")}`, where: "콘텐츠 › 특성 › 수확 › 커스텀 낫 · 갈퀴", emoji: t.icon, route: `${HARVEST}#harvest-tools` })),
   ...cookingTools.map((t) => ({ title: t.name, content: `${t.material} · ${t.examples.join(" ")}`, where: "콘텐츠 › 특성 › 요리 › 요리 도구", emoji: t.icon, route: "/content/traits/cooking#tools" })),
 
   // 섬

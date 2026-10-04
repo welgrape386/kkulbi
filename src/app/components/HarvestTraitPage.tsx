@@ -38,6 +38,19 @@ export const sprinklers = [
   { name: "최고급 스프링클러", range: "7×7" },
 ];
 
+export const harvestTools = [
+  { name: "커스텀 낫", icon: "🌾", desc: "강화 단계에 따라 해당 범위만큼 농작물을 수확해줘요." },
+  { name: "커스텀 갈퀴", icon: "🍃", desc: "강화 단계에 따라 해당 범위만큼 미니작물을 수확해줘요." },
+];
+
+export const harvestToolTiers = [
+  { name: "나무", range: "3×3", color: "#92400e" },
+  { name: "돌", range: "3×3", color: "#6b7280" },
+  { name: "철", range: "5×5", color: "#475569" },
+  { name: "다이아", range: "7×7", color: "#0891b2" },
+  { name: "네더라이트", range: "7×7", color: "#3f3f46" },
+];
+
 export const fertilizers = [
   { name: "기본 비료", rates: "1등급 70% / 2등급 20% / 3등급 10%", color: "#86efac" },
   { name: "고급 비료", rates: "1등급 55% / 2등급 30% / 3등급 15%", color: "#4ade80" },
@@ -238,6 +251,36 @@ export function HarvestTraitPage() {
                       <div style={{ fontSize: "12px", fontWeight: 800, color: "#0369a1" }}>{s.name}</div>
                       <div className="mt-1 rounded-full px-2 py-0.5 inline-block bg-sky-200" style={{ color: "#0369a1", fontSize: "11px", fontWeight: 700 }}>
                         작동범위 {s.range}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* 커스텀 낫 · 갈퀴 */}
+              <div id="harvest-tools" className="scroll-mt-20">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">🌾</span>
+                  <span style={{ fontSize: "14px", fontWeight: 800, color: "#a16207" }}>커스텀 낫 · 갈퀴</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
+                  {harvestTools.map((t) => (
+                    <div key={t.name} className="p-3 rounded-xl border-2 border-amber-200 bg-amber-50">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span>{t.icon}</span>
+                        <span style={{ fontSize: "13px", fontWeight: 800, color: "#92400e" }}>{t.name}</span>
+                      </div>
+                      <p style={{ fontSize: "12px", color: "#713f12", lineHeight: 1.5 }}>{t.desc}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="mb-2" style={{ fontSize: "12px", color: "#6b7280", fontWeight: 600 }}>강화 단계별 수확 범위 (낫 · 갈퀴 공통)</p>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  {harvestToolTiers.map((t) => (
+                    <div key={t.name} className="p-3 rounded-xl text-center border-2" style={{ borderColor: t.color + "40", background: t.color + "10" }}>
+                      <div style={{ fontSize: "12px", fontWeight: 800, color: t.color }}>{t.name}</div>
+                      <div className="mt-1 rounded-full px-2 py-0.5 inline-block" style={{ background: t.color + "20", color: t.color, fontSize: "11px", fontWeight: 700 }}>
+                        {t.range}
                       </div>
                     </div>
                   ))}

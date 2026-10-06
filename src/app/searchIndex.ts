@@ -2,7 +2,7 @@
 // 메인페이지 검색창은 이 파일의 searchIndex 하나만 검색합니다.
 //
 // ✅ 자동 반영: 아래에서 import 하는 데이터 배열(상점가, 캐시상점, 특성 스킬, 물고기,
-//    낚싯대 강화, 섬 권한/업그레이드, 접속시간 보상, 명령어, 법전 조항, 후원 등급 등)에
+//    낚싯대 강화, 섬 권한/업그레이드, 접속시간 보상, 명령어, 법전 조항 등)에
 //    항목을 추가하면 별도 작업 없이 검색에 바로 잡힙니다.
 // ✍️ 수동 등록: 새 "데이터 배열"이나 새 페이지를 만들었다면 아래 searchIndex 에
 //    한 줄(…배열.map(...)) 추가해 주세요. 키워드만 있는 안내 페이지는 pages 에 추가합니다.
@@ -18,7 +18,7 @@ import { allSkills as loggingSkills } from "./components/LoggingTraitPage";
 import { permissions, islandSettings, upgrades } from "./components/IslandPage";
 import { minelistRewards, playtimeRewards, playtimeCompleteRewards, SHOW_DAILY_REWARDS } from "./components/EventRewards";
 import { tabs as basicsTabs, commands } from "./components/BasicsPage";
-import { tabs as supportTabs, donationRanks, cashLootboxes, packageLootboxes } from "./components/SupportPage";
+import { tabs as supportTabs, cashLootboxes, packageLootboxes } from "./components/SupportPage";
 import { articles } from "./components/LawPage";
 import { probItems } from "./components/ChuseokEventContent";
 
@@ -47,7 +47,6 @@ const pages: SearchItem[] = [
   { title: "서버 접속 방법", content: "마인크래프트 서버 접속 IP 주소 Java Edition 버전", where: "기초설명", emoji: "🖥️", route: "/basics?tab=connect" },
   { title: "상점가", content: "일반 상점 아이템 고정 가격표 구매 판매", where: "콘텐츠", emoji: "💰", route: "/content?tab=shop" },
   { title: "후원 방법", content: "후원 결제 캐시 구매 방법 절차", where: "후원", emoji: "💳", route: "/support?tab=method" },
-  { title: "후원 등급 / 혜택", content: "후원 등급 혜택 캐시 아이템 BRONZE SILVER GOLD DIAMOND RUBY", where: "후원", emoji: "🎖️", route: "/support?tab=ranks" },
   { title: "자주 묻는 질문", content: "FAQ 자주 물어보는 질문 광물변환 지렁이 산삼 허수아비 고정 키", where: "기초설명", emoji: "❓", route: "/basics?tab=faq" },
   { title: "규칙 사항", content: "규칙 비매너 플라이 섬원 강퇴 부계정 사기 욕설 매크로", where: "기초설명", emoji: "📋", route: "/basics?tab=rules" },
   { title: "운영원칙 (법전)", content: "법전 운영원칙 규정 제재 처벌 비매너 채팅 복구 GM 유저 권리", where: "법전", emoji: "⚖️", route: "/law" },
@@ -120,7 +119,6 @@ export const searchIndex: SearchItem[] = [
 
   // 기초설명 · 후원 · 법전
   ...commands.map((c) => ({ title: c.cmd, content: `${c.desc} · ${c.req}`, where: "기초설명 › 명령어 안내", emoji: "💬", route: "/basics?tab=commands" })),
-  ...donationRanks.map((r) => ({ title: `${r.name} 후원 등급`, content: `${r.price} · ${r.benefits.join(" ")}`, where: "후원 › 후원 등급 / 혜택", emoji: r.emoji, route: "/support?tab=ranks" })),
   ...[...cashLootboxes, ...packageLootboxes].flatMap((box) => [
     { title: box.title, content: box.subtitle ?? "", where: "후원 › 아이템 확률", emoji: "🎲", route: "/support?tab=probability" },
     ...box.rows.map((row) => ({ title: row.name, content: `${box.title} ${row.prob}%`, where: `후원 › 아이템 확률 › ${box.title}`, emoji: "🎲", route: "/support?tab=probability" })),

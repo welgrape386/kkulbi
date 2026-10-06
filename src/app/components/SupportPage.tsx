@@ -4,7 +4,6 @@ const BG = "#fff8dc";
 
 export const tabs = [
   { key: "method", label: "후원 방법", emoji: "💳" },
-  { key: "ranks", label: "후원 등급 / 혜택", emoji: "🎖️" },
   { key: "probability", label: "아이템 확률", emoji: "🎲" },
 ];
 
@@ -373,166 +372,6 @@ function MethodContent() {
             </li>
           ))}
         </ul>
-      </div>
-    </div>
-  );
-}
-
-// ─── 후원 등급 ─────────────────────────────────────────────────────────────────
-export const donationRanks = [
-  {
-    name: "BRONZE",
-    emoji: "🥉",
-    price: "누적 5만원",
-    color: "#92400e",
-    gradient: "linear-gradient(135deg, #fdf6ee, #fde8c7)",
-    border: "#e8d0b0",
-    textColor: "#92400e",
-    benefits: ["등급 채팅 칭호"],
-  },
-  {
-    name: "SILVER",
-    emoji: "🥈",
-    price: "누적 10만원",
-    color: "#475569",
-    gradient: "linear-gradient(135deg, #f8fafc, #e2e8f0)",
-    border: "#cbd5e1",
-    textColor: "#334155",
-    benefits: ["등급 채팅 칭호"],
-  },
-  {
-    name: "GOLD",
-    emoji: "🥇",
-    price: "누적 30만원",
-    color: "#b45309",
-    gradient: "linear-gradient(135deg, #fffbeb, #fef3c7)",
-    border: "#fde68a",
-    textColor: "#92400e",
-    benefits: ["등급 채팅 칭호"],
-  },
-  {
-    name: "DIAMOND",
-    emoji: "💎",
-    price: "누적 50만원",
-    color: "#0369a1",
-    gradient: "linear-gradient(135deg, #f0f9ff, #bae6fd)",
-    border: "#7dd3fc",
-    textColor: "#0369a1",
-    benefits: ["등급 채팅 칭호"],
-  },
-  {
-    name: "RUBY",
-    emoji: "💎",
-    price: "누적 100만원",
-    color: "#b91c1c",
-    gradient: "linear-gradient(135deg, #fff1f2, #fecdd3)",
-    border: "#fca5a5",
-    textColor: "#991b1b",
-    benefits: ["등급 채팅 칭호", "커스텀 칭호"],
-    special: true,
-  },
-];
-
-function RanksContent() {
-  return (
-    <div className="space-y-5">
-      <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <p
-          className="text-amber-800"
-          style={{ fontSize: "13px", lineHeight: 1.7 }}
-        >
-          💡 후원 등급은 <strong>누적 후원 금액</strong>에 따라 자동으로
-          부여됩니다. 등급별 혜택은 서버 업데이트에 따라 변경될 수 있습니다.
-        </p>
-      </div>
-
-      <div className="bg-white border border-amber-100 rounded-2xl overflow-hidden shadow-sm">
-        <div
-          className="px-5 py-4 border-b border-amber-100"
-          style={{ background: "#fffef5" }}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-xl">🎖️</span>
-            <span
-              style={{ fontSize: "16px", fontWeight: 800, color: "#92400e" }}
-            >
-              등급별 혜택
-            </span>
-          </div>
-        </div>
-        <div className="divide-y divide-amber-50">
-          {donationRanks.map((rank) => (
-            <div
-              key={rank.name}
-              className="flex items-center gap-4 px-5 py-4 hover:bg-amber-50/40 transition-colors"
-            >
-              {/* 등급 */}
-              <div className="flex items-center gap-2.5 w-36 flex-shrink-0">
-                <span className="text-2xl">{rank.emoji}</span>
-                <div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 900,
-                      color: rank.textColor,
-                    }}
-                  >
-                    {rank.name}
-                  </div>
-                  {rank.special && (
-                    <span
-                      className="inline-block rounded-full px-1.5 py-0.5 mt-0.5"
-                      style={{
-                        background: "#fef2f2",
-                        color: "#991b1b",
-                        fontSize: "9px",
-                        fontWeight: 800,
-                        border: "1px solid #fca5a5",
-                      }}
-                    >
-                      최고 등급
-                    </span>
-                  )}
-                </div>
-              </div>
-
-              {/* 조건 */}
-              <div className="w-28 flex-shrink-0">
-                <span
-                  className="inline-flex items-center rounded-full px-3 py-1"
-                  style={{
-                    background: rank.gradient,
-                    border: `1px solid ${rank.border}`,
-                    color: rank.textColor,
-                    fontSize: "12px",
-                    fontWeight: 700,
-                  }}
-                >
-                  {rank.price}
-                </span>
-              </div>
-
-              {/* 혜택 */}
-              <div className="flex flex-wrap gap-1.5 flex-1">
-                {rank.benefits.map((b) => (
-                  <span
-                    key={b}
-                    className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1"
-                    style={{
-                      background: rank.gradient,
-                      border: `1px solid ${rank.border}`,
-                      color: rank.textColor,
-                      fontSize: "12px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    ✓ {b}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </div>
   );
@@ -920,7 +759,6 @@ export function SupportPage() {
 
         <div>
           {current.key === "method" && <MethodContent />}
-          {current.key === "ranks" && <RanksContent />}
           {current.key === "probability" && <ProbabilityContent />}
         </div>
       </div>

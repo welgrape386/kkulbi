@@ -178,7 +178,7 @@ const quickLinks = [
   },
   {
     title: "후원",
-    desc: "후원 방법과 등급 혜택 안내",
+    desc: "후원 방법과 아이템 확률 안내",
     emoji: "💎",
     to: "/support",
     color: "#c2410c",

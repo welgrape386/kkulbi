@@ -567,7 +567,6 @@ function BannedContent() {
         </p>
       </div>
       <div className="bg-white border border-amber-100 rounded-2xl p-6 shadow-sm text-center">
-        <div className="text-4xl mb-3">🚫</div>
         <div
           className="text-slate-700 mb-2"
           style={{ fontSize: "16px", fontWeight: 700 }}

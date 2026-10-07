@@ -32,7 +32,7 @@ export type SearchItem = {
 
 // 키워드로만 찾는 안내 페이지 (데이터 배열이 없는 섹션)
 const pages: SearchItem[] = [
-  { title: "랭크 시스템", content: "등급 조건 재화 플레이타임 마인리스트 추천 권한 /밥 /창고 /자동줍기 /제단", where: "콘텐츠", emoji: "⭐", route: "/content?tab=rank" },
+  { title: "랭크 시스템", content: "등급 조건 재화 플레이타임 마인리스트 추천 권한 /밥 /창고 /제단", where: "콘텐츠", emoji: "⭐", route: "/content?tab=rank" },
   { title: "특성 안내", content: "채광 수확 벌목 어부 요리 직업 특성 스킬 레벨 경험치 광물 낚시", where: "콘텐츠", emoji: "🔮", route: "/content/traits" },
   { title: "섬", content: "섬 권한 설정 업그레이드 은행 워프 프리뷰 /섬 /is", where: "콘텐츠", emoji: "🏝️", route: "/content/island" },
   { title: "추석 이벤트", content: "추석 랜덤 뽑기권 확률표 도구스킨 코스튬 펫 착용샷", where: "이벤트", emoji: "🎑", route: "/#chuseok-event" },

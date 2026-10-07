@@ -1,5 +1,6 @@
 import { useSearchParams, Link } from "react-router";
 import type { ReactNode } from "react";
+import bannedImg from "../../imports/no.png";
 
 export const tabs = [
   { key: "connect", label: "서버 접속 방법", emoji: "🖥️" },
@@ -148,12 +149,6 @@ export const commands = [
     req: "5등급",
   },
   { cmd: "/수산시장", desc: "수산시장 GUI 열기", cat: "판매", req: "8등급" },
-  {
-    cmd: "/자동줍기",
-    desc: "아이템 자동 줍기 ON/OFF",
-    cat: "편의",
-    req: "6등급",
-  },
   {
     cmd: "/캐시 보내기",
     desc: "다른 유저에게 캐시 전송",
@@ -579,6 +574,12 @@ function BannedContent() {
         >
           금지 아이템 목록
         </div>
+        <img
+          src={bannedImg}
+          alt="금지 아이템 목록"
+          className="mx-auto mb-3 rounded-lg w-full"
+          style={{ maxWidth: "332px", imageRendering: "pixelated" }}
+        />
         <p
           className="text-slate-500"
           style={{ fontSize: "13px", lineHeight: 1.7 }}

@@ -440,9 +440,10 @@ export const cashLootboxes: ProbSection[] = [
     subtitle: "의문의 솔방울",
     rows: [
       { name: "고귀한 나무 정령", prob: "1.85" },
-      { name: "허수아비 5x5청크 1시간", prob: "42.55" },
-      { name: "허수아비 5x5청크 3시간", prob: "33.3" },
-      { name: "허수아비 5x5청크 6시간", prob: "22.2" },
+      { name: "하급 나무정령 [300회]", prob: "31.48" },
+      { name: "하급 나무정령 [500회]", prob: "22.22" },
+      { name: "하급 나무정령 [700회]", prob: "22.22" },
+      { name: "하급 나무정령 [1000회]", prob: "22.22" },
     ],
   },
 ];

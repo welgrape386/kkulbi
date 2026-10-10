@@ -273,10 +273,6 @@ export function LoggingTraitPage() {
             {[
               { icon: "🏕️", text: "벌목장을 섬에 직접 만들어요!" },
               {
-                icon: "🌳",
-                text: "찹트리 활성화 시 나무 전체가 한 번에 제거됩니다.",
-              },
-              {
                 icon: "🌰",
                 text: "도토리 드롭으로 추가 수익을 얻을 수 있어요!",
               },
